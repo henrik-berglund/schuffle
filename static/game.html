@@ -2,19 +2,34 @@
 <html>
 <head>
     <title>Word Scramble Game</title>
-    <style>
-        .dropzone, .letter {
-            width: 40px;
-            height: 40px;
-            border: 1px solid #000;
-            margin: 2px;
-            text-align: center;
-            line-height: 40px;
-            float: left;
-        }
 
+    <style>
+        .letter {
+      width: 36px;
+      height: 36px;
+      border: 1px solid #000;
+      margin: 2px;
+      text-align: center;
+      line-height: 36px;
+      float: left;
+      box-sizing: border-box; /* Add this line */
+    }
+    .dropzone {
+      width: 40px;
+      height: 40px;
+      border: 2px dashed #000; /* Change border to dashed */
+      margin: 2px;
+      text-align: center;
+      line-height: 40px;
+      float: left;
+      border-radius: 5px; /* Add this line for rounded corners */
+
+    }
         .letter {
             cursor: move;
+            border-radius: 5px; /* Add this line for rounded corners */
+            outline: none !important; /* Add this line to remove the outline */
+            box-shadow: none !important; /* Add this line to remove the box shadow */
         }
 
         .dropzone-row {
