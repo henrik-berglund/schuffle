@@ -2,11 +2,45 @@
 <html>
 <head>
     <title>Word Scramble Game</title>
+    <style>
+        .tile {
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background-color: #eee;
+            border: 1px solid #333;
+            border-radius: 5px;
+        }
+
+        .slot {
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+        }
+
+        #rack, #word {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+    </style>
 </head>
 <body>
 <h1>Word Scramble Game</h1>
-<p id="scrambled-word"></p>
-<input type="text" id="user-input">
+<div id="word">
+    <div class="slot"></div>
+    <div class="slot"></div>
+    <div class="slot"></div>
+    <div class="slot"></div>
+    <div class="slot"></div>
+    <div class="slot"></div>
+    <div class="slot"></div>
+</div>
+<div id="rack"></div>
 <button onclick="checkAnswer()">Check</button>
 <p id="result"></p>
 

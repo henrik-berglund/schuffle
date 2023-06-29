@@ -2,8 +2,8 @@ let game;
 
 class Game {
     constructor() {
-        this.scrambledWordElement = document.getElementById('scrambled-word');
-        this.userInput = document.getElementById('user-input');
+        this.rack = document.getElementById('rack');
+        this.word = document.getElementById('word');
         this.resultElement = document.getElementById('result');
         this.fetchWord();
     }
@@ -12,14 +12,33 @@ class Game {
         fetch('/api/word')
             .then(response => response.json())
             .then(data => {
-                this.scrambledWord = data.scrambled;
-                this.solution = data.solutions[0];  // We take the first solution for simplicity
-                this.scrambledWordElement.textContent = this.scrambledWord;
+                this.solution = data.solutions[0];
+                this.createTiles(data.scrambled);
             });
     }
 
+    createTiles(scrambledWord) {
+        // Remove old tiles if they exist
+        while (this.rack.firstChild) {
+            this.rack.removeChild(this.rack.firstChild);
+        }
+
+        for (let char of scrambledWord) {
+            const tile = document.createElement('div');
+            tile.classList.add('tile');
+            tile.textContent = char;
+            tile.draggable = true;
+            tile.ondragstart = this.dragStart;
+            this.rack.appendChild(tile);
+        }
+    }
+
+    dragStart(e) {
+        e.dataTransfer.setData('text', e.target.textContent);
+    }
+
     checkWord() {
-        const userWord = this.userInput.value;
+        const userWord = Array.from(this.word.children).map(tile => tile.textContent).join('');
         if (userWord === this.solution) {
             this.resultElement.textContent = 'Correct!';
         } else {
@@ -30,6 +49,19 @@ class Game {
 
 window.onload = () => {
     game = new Game();
+
+    const slots = document.getElementsByClassName('slot');
+    for (let slot of slots) {
+        slot.ondragover = e => e.preventDefault();
+        slot.ondrop = e => {
+            if (!e.target.classList.contains('tile')) {
+                const tile = document.createElement('div');
+                tile.classList.add('tile');
+                tile.textContent = e.dataTransfer.getData('text');
+                e.target.appendChild(tile);
+            }
+        };
+    }
 }
 
 function checkAnswer() {
