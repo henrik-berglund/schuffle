@@ -18,8 +18,8 @@ def get_word():
 
     # Return the scrambled word and its solution
     return jsonify({
-        'scrambled': scrambled,
-        'solutions': [word],
+        'scrambled': scrambled.upper(),
+        'solutions': [word.upper()],
     })
 
 
