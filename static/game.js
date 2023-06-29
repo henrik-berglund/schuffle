@@ -36,7 +36,11 @@ class Game {
                 event.dataTransfer.setData("text", event.target.id);
             };
             tile.className = 'letter';
-            this.letterRackElement.appendChild(tile);
+
+            let dropzone = this.CreateDropZone();
+            dropzone.appendChild(tile);
+            this.letterRackElement.appendChild(dropzone);
+            //this.letterRackElement.appendChild(tile);
         }
 
         // Create blank squares for remaining slots
