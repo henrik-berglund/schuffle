@@ -18,42 +18,42 @@ class Game {
             });
     }
 
-  renderTiles() {
-    // Clear existing tiles and dropzones
-    this.letterRackElement.innerHTML = '';
-    this.solutionRowElement.innerHTML = '';
+    renderTiles() {
+        // Clear existing tiles and dropzone
+        this.letterRackElement.innerHTML = '';
+        this.solutionRowElement.innerHTML = '';
 
-    // Calculate the number of blank squares needed
-    const numBlanks = Math.max(7 - this.scrambledWord.length, 0);
+        // Calculate the number of blank squares needed
+        const numBlanks = Math.max(7 - this.scrambledWord.length, 0);
 
-    // Create tiles for the scrambled word
-    for (let i = 0; i < this.scrambledWord.length; i++) {
-        const tile = document.createElement('div');
-        tile.textContent = this.scrambledWord[i];
-        tile.id = `tile${i}`;
-        tile.draggable = true;
-        tile.ondragstart = (event) => {
-            event.dataTransfer.setData("text", event.target.id);
-        };
-        tile.className = 'letter';
-        this.letterRackElement.appendChild(tile);
+        // Create tiles for the scrambled word
+        for (let i = 0; i < this.scrambledWord.length; i++) {
+            const tile = document.createElement('div');
+            tile.textContent = this.scrambledWord[i];
+            tile.id = `tile${i}`;
+            tile.draggable = true;
+            tile.ondragstart = (event) => {
+                event.dataTransfer.setData("text", event.target.id);
+            };
+            tile.className = 'letter';
+            this.letterRackElement.appendChild(tile);
+        }
+
+        // Create blank squares for remaining slots
+        for (let i = 0; i < numBlanks; i++) {
+            const blankSquare = document.createElement('div');
+            blankSquare.className = 'letter blank';
+            this.letterRackElement.appendChild(blankSquare);
+        }
+
+        // Create dropzones in the solution row
+        for (let i = 0; i < 7; i++) {
+            let dropzone = this.CreateDropZone();
+            this.solutionRowElement.appendChild(dropzone);
+        }
     }
 
-    // Create blank squares for remaining slots
-    for (let i = 0; i < numBlanks; i++) {
-        const blankSquare = document.createElement('div');
-        blankSquare.className = 'letter blank';
-        this.letterRackElement.appendChild(blankSquare);
-    }
-
-    // Create dropzones in the solution row
-    for (let i = 0; i < 7; i++) {
-        this.CreateDropZone(this.solutionRowElement);
-    }
-}
-
-
-    CreateDropZone(parentElement) {
+    CreateDropZone() {
         const dropzone = document.createElement('div');
         dropzone.ondrop = (event) => {
             event.preventDefault();
@@ -70,7 +70,8 @@ class Game {
             event.preventDefault();
         };
         dropzone.className = 'dropzone';
-        parentElement.appendChild(dropzone);
+
+        return dropzone;
     }
 
     checkWord() {
