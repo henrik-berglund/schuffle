@@ -41,9 +41,16 @@ class Game {
             dropzone.ondrop = (event) => {
                 event.preventDefault();
                 const data = event.dataTransfer.getData("text");
+                const target = event.target;
                 const letterTile = document.getElementById(data);
-                if (letterTile && !event.target.textContent) {
-                    event.target.appendChild(document.getElementById(data));
+
+                // If the target is a dropzone and it is empty
+                if (target.classList.contains('dropzone') && !target.hasChildNodes()) {
+                    target.appendChild(letterTile);
+                }
+                // If the target is the letter rack or a tile in the letter rack
+                else if (target.id === 'letter-rack' || target.classList.contains('letter')) {
+                    this.letterRackElement.appendChild(letterTile);
                 }
             };
             dropzone.ondragover = (event) => {
