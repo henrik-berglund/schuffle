@@ -44,14 +44,14 @@ class Game {
         }
 
         // Create blank squares for remaining slots
-        for (let i = 0; i < numBlanks; i++) {
-            const blankSquare = document.createElement('div');
-            blankSquare.className = 'letter blank';
-            this.letterRackElement.appendChild(blankSquare);
-        }
+        //for (let i = 0; i < numBlanks; i++) {
+        //    const blankSquare = document.createElement('div');
+        //    blankSquare.className = 'letter blank';
+        //    this.letterRackElement.appendChild(blankSquare);
+        //}
 
         // Create dropzones in the solution row
-        for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < this.scrambledWord.length; i++) {
             let dropzone = this.CreateDropZone();
             this.solutionRowElement.appendChild(dropzone);
         }
