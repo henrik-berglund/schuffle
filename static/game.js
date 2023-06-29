@@ -48,6 +48,12 @@ class Game {
 
     // Create dropzones in the solution row
     for (let i = 0; i < 7; i++) {
+        this.CreateDropZone(this.solutionRowElement);
+    }
+}
+
+
+    CreateDropZone(parentElement) {
         const dropzone = document.createElement('div');
         dropzone.ondrop = (event) => {
             event.preventDefault();
@@ -64,10 +70,8 @@ class Game {
             event.preventDefault();
         };
         dropzone.className = 'dropzone';
-        this.solutionRowElement.appendChild(dropzone);
+        parentElement.appendChild(dropzone);
     }
-}
-
 
     checkWord() {
         const userWordArray = Array.from(this.solutionRowElement.children).map(child => child.textContent);
