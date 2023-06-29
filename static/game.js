@@ -18,48 +18,56 @@ class Game {
             });
     }
 
-    renderTiles() {
-        // Clear existing tiles and dropzones
-        this.letterRackElement.innerHTML = '';
-        this.solutionRowElement.innerHTML = '';
+  renderTiles() {
+    // Clear existing tiles and dropzones
+    this.letterRackElement.innerHTML = '';
+    this.solutionRowElement.innerHTML = '';
 
-        // Create new tiles and dropzones
-        for (let i = 0; i < this.scrambledWord.length; i++) {
-            // Create a new tile
-            const tile = document.createElement('div');
-            tile.textContent = this.scrambledWord[i];
-            tile.id = `tile${i}`;
-            tile.draggable = true;
-            tile.ondragstart = (event) => {
-                event.dataTransfer.setData("text", event.target.id);
-            };
-            tile.className = 'letter';
-            this.letterRackElement.appendChild(tile);
+    // Calculate the number of blank squares needed
+    const numBlanks = Math.max(7 - this.scrambledWord.length, 0);
 
-            // Create a new dropzone
-            const dropzone = document.createElement('div');
-            dropzone.ondrop = (event) => {
-                event.preventDefault();
-                const data = event.dataTransfer.getData("text");
-                const target = event.target;
-                const letterTile = document.getElementById(data);
-
-                // If the target is a dropzone and it is empty
-                if (target.classList.contains('dropzone') && !target.hasChildNodes()) {
-                    target.appendChild(letterTile);
-                }
-                // If the target is the letter rack or a tile in the letter rack
-                else if (target.id === 'letter-rack' || target.classList.contains('letter')) {
-                    this.letterRackElement.appendChild(letterTile);
-                }
-            };
-            dropzone.ondragover = (event) => {
-                event.preventDefault();
-            };
-            dropzone.className = 'dropzone';
-            this.solutionRowElement.appendChild(dropzone);
-        }
+    // Create tiles for the scrambled word
+    for (let i = 0; i < this.scrambledWord.length; i++) {
+        const tile = document.createElement('div');
+        tile.textContent = this.scrambledWord[i];
+        tile.id = `tile${i}`;
+        tile.draggable = true;
+        tile.ondragstart = (event) => {
+            event.dataTransfer.setData("text", event.target.id);
+        };
+        tile.className = 'letter';
+        this.letterRackElement.appendChild(tile);
     }
+
+    // Create blank squares for remaining slots
+    for (let i = 0; i < numBlanks; i++) {
+        const blankSquare = document.createElement('div');
+        blankSquare.className = 'letter blank';
+        this.letterRackElement.appendChild(blankSquare);
+    }
+
+    // Create dropzones in the solution row
+    for (let i = 0; i < 7; i++) {
+        const dropzone = document.createElement('div');
+        dropzone.ondrop = (event) => {
+            event.preventDefault();
+            const data = event.dataTransfer.getData("text");
+            const target = event.target;
+            const letterTile = document.getElementById(data);
+
+            // If the target is a dropzone and it is empty
+            if (target.classList.contains('dropzone') && !target.hasChildNodes()) {
+                target.appendChild(letterTile);
+            }
+        };
+        dropzone.ondragover = (event) => {
+            event.preventDefault();
+        };
+        dropzone.className = 'dropzone';
+        this.solutionRowElement.appendChild(dropzone);
+    }
+}
+
 
     checkWord() {
         const userWordArray = Array.from(this.solutionRowElement.children).map(child => child.textContent);
