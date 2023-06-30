@@ -76,30 +76,23 @@ class Game {
             }
             // If the target already has a letter
             else if (is_dropzone && has_letter) {
-                 console.log("children");
+                console.log("children");
                 let dropzone = target.parentElement;
-                let target_child = dropzone.firstChild;
-                dropzone.removeChild(target_child);
-                dropzone.appendChild(letterTile);
-
                 const nextDropzone = dropzone.nextElementSibling;
 
-
-
                 // Move the child of the target dropzone to the dropzone to the right
-                //if (nextDropzone) {
-                    //let target_child = target.firstChild
-                    //let next_child = nextDropzone.firstChild
-                    //nextDropzone.removeChild(next_child);
-                    //nextDropzone.appendChild(target_child);
+                if (nextDropzone && nextDropzone.hasChildNodes()) {
+                    let dropzone_child = dropzone.firstChild;
+                    dropzone.removeChild(dropzone_child)
+                    dropzone.appendChild(letterTile);
 
-                    //target.appendChild(letterTile);
-                    //target.removeChild(target_child);
-                    //target.appendChild(letterTile);
-                //}
-            } else {
-                   console.log("what");
+
+                    let next_child = nextDropzone.firstChild
+                    nextDropzone.removeChild(next_child);
+                    nextDropzone.appendChild(dropzone_child);
+                }
             }
+
         };
 
         dropzone.ondragover = (event) => {
