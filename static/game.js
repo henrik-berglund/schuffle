@@ -60,24 +60,26 @@ class Game {
         let foundBlank = false;
 
         // Look for blank to right
-        if ( nextDropzone && nextDropzone.hasChildNodes()) {
+        while ( nextDropzone && nextDropzone.hasChildNodes()) {
             nextDropzone = nextDropzone.nextElementSibling
         }
         if (nextDropzone) {
             console.log("found space to right, id: ", nextDropzone.id);
+            console.log("hasChildNodes: ", nextDropzone.hasChildNodes());
+
+            while ( nextDropzone && !nextDropzone.hasChildNodes() && nextDropzone != dropzone) {
+                let prevDropZone = nextDropzone.previousElementSibling;
+                let prevChild = prevDropZone.firstChild;
+                prevDropZone.removeChild(prevChild); // Needed?
+                nextDropzone.appendChild(prevChild);
+                nextDropzone = nextDropzone.previousElementSibling;
+            }
+            return true;
         } else {
             console.log("found no space to right");
+            return false;
         }
 
-
-        while ( nextDropzone && !nextDropzone.hasChildNodes() && nextDropzone != dropzone) {
-            let prevDropZone = nextDropzone.previousElementSibling;
-            let child = prevDropZone.firstChild;
-            prevDropZone.removeChild(child); // Needed?
-            nextDropzone.appendChild(child);
-        }
-
-        return true;
     }
 
     CreateDropZone(id) {
