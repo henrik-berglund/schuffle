@@ -48,9 +48,12 @@ class Game {
         tile.textContent = letter;
         tile.id = `tile${i}`;
         tile.draggable = true;
+
         tile.ondragstart = (event) => {
             event.dataTransfer.setData("text", event.target.id);
+            //event.target.parentElement.removeChild(event.target);
         };
+
         tile.className = 'letter';
         return tile;
     }
@@ -81,7 +84,31 @@ class Game {
         }
 
     }
+    CreateSpaceByShiftingLeft(dropzone) {
+        let previousDropzone = dropzone.previousElementSibling;
 
+        // Look for blank to left
+        while ( previousDropzone && previousDropzone.hasChildNodes()) {
+            previousDropzone = previousDropzone.previousElementSibling
+        }
+        if (previousDropzone) {
+            console.log("found space to left, id: ", previousDropzone.id);
+            console.log("hasChildNodes: ", previousDropzone.hasChildNodes());
+
+            while ( previousDropzone && !previousDropzone.hasChildNodes() && previousDropzone != dropzone) {
+                let nextDropZone = previousDropzone.nextElementSibling;
+                let nextChild = nextDropZone.firstChild;
+                nextDropZone.removeChild(nextChild); // Needed?
+                previousDropzone.appendChild(nextChild);
+                previousDropzone = previousDropzone.nextElementSibling;
+            }
+            return true;
+        } else {
+            console.log("found no space to left");
+            return false;
+        }
+
+    }
     CreateDropZone(id) {
         const dropzone = document.createElement('div');
         dropzone.id = id;
@@ -108,8 +135,9 @@ class Game {
                 console.log("children");
                 let dropzone = target.parentElement;
 
-
                 if ( this.CreateSpaceByShiftingRight(dropzone)) {
+                   dropzone.appendChild(letterTile);
+                } else if ( this.CreateSpaceByShiftingLeft(dropzone)) {
                    dropzone.appendChild(letterTile);
                 }
             }
