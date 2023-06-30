@@ -30,7 +30,7 @@ class Game {
         for (let i = 0; i < this.scrambledWord.length; i++) {
             const tile = this.CreateLetter(i, this.scrambledWord[i]);
 
-            let dropzone = this.CreateDropZone();
+            let dropzone = this.CreateDropZone(`rack-${i}`);
             dropzone.appendChild(tile);
             this.letterRackElement.appendChild(dropzone);
             //this.letterRackElement.appendChild(tile);
@@ -38,7 +38,7 @@ class Game {
 
         // Create dropzones in the solution row
         for (let i = 0; i < this.scrambledWord.length; i++) {
-            let dropzone = this.CreateDropZone();
+            let dropzone = this.CreateDropZone(`solution-${i}`);
             this.solutionRowElement.appendChild(dropzone);
         }
     }
@@ -56,22 +56,34 @@ class Game {
     }
 
     CreateSpaceByShiftingRight(dropzone) {
-        const nextDropzone = dropzone.nextElementSibling;
-        // Move the child of the target dropzone to the dropzone to the right
-        if (nextDropzone) {
-            if (nextDropzone.hasChildNodes()) {
-                let next_child = nextDropzone.firstChild
-                nextDropzone.removeChild(next_child);
-            }
-            let dropzone_child = dropzone.firstChild;
-            dropzone.removeChild(dropzone_child)
-            nextDropzone.appendChild(dropzone_child);
+        let nextDropzone = dropzone.nextElementSibling;
+        let foundBlank = false;
+
+        // Look for blank to right
+        if ( nextDropzone && nextDropzone.hasChildNodes()) {
+            nextDropzone = nextDropzone.nextElementSibling
         }
+        if (nextDropzone) {
+            console.log("found space to right, id: ", nextDropzone.id);
+        } else {
+            console.log("found no space to right");
+        }
+
+
+        while ( nextDropzone && !nextDropzone.hasChildNodes() && nextDropzone != dropzone) {
+            let prevDropZone = nextDropzone.previousElementSibling;
+            let child = prevDropZone.firstChild;
+            prevDropZone.removeChild(child); // Needed?
+            nextDropzone.appendChild(child);
+        }
+
         return true;
     }
 
-    CreateDropZone() {
+    CreateDropZone(id) {
         const dropzone = document.createElement('div');
+        dropzone.id = id;
+
         dropzone.ondrop = (event) => {
             event.preventDefault();
             const data = event.dataTransfer.getData("text");
