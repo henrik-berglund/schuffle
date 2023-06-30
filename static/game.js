@@ -55,6 +55,21 @@ class Game {
         return tile;
     }
 
+    CreateSpaceByShiftingRight(dropzone) {
+        const nextDropzone = dropzone.nextElementSibling;
+        // Move the child of the target dropzone to the dropzone to the right
+        if (nextDropzone) {
+            if (nextDropzone.hasChildNodes()) {
+                let next_child = nextDropzone.firstChild
+                nextDropzone.removeChild(next_child);
+            }
+            let dropzone_child = dropzone.firstChild;
+            dropzone.removeChild(dropzone_child)
+            nextDropzone.appendChild(dropzone_child);
+        }
+        return true;
+    }
+
     CreateDropZone() {
         const dropzone = document.createElement('div');
         dropzone.ondrop = (event) => {
@@ -78,19 +93,10 @@ class Game {
             else if (is_dropzone && has_letter) {
                 console.log("children");
                 let dropzone = target.parentElement;
-                const nextDropzone = dropzone.nextElementSibling;
 
-                // Move the child of the target dropzone to the dropzone to the right
-                if (nextDropzone ) {
-                    if ( nextDropzone.hasChildNodes()) {
-                        let next_child = nextDropzone.firstChild
-                        nextDropzone.removeChild(next_child);
-                    }
-                    let dropzone_child = dropzone.firstChild;
-                    dropzone.removeChild(dropzone_child)
-                    dropzone.appendChild(letterTile);
 
-                    nextDropzone.appendChild(dropzone_child);
+                if ( this.CreateSpaceByShiftingRight(dropzone)) {
+                   dropzone.appendChild(letterTile);
                 }
             }
 
