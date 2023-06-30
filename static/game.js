@@ -63,23 +63,42 @@ class Game {
             const target = event.target;
             const letterTile = document.getElementById(data);
 
+
+            let is_dropzone = target.classList.contains("dropzone") || target.parentElement.classList.contains("dropzone");
+            let has_letter = target.classList.contains("letter");
+            console.log("ondrop: ", is_dropzone, has_letter);
+
+
             // If the target is a dropzone and it is empty
-            if (target.classList.contains("dropzone") && !target.hasChildNodes()) {
+            if (is_dropzone && !has_letter) {
+                 console.log("no children");
                 target.appendChild(letterTile);
             }
             // If the target already has a letter
-            else if (false && target.classList.contains("dropzone") && target.hasChildNodes()) {
-                const nextDropzone = target.nextElementSibling;
+            else if (is_dropzone && has_letter) {
+                 console.log("children");
+                let dropzone = target.parentElement;
+                let target_child = dropzone.firstChild;
+                dropzone.removeChild(target_child);
+                dropzone.appendChild(letterTile);
+
+                const nextDropzone = dropzone.nextElementSibling;
+
+
 
                 // Move the child of the target dropzone to the dropzone to the right
-                if (nextDropzone) {
-                    let target_child = target.firstChild
-                    let next_child = nextDropzone.firstChild
-                    nextDropzone.removeChild(next_child);
-                    nextDropzone.appendChild(target_child);
+                //if (nextDropzone) {
+                    //let target_child = target.firstChild
+                    //let next_child = nextDropzone.firstChild
+                    //nextDropzone.removeChild(next_child);
+                    //nextDropzone.appendChild(target_child);
 
-                    target.appendChild(letterTile);
-                }
+                    //target.appendChild(letterTile);
+                    //target.removeChild(target_child);
+                    //target.appendChild(letterTile);
+                //}
+            } else {
+                   console.log("what");
             }
         };
 
