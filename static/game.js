@@ -81,14 +81,15 @@ class Game {
                 const nextDropzone = dropzone.nextElementSibling;
 
                 // Move the child of the target dropzone to the dropzone to the right
-                if (nextDropzone && nextDropzone.hasChildNodes()) {
+                if (nextDropzone ) {
+                    if ( nextDropzone.hasChildNodes()) {
+                        let next_child = nextDropzone.firstChild
+                        nextDropzone.removeChild(next_child);
+                    }
                     let dropzone_child = dropzone.firstChild;
                     dropzone.removeChild(dropzone_child)
                     dropzone.appendChild(letterTile);
 
-
-                    let next_child = nextDropzone.firstChild
-                    nextDropzone.removeChild(next_child);
                     nextDropzone.appendChild(dropzone_child);
                 }
             }
