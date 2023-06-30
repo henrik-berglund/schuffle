@@ -139,6 +139,14 @@ class Game {
                    dropzone.appendChild(letterTile);
                 } else if ( this.CreateSpaceByShiftingLeft(dropzone)) {
                    dropzone.appendChild(letterTile);
+                } else { // reorder
+                    console.log("reorder");
+                    let sourceDropzone = letterTile.parentElement;
+                    sourceDropzone.removeChild(letterTile)
+
+                    if (  this.CreateSpaceByShiftingRight(dropzone) || this.CreateSpaceByShiftingLeft(dropzone) ){
+                       dropzone.appendChild(letterTile);
+                    }
                 }
             }
 
