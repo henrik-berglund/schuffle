@@ -28,7 +28,7 @@ class Game {
 
         // Create tiles for the scrambled word
         for (let i = 0; i < this.scrambledWord.length; i++) {
-            const tile = this.CreateLetter(i);
+            const tile = this.CreateLetter(i, this.scrambledWord[i]);
 
             let dropzone = this.CreateDropZone();
             dropzone.appendChild(tile);
@@ -43,9 +43,9 @@ class Game {
         }
     }
 
-    CreateLetter(i) {
+    CreateLetter(i, letter) {
         const tile = document.createElement('div');
-        tile.textContent = this.scrambledWord[i];
+        tile.textContent = letter;
         tile.id = `tile${i}`;
         tile.draggable = true;
         tile.ondragstart = (event) => {
