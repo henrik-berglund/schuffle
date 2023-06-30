@@ -4,32 +4,35 @@
     <title>Word Scramble Game</title>
 
     <style>
-     body {
-          background-color: #f2f2f2; /* Add this line for gray background */
-          margin: 0;
-          padding: 0;
+        body {
+            background-color: #f2f2f2; /* Add this line for gray background */
+            margin: 0;
+            padding: 0;
         }
         .letter {
-      width: 36px;
-      height: 36px;
-      border: 1px solid #000;
-      margin: 2px;
-      text-align: center;
-      line-height: 36px;
-      float: left;
-      box-sizing: border-box; /* Add this line */
-    }
-    .dropzone {
-      width: 40px;
-      height: 40px;
-      border: 2px dashed #000; /* Change border to dashed */
-      margin: 2px;
-      text-align: center;
-      line-height: 40px;
-      float: left;
-      border-radius: 5px; /* Add this line for rounded corners */
+            width: 36px;
+            height: 36px;
+            border: 1px solid #000;
+            margin: 2px;
+            text-align: center;
+            line-height: 36px;
+            float: left;
+            box-sizing: border-box; /* Add this line */
+            background-color: #fff; /* Add this line for white background */
+            font-family: sans-serif; /* Add this line to set sans-serif font */
+            font-weight: bold; /* Add this line to make the letters bold */
+        }
+        .dropzone {
+            width: 40px;
+            height: 40px;
+            border: 1px dashed #000; /* Change border to dashed */
+            margin: 2px;
+            text-align: center;
+            line-height: 40px;
+            float: left;
+            border-radius: 5px; /* Add this line for rounded corners */
 
-    }
+        }
         .letter {
             cursor: move;
             border-radius: 5px; /* Add this line for rounded corners */
@@ -44,17 +47,17 @@
     </style>
 </head>
 <body>
-    <h1>Word Scramble Game</h1>
-    <div id="game-board">
-        <div id="solution-row" class="dropzone-row">
-            <!-- Solution squares will be inserted here by JS -->
-        </div>
-        <div id="letter-rack" class="dropzone-row">
-            <!-- Letter tiles will be inserted here by JS -->
-        </div>
+<h1>Word Scramble Game</h1>
+<div id="game-board">
+    <div id="solution-row" class="dropzone-row">
+        <!-- Solution squares will be inserted here by JS -->
     </div>
-    <button onclick="checkAnswer()">Check</button>
-    <p id="result"></p>
-    <script src="/static/game.js"></script>
+    <div id="letter-rack" class="dropzone-row">
+        <!-- Letter tiles will be inserted here by JS -->
+    </div>
+</div>
+<button onclick="checkAnswer()">Check</button>
+<p id="result"></p>
+<script src="/static/game.js"></script>
 </body>
 </html>

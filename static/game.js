@@ -28,14 +28,7 @@ class Game {
 
         // Create tiles for the scrambled word
         for (let i = 0; i < this.scrambledWord.length; i++) {
-            const tile = document.createElement('div');
-            tile.textContent = this.scrambledWord[i];
-            tile.id = `tile${i}`;
-            tile.draggable = true;
-            tile.ondragstart = (event) => {
-                event.dataTransfer.setData("text", event.target.id);
-            };
-            tile.className = 'letter';
+            const tile = this.CreateLetter(i);
 
             let dropzone = this.CreateDropZone();
             dropzone.appendChild(tile);
@@ -43,18 +36,23 @@ class Game {
             //this.letterRackElement.appendChild(tile);
         }
 
-        // Create blank squares for remaining slots
-        //for (let i = 0; i < numBlanks; i++) {
-        //    const blankSquare = document.createElement('div');
-        //    blankSquare.className = 'letter blank';
-        //    this.letterRackElement.appendChild(blankSquare);
-        //}
-
         // Create dropzones in the solution row
         for (let i = 0; i < this.scrambledWord.length; i++) {
             let dropzone = this.CreateDropZone();
             this.solutionRowElement.appendChild(dropzone);
         }
+    }
+
+    CreateLetter(i) {
+        const tile = document.createElement('div');
+        tile.textContent = this.scrambledWord[i];
+        tile.id = `tile${i}`;
+        tile.draggable = true;
+        tile.ondragstart = (event) => {
+            event.dataTransfer.setData("text", event.target.id);
+        };
+        tile.className = 'letter';
+        return tile;
     }
 
     CreateDropZone() {
@@ -66,10 +64,25 @@ class Game {
             const letterTile = document.getElementById(data);
 
             // If the target is a dropzone and it is empty
-            if (target.classList.contains('dropzone') && !target.hasChildNodes()) {
+            if (target.classList.contains("dropzone") && !target.hasChildNodes()) {
                 target.appendChild(letterTile);
             }
+            // If the target already has a letter
+            else if (false && target.classList.contains("dropzone") && target.hasChildNodes()) {
+                const nextDropzone = target.nextElementSibling;
+
+                // Move the child of the target dropzone to the dropzone to the right
+                if (nextDropzone) {
+                    let target_child = target.firstChild
+                    let next_child = nextDropzone.firstChild
+                    nextDropzone.removeChild(next_child);
+                    nextDropzone.appendChild(target_child);
+
+                    target.appendChild(letterTile);
+                }
+            }
         };
+
         dropzone.ondragover = (event) => {
             event.preventDefault();
         };
