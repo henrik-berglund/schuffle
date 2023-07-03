@@ -5,7 +5,7 @@ import random
 app = Flask(__name__, static_folder='static')
 CORS(app)  # This will enable CORS for all routes
 
-words = ["sill", "dill", "torsk", "romsås", "kräftor", "sillsallad"]
+words = ["sill", "dill", "torsk", "romsås", "kräftor"]
 
 
 @app.route('/api/word', methods=['GET'])
