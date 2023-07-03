@@ -60,7 +60,7 @@ class Game {
             //event.target.parentElement.removeChild(event.target);
         };
 
-        tile.className = 'letter';
+        tile.className = 'letter tile';
         return tile;
     }
 
@@ -119,11 +119,18 @@ class Game {
     Resizedropzones(selector, numberOfBoxes) {
         var viewportWidth = window.innerWidth;
         var dropzoneSize = viewportWidth / numberOfBoxes;
+        var fontSize = dropzoneSize * 0.8; // Adjust as needed, 0.8 means 80% of the dropzone size
 
         var dropzones = document.querySelectorAll(selector);
         dropzones.forEach(dropzone => {
             dropzone.style.width = dropzoneSize + 'px';
             dropzone.style.height = dropzoneSize + 'px';
+
+            // Resize the letter tile inside this dropzone if there is one
+            let tile = dropzone.querySelector('.tile');
+            if (tile) {
+                tile.style.fontSize = fontSize + 'px';
+            }
         });
     }
     CreateDropZone(id) {
@@ -168,6 +175,10 @@ class Game {
                     }
                 }
             }
+
+            let row = dropzone.parentElement.id;
+            let numberOfBoxes = row == 'letter-rack' ? 7 : 15;
+            this.Resizedropzones(`#${dropzone.id}`, numberOfBoxes);
 
         };
 
