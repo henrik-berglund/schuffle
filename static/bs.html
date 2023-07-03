@@ -36,7 +36,7 @@
 </head>
 <body>
     <div class="container-fluid">
-        <div class="dropzone-row">
+        <div id="solution-row" class="dropzone-row">
             <div class="dropzone"></div>
             <div class="dropzone"></div>
             <div class="dropzone"></div>
@@ -45,7 +45,9 @@
             <div class="dropzone"></div>
             <div class="dropzone"></div>
         </div>
-        <div class="dropzone-row">
+
+        <div id="letter-rack" class="dropzone-row">
+
             <div class="dropzone">
                 <div class="letter">A</div>
             </div>
@@ -86,7 +88,6 @@
     </script>
     <button onclick="checkAnswer()">Check</button>
     <p id="result"></p>
-    <script src="/static/bs.js"></script>
 
 </body>
 </html>
