@@ -72,22 +72,17 @@
         </div>
     </div>
 
-    <script>
-        function resizedropzones() {
-            var viewportWidth = window.innerWidth;
-            var dropzoneSize = viewportWidth / 7;
-            var dropzones = document.querySelectorAll('.dropzone');
-            dropzones.forEach(dropzone => {
-                dropzone.style.width = dropzoneSize + 'px';
-                dropzone.style.height = dropzoneSize + 'px';
-            });
-        }
 
-        window.addEventListener('resize', resizedropzones);
-        window.addEventListener('DOMContentLoaded', resizedropzones);
+    <script>
+
+
+        //window.addEventListener('resize', resizedropzones);
+        //window.addEventListener('DOMContentLoaded', resizedropzones);
     </script>
     <button onclick="checkAnswer()">Check</button>
     <p id="result"></p>
+
+    <script src="/static/bs.js"></script>
 
 </body>
 </html>

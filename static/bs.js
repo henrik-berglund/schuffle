@@ -41,6 +41,8 @@ class Game {
             let dropzone = this.CreateDropZone(`solution-${i}`);
             this.solutionRowElement.appendChild(dropzone);
         }
+
+        this.Resizedropzones()
     }
 
     CreateLetter(i, letter) {
@@ -109,6 +111,17 @@ class Game {
         }
 
     }
+
+    Resizedropzones() {
+        var viewportWidth = window.innerWidth;
+        var dropzoneSize = viewportWidth / 7;
+        var dropzones = document.querySelectorAll('.dropzone');
+        dropzones.forEach(dropzone => {
+            dropzone.style.width = dropzoneSize + 'px';
+            dropzone.style.height = dropzoneSize + 'px';
+        });
+    }
+
     CreateDropZone(id) {
         const dropzone = document.createElement('div');
         dropzone.id = id;
