@@ -37,12 +37,16 @@ class Game {
         }
 
         // Create dropzones in the solution row
-        for (let i = 0; i < this.scrambledWord.length; i++) {
+        for (let i = 0; i < 15; i++) {
             let dropzone = this.CreateDropZone(`solution-${i}`);
             this.solutionRowElement.appendChild(dropzone);
         }
+        // For the solution row
+        this.Resizedropzones('#solution-row .dropzone', 15);
 
-        this.Resizedropzones()
+        // For the letter rack
+        this.Resizedropzones('#letter-rack .dropzone', 7);
+        //this.Resizedropzones()
     }
 
     CreateLetter(i, letter) {
@@ -112,16 +116,16 @@ class Game {
 
     }
 
-    Resizedropzones() {
+    Resizedropzones(selector, numberOfBoxes) {
         var viewportWidth = window.innerWidth;
-        var dropzoneSize = viewportWidth / 7;
-        var dropzones = document.querySelectorAll('.dropzone');
+        var dropzoneSize = viewportWidth / numberOfBoxes;
+
+        var dropzones = document.querySelectorAll(selector);
         dropzones.forEach(dropzone => {
             dropzone.style.width = dropzoneSize + 'px';
             dropzone.style.height = dropzoneSize + 'px';
         });
     }
-
     CreateDropZone(id) {
         const dropzone = document.createElement('div');
         dropzone.id = id;
