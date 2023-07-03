@@ -36,16 +36,17 @@ class Game {
             //this.letterRackElement.appendChild(tile);
         }
 
-        // Create dropzones in the solution row
         for (let i = 0; i < 15; i++) {
-            let dropzone = this.CreateDropZone(`solution-${i}`);
-            this.solutionRowElement.appendChild(dropzone);
+            for (let j = 0; j < 15; j++) {
+                let dropzone = this.CreateDropZone(`solution-${i}-${j}`);
+                this.solutionRowElement.appendChild(dropzone);
+            }
         }
         // For the solution row
-        this.Resizedropzones('#solution-row .dropzone', 15);
+//        this.Resizedropzones('#solution-row .dropzone', 15);
 
         // For the letter rack
-        this.Resizedropzones('#letter-rack .dropzone', 7);
+        //this.Resizedropzones('#letter-rack .dropzone', 7);
         //this.Resizedropzones()
     }
 
@@ -116,23 +117,7 @@ class Game {
 
     }
 
-    Resizedropzones(selector, numberOfBoxes) {
-        var viewportWidth = window.innerWidth;
-        var dropzoneSize = viewportWidth / numberOfBoxes;
-        var fontSize = dropzoneSize * 0.8; // Adjust as needed, 0.8 means 80% of the dropzone size
 
-        var dropzones = document.querySelectorAll(selector);
-        dropzones.forEach(dropzone => {
-            dropzone.style.width = dropzoneSize + 'px';
-            dropzone.style.height = dropzoneSize + 'px';
-
-            // Resize the letter tile inside this dropzone if there is one
-            let tile = dropzone.querySelector('.tile');
-            if (tile) {
-                tile.style.fontSize = fontSize + 'px';
-            }
-        });
-    }
     CreateDropZone(id) {
         const dropzone = document.createElement('div');
         dropzone.id = id;
