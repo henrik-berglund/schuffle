@@ -6,34 +6,42 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
         body {
-            background-color: #2d3445; /* Add this line for gray background */
+            background-color: #2d3445;
             display: flex;
             flex-direction: column;
+            align-items: center;
             height: 100vh;
         }
 
+        .container-fluid {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
 
-    #solution-row {
-        display: grid;
-        grid-template-columns: repeat(15, 1fr);
-        gap: 2px;
-        width: 80vmin;  /* Use vmin instead of vh */
-        height: 80vmin;
-        overflow: auto;
-        background-color: #000000;
-        margin-bottom: 100px;
-    }
+        #solution-row {
+            display: grid;
+            grid-template-columns: repeat(15, 1fr);
+            gap: 2px;
+            width: 80vmin;
+            height: 80vmin;
+            overflow: auto;
+            background-color: #000000;
+            margin-bottom: 100px;
+        }
 
-    #letter-rack {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        gap: 2px;
-        width: 80vmin; /* This will ensure the rack occupies the full width */
-        height: 9vmin; /* Use vmin instead of vh */
-        overflow: auto;
-        background-color: #000000
-
-    }
+        #letter-rack {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+            width: 80vmin;
+            height: 9vmin;
+            overflow: auto;
+            background-color: #000000;
+        }
 
         body .dropzone {
             --bs-body-font-size: 22;
@@ -44,14 +52,13 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            background-color: #2a2f38
+            background-color: #2a2f38;
         }
 
         .letter {
             position: absolute;
             border-radius: 5px;
             border: 1px solid #000;
-
             top: 0;
             left: 0;
             background-color: #ffff;
@@ -62,36 +69,23 @@
             align-items: center;
             font-weight: bold;
             text-align: center;
-
             font-family: Arial, sans-serif;
         }
-}
-
-
-
     </style>
-    <link rel="stylesheet" href="../../wft/src/global.css">
 </head>
 <body>
     <div class="container-fluid">
-        <div id="solution-row" >
-        </div>
-
-        <div id="letter-rack" >
-        </div>
+        <div id="solution-row"></div>
+        <div id="letter-rack"></div>
     </div>
 
-
     <script>
-
-
-        //window.addEventListener('resize', resizedropzones);
-        //window.addEventListener('DOMContentLoaded', resizedropzones);
+        // window.addEventListener('resize', resizedropzones);
+        // window.addEventListener('DOMContentLoaded', resizedropzones);
     </script>
     <button onclick="checkAnswer()">Check</button>
     <p id="result"></p>
 
     <script src="/static/bs.js"></script>
-
 </body>
 </html>
