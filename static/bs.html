@@ -12,7 +12,27 @@
             height: 100vh;
         }
 
-        .dropzone {
+
+    #solution-row {
+        display: grid;
+        grid-template-columns: repeat(15, 1fr);
+        gap: 2px;
+        width: 70vmin;  /* Use vmin instead of vh */
+        height: 70vmin;
+        overflow: auto;
+    }
+
+    #letter-rack {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 2px;
+        width: 70vmin; /* This will ensure the rack occupies the full width */
+        height: 9vmin; /* Use vmin instead of vh */
+        overflow: auto;
+    }
+
+        body .dropzone {
+            --bs-body-font-size: 22;
             width: 100%;
             height: 100%;
             border: 1px solid #000;
@@ -37,33 +57,9 @@
             align-items: center;
             font-weight: bold;
             text-align: center;
-            //font-size: 10vw;  /* Adjust this value as needed */
-            //font-size: 80%;  /* Adjust this value as needed */
 
             font-family: Arial, sans-serif;
         }
-
-
-    #solution-row {
-        display: grid;
-        grid-template-columns: repeat(15, 1fr);
-        gap: 2px;
-        width: 70vmin;  /* Use vmin instead of vh */
-        height: 70vmin;
-        overflow: auto;
-    }
-
-    #letter-rack {
-        font-size: fit-content;
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        gap: 2px;
-        width: 70vmin; /* This will ensure the rack occupies the full width */
-        height: 9vmin; /* Use vmin instead of vh */
-        overflow: auto;
-    }
-
-
 }
 
 
