@@ -24,7 +24,7 @@
 
         .letter {
             position: absolute;
-             border-radius: 5px;
+            border-radius: 5px;
             border: 1px solid #000;
 
             top: 0;
@@ -37,7 +37,9 @@
             align-items: center;
             font-weight: bold;
             text-align: center;
-            font-size: 10vw;  /* Adjust this value as needed */
+            //font-size: 10vw;  /* Adjust this value as needed */
+            //font-size: 80%;  /* Adjust this value as needed */
+
             font-family: Arial, sans-serif;
         }
 
@@ -52,6 +54,7 @@
     }
 
     #letter-rack {
+        font-size: fit-content;
         display: grid;
         grid-template-columns: repeat(7, 1fr);
         gap: 2px;
@@ -87,12 +90,6 @@
     <p id="result"></p>
 
     <script src="/static/bs.js"></script>
-    <script src="path/to/fastclick.js"></script>
-    <script>
-        window.addEventListener('load', function() {
-            FastClick.attach(document.body);
-        }, false);
-    </script>
-
+ 
 </body>
 </html>
