@@ -27,11 +27,14 @@ class Game {
         const numBlanks = Math.max(7 - this.scrambledWord.length, 0);
 
         // Create tiles for the scrambled word
-        for (let i = 0; i < this.scrambledWord.length; i++) {
-            const tile = this.CreateLetter(i, this.scrambledWord[i]);
-
+        for (let i = 0; i < 7; i++) {
             let dropzone = this.CreateDropZone(`rack-${i}`);
-            dropzone.appendChild(tile);
+
+            if ( i < this.scrambledWord.length ) {
+                const tile = this.CreateLetter(i, this.scrambledWord[i]);
+                dropzone.appendChild(tile);
+            }
+
             this.letterRackElement.appendChild(dropzone);
             //this.letterRackElement.appendChild(tile);
         }
