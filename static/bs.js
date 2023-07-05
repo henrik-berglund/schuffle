@@ -73,8 +73,8 @@ class Game {
         const tile = document.createElement('div');
         tile.textContent = bonus;
         tile.className = 'bonus-tile';
-        tile.dataset.x = x;
-        tile.dataset.y = y;
+        //tile.dataset.x = x;
+        //tile.dataset.y = y;
 
         if (bonus === 'TB') {
           tile.classList.add('tb-bonus');
