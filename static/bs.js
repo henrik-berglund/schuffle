@@ -63,7 +63,6 @@ class Game {
         tile.ondragstart = (event) => {
             event.dataTransfer.setData("text", event.target.id);
             event.dataTransfer.setData("drag-start-element",event.target.parentElement.id );
-            console.log("storing: ", event.target.parentElement);
         };
 
         tile.className = 'letter tile';
@@ -87,20 +86,6 @@ class Game {
           tile.classList.add('do-bonus');
         }
 
-/*        tile.ondrop = (event) => {
-          event.preventDefault();
-          const data = event.dataTransfer.getData('text');
-          const dragStartElement = event.dataTransfer.getData("drag-start-element");
-          console.log("bonustile dropping letter from", dragStartElement);
-          const letterTile = document.getElementById(data);
-
-          if (letterTile) {
-            const dropzone = event.currentTarget;
-            dropzone.innerHTML = '';
-            dropzone.appendChild(letterTile);
-          }
-        };
-*/
         tile.ondragover = (event) => {
           event.preventDefault();
         };
@@ -112,7 +97,6 @@ class Game {
     fetch('/layout.json')  // Assuming the API endpoint to fetch the board layout is '/api/layout'
       .then(response => response.json())
       .then(layoutData => {
-          console.log(layoutData);
         if (layoutData && layoutData.length >= 1) {
           const bonusLayout = layoutData[0];
 
@@ -146,8 +130,6 @@ class Game {
             nextDropzone = nextDropzone.nextElementSibling
         }
         if (nextDropzone) {
-            console.log("found space to right, id: ", nextDropzone.id);
-            console.log("hasChildNodes: ", nextDropzone.hasChildNodes());
 
             while ( nextDropzone && !nextDropzone.hasChildNodes() && nextDropzone != dropzone) {
                 let prevDropZone = nextDropzone.previousElementSibling;
@@ -158,7 +140,6 @@ class Game {
             }
             return true;
         } else {
-            console.log("found no space to right");
             return false;
         }
 
@@ -171,8 +152,6 @@ class Game {
             previousDropzone = previousDropzone.previousElementSibling
         }
         if (previousDropzone) {
-            console.log("found space to left, id: ", previousDropzone.id);
-            console.log("hasChildNodes: ", previousDropzone.hasChildNodes());
 
             while ( previousDropzone && !previousDropzone.hasChildNodes() && previousDropzone != dropzone) {
                 let nextDropZone = previousDropzone.nextElementSibling;
@@ -183,7 +162,6 @@ class Game {
             }
             return true;
         } else {
-            console.log("found no space to left");
             return false;
         }
 
@@ -206,40 +184,29 @@ class Game {
 
             const dragStartElementId = event.dataTransfer.getData("drag-start-element");
             const dragStartElement = document.getElementById(dragStartElementId)
-              console.log("dropzone dropping letter from", dragStartElement);
               const hiddenBonusElement = dragStartElement.querySelector(".hidden");
             if ( hiddenBonusElement) {
                 hiddenBonusElement.classList.remove("hidden");
             }
 
-
-
-            console.log("ondrop: ", is_dropzone, has_letter);
-            console.log("is bonus tile: ", is_bonus_tile);
-
             // If the target is a dropzone and it is empty
             if (is_bonus_tile) {
-                 console.log("bonus tile");
                  target.classList.add("hidden");
                  target.parentNode.appendChild(letterTile);
             } else if (is_dropzone && !has_letter) {
-                 console.log("dropzone, no children");
                  target.appendChild(letterTile);
             }
             // If the target already has a letter
             else if (is_dropzone && has_letter) {
-                console.log("dropzone, children");
                 let dropzone = target.parentElement;
                 let sourceDropzone = letterTile.parentElement;
                 if ( sourceDropzone == dropzone) {
                     // Do nothing
-                    console.log("do nothing");
                 } else if ( this.CreateSpaceByShiftingRight(dropzone)) {
                    dropzone.appendChild(letterTile);
                 } else if ( this.CreateSpaceByShiftingLeft(dropzone)) {
                    dropzone.appendChild(letterTile);
                 } else { // reorder
-                    console.log("reorder");
                     sourceDropzone.removeChild(letterTile)
 
                     if (  this.CreateSpaceByShiftingRight(dropzone) || this.CreateSpaceByShiftingLeft(dropzone) ){
