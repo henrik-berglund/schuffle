@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, send_from_directory
+from flask import Flask, jsonify, send_from_directory, send_file
 from flask_cors import CORS
 import random
 
@@ -26,6 +26,10 @@ def get_word():
 @app.route('/game')
 def game():
     return send_from_directory(app.static_folder, 'game.html')
+
+@app.route('/layout.json')
+def get_layout():
+    return send_file('layout.json', mimetype='application/json')
 
 @app.route('/bs')
 def bs():

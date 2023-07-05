@@ -51,6 +51,7 @@ class Game {
         // For the letter rack
         //this.Resizedropzones('#letter-rack .dropzone', 7);
         //this.Resizedropzones()
+        this.AddBonusTiles()
     }
 
     CreateLetter(i, letter) {
@@ -67,6 +68,42 @@ class Game {
         tile.className = 'letter tile';
         return tile;
     }
+
+    CreateBonusTile(bonus) {
+        const tile = document.createElement('div');
+        tile.textContent = bonus;
+        tile.className = 'bonus-tile';
+        return tile;
+      }
+
+  AddBonusTiles() {
+    fetch('/layout.json')  // Assuming the API endpoint to fetch the board layout is '/api/layout'
+      .then(response => response.json())
+      .then(layoutData => {
+          console.log(layoutData);
+        if (layoutData && layoutData.length >= 1) {
+          const bonusLayout = layoutData[0];
+
+          bonusLayout.forEach((row, rowIndex) => {
+            row.forEach((bonus, columnIndex) => {
+              if (bonus) {
+                const dropzoneId = `solution-${rowIndex}-${columnIndex}`;
+                const dropzone = document.getElementById(dropzoneId);
+                if (dropzone) {
+                  const bonusTile = this.CreateBonusTile(bonus);
+                  dropzone.appendChild(bonusTile);
+                }
+              }
+            });
+          });
+        }
+      })
+      .catch(error => {
+        console.error('Error loading board layout:', error);
+      });
+  }
+
+
 
     CreateSpaceByShiftingRight(dropzone) {
         let nextDropzone = dropzone.nextElementSibling;

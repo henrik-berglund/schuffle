@@ -41,6 +41,8 @@ class Game {
             let dropzone = this.CreateDropZone(`solution-${i}`);
             this.solutionRowElement.appendChild(dropzone);
         }
+
+        this.AddBonusTiles()
     }
 
     CreateLetter(i, letter) {
@@ -57,6 +59,7 @@ class Game {
         tile.className = 'letter';
         return tile;
     }
+
 
     CreateSpaceByShiftingRight(dropzone) {
         let nextDropzone = dropzone.nextElementSibling;
@@ -180,3 +183,5 @@ window.onload = () => {
 function checkAnswer() {
     game.checkWord();
 }
+
+
