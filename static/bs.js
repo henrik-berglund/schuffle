@@ -69,24 +69,41 @@ class Game {
         return tile;
     }
 
+    CreateBonusTile(bonus, x, y) {
+        const tile = document.createElement('div');
+        tile.textContent = bonus;
+        tile.className = 'bonus-tile';
+        tile.dataset.x = x;
+        tile.dataset.y = y;
 
-  CreateBonusTile(bonus) {
-    const tile = document.createElement('div');
-    tile.textContent = bonus;
-    tile.className = 'bonus-tile';
+        if (bonus === 'TB') {
+          tile.classList.add('tb-bonus');
+        } else if (bonus === 'DB') {
+          tile.classList.add('db-bonus');
+        } else if (bonus === 'TO') {
+          tile.classList.add('to-bonus');
+        } else if (bonus === 'DO') {
+          tile.classList.add('do-bonus');
+        }
 
-    if (bonus === 'TB') {
-      tile.classList.add('tb-bonus');
-    } else if (bonus === 'DB') {
-      tile.classList.add('db-bonus');
-    } else if (bonus === 'TO') {
-      tile.classList.add('to-bonus');
-    } else if (bonus === 'DO') {
-      tile.classList.add('do-bonus');
-    }
+        tile.ondrop = (event) => {
+          event.preventDefault();
+          const data = event.dataTransfer.getData('text');
+          const letterTile = document.getElementById(data);
 
-    return tile;
-  }
+          if (letterTile) {
+            const dropzone = event.currentTarget;
+            dropzone.innerHTML = '';
+            dropzone.appendChild(letterTile);
+          }
+        };
+
+        tile.ondragover = (event) => {
+          event.preventDefault();
+        };
+
+        return tile;
+      }
 
   AddBonusTiles() {
     fetch('/layout.json')  // Assuming the API endpoint to fetch the board layout is '/api/layout'
