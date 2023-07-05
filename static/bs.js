@@ -65,7 +65,9 @@ class Game {
             event.dataTransfer.setData("drag-start-element",event.target.parentElement.id );
         };
 
-        tile.className = 'letter tile';
+        tile.className = 'letter tile fs-3';
+        //tile.className = 'letter tile';
+
         return tile;
     }
 
@@ -77,47 +79,47 @@ class Game {
         //tile.dataset.y = y;
 
         if (bonus === 'TB') {
-          tile.classList.add('tb-bonus');
+            tile.classList.add('tb-bonus');
         } else if (bonus === 'DB') {
-          tile.classList.add('db-bonus');
+            tile.classList.add('db-bonus');
         } else if (bonus === 'TO') {
-          tile.classList.add('to-bonus');
+            tile.classList.add('to-bonus');
         } else if (bonus === 'DO') {
-          tile.classList.add('do-bonus');
+            tile.classList.add('do-bonus');
         }
 
         tile.ondragover = (event) => {
-          event.preventDefault();
+            event.preventDefault();
         };
 
         return tile;
-      }
+    }
 
-  AddBonusTiles() {
-    fetch('/layout.json')  // Assuming the API endpoint to fetch the board layout is '/api/layout'
-      .then(response => response.json())
-      .then(layoutData => {
-        if (layoutData && layoutData.length >= 1) {
-          const bonusLayout = layoutData[0];
+    AddBonusTiles() {
+        fetch('/layout.json')  // Assuming the API endpoint to fetch the board layout is '/api/layout'
+            .then(response => response.json())
+            .then(layoutData => {
+                if (layoutData && layoutData.length >= 1) {
+                    const bonusLayout = layoutData[0];
 
-          bonusLayout.forEach((row, rowIndex) => {
-            row.forEach((bonus, columnIndex) => {
-              if (bonus) {
-                const dropzoneId = `solution-${rowIndex}-${columnIndex}`;
-                const dropzone = document.getElementById(dropzoneId);
-                if (dropzone) {
-                  const bonusTile = this.CreateBonusTile(bonus);
-                  dropzone.appendChild(bonusTile);
+                    bonusLayout.forEach((row, rowIndex) => {
+                        row.forEach((bonus, columnIndex) => {
+                            if (bonus) {
+                                const dropzoneId = `solution-${rowIndex}-${columnIndex}`;
+                                const dropzone = document.getElementById(dropzoneId);
+                                if (dropzone) {
+                                    const bonusTile = this.CreateBonusTile(bonus);
+                                    dropzone.appendChild(bonusTile);
+                                }
+                            }
+                        });
+                    });
                 }
-              }
+            })
+            .catch(error => {
+                console.error('Error loading board layout:', error);
             });
-          });
-        }
-      })
-      .catch(error => {
-        console.error('Error loading board layout:', error);
-      });
-  }
+    }
 
 
 
@@ -184,17 +186,17 @@ class Game {
 
             const dragStartElementId = event.dataTransfer.getData("drag-start-element");
             const dragStartElement = document.getElementById(dragStartElementId)
-              const hiddenBonusElement = dragStartElement.querySelector(".hidden");
+            const hiddenBonusElement = dragStartElement.querySelector(".hidden");
             if ( hiddenBonusElement) {
                 hiddenBonusElement.classList.remove("hidden");
             }
 
             // If the target is a dropzone and it is empty
             if (is_bonus_tile) {
-                 target.classList.add("hidden");
-                 target.parentNode.appendChild(letterTile);
+                target.classList.add("hidden");
+                target.parentNode.appendChild(letterTile);
             } else if (is_dropzone && !has_letter) {
-                 target.appendChild(letterTile);
+                target.appendChild(letterTile);
             }
             // If the target already has a letter
             else if (is_dropzone && has_letter) {
@@ -203,14 +205,14 @@ class Game {
                 if ( sourceDropzone == dropzone) {
                     // Do nothing
                 } else if ( this.CreateSpaceByShiftingRight(dropzone)) {
-                   dropzone.appendChild(letterTile);
+                    dropzone.appendChild(letterTile);
                 } else if ( this.CreateSpaceByShiftingLeft(dropzone)) {
-                   dropzone.appendChild(letterTile);
+                    dropzone.appendChild(letterTile);
                 } else { // reorder
                     sourceDropzone.removeChild(letterTile)
 
                     if (  this.CreateSpaceByShiftingRight(dropzone) || this.CreateSpaceByShiftingLeft(dropzone) ){
-                       dropzone.appendChild(letterTile);
+                        dropzone.appendChild(letterTile);
                     }
                 }
             }
