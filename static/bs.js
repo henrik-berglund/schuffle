@@ -62,7 +62,8 @@ class Game {
 
         tile.ondragstart = (event) => {
             event.dataTransfer.setData("text", event.target.id);
-            //event.target.parentElement.removeChild(event.target);
+            event.dataTransfer.setData("drag-start-element",event.target.parentElement.id );
+            console.log("storing: ", event.target.parentElement);
         };
 
         tile.className = 'letter tile';
@@ -86,9 +87,11 @@ class Game {
           tile.classList.add('do-bonus');
         }
 
-        tile.ondrop = (event) => {
+/*        tile.ondrop = (event) => {
           event.preventDefault();
           const data = event.dataTransfer.getData('text');
+          const dragStartElement = event.dataTransfer.getData("drag-start-element");
+          console.log("bonustile dropping letter from", dragStartElement);
           const letterTile = document.getElementById(data);
 
           if (letterTile) {
@@ -97,7 +100,7 @@ class Game {
             dropzone.appendChild(letterTile);
           }
         };
-
+*/
         tile.ondragover = (event) => {
           event.preventDefault();
         };
@@ -197,20 +200,35 @@ class Game {
             const target = event.target;
             const letterTile = document.getElementById(data);
 
-
             let is_dropzone = target.classList.contains("dropzone") || target.parentElement.classList.contains("dropzone");
+            let is_bonus_tile = target.classList.contains("bonus-tile") ;
             let has_letter = target.classList.contains("letter");
-            console.log("ondrop: ", is_dropzone, has_letter);
 
+            const dragStartElementId = event.dataTransfer.getData("drag-start-element");
+            const dragStartElement = document.getElementById(dragStartElementId)
+              console.log("dropzone dropping letter from", dragStartElement);
+              const hiddenBonusElement = dragStartElement.querySelector(".hidden");
+            if ( hiddenBonusElement) {
+                hiddenBonusElement.classList.remove("hidden");
+            }
+
+
+
+            console.log("ondrop: ", is_dropzone, has_letter);
+            console.log("is bonus tile: ", is_bonus_tile);
 
             // If the target is a dropzone and it is empty
-            if (is_dropzone && !has_letter) {
-                 console.log("no children");
-                target.appendChild(letterTile);
+            if (is_bonus_tile) {
+                 console.log("bonus tile");
+                 target.classList.add("hidden");
+                 target.parentNode.appendChild(letterTile);
+            } else if (is_dropzone && !has_letter) {
+                 console.log("dropzone, no children");
+                 target.appendChild(letterTile);
             }
             // If the target already has a letter
             else if (is_dropzone && has_letter) {
-                console.log("children");
+                console.log("dropzone, children");
                 let dropzone = target.parentElement;
                 let sourceDropzone = letterTile.parentElement;
                 if ( sourceDropzone == dropzone) {
@@ -232,13 +250,14 @@ class Game {
 
             let row = dropzone.parentElement.id;
             let numberOfBoxes = row == 'letter-rack' ? 7 : 15;
-            this.Resizedropzones(`#${dropzone.id}`, numberOfBoxes);
+            //this.Resizedropzones(`#${dropzone.id}`, numberOfBoxes);
 
         };
 
         dropzone.ondragover = (event) => {
             event.preventDefault();
         };
+
         dropzone.className = 'dropzone';
 
         return dropzone;
