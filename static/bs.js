@@ -69,12 +69,24 @@ class Game {
         return tile;
     }
 
-    CreateBonusTile(bonus) {
-        const tile = document.createElement('div');
-        tile.textContent = bonus;
-        tile.className = 'bonus-tile';
-        return tile;
-      }
+
+  CreateBonusTile(bonus) {
+    const tile = document.createElement('div');
+    tile.textContent = bonus;
+    tile.className = 'bonus-tile';
+
+    if (bonus === 'TB') {
+      tile.classList.add('tb-bonus');
+    } else if (bonus === 'DB') {
+      tile.classList.add('db-bonus');
+    } else if (bonus === 'TO') {
+      tile.classList.add('to-bonus');
+    } else if (bonus === 'DO') {
+      tile.classList.add('do-bonus');
+    }
+
+    return tile;
+  }
 
   AddBonusTiles() {
     fetch('/layout.json')  // Assuming the API endpoint to fetch the board layout is '/api/layout'
