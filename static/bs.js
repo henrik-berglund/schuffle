@@ -182,10 +182,22 @@ class Game {
     }
 
     AddButtonListener() {
-        const myButton = document.getElementById('play');
-
+        let myButton = document.getElementById('play');
         myButton.addEventListener('click', function() {
             console.log('Play pressed!');} );
+
+        myButton = document.getElementById('clear');
+        myButton.addEventListener('click', function() {
+            console.log('Clear pressed!');} );
+
+        myButton = document.getElementById('shuffle');
+        myButton.addEventListener('click', function() {
+            console.log('Shuffle pressed!');} );
+
+        myButton = document.getElementById('swap');
+        myButton.addEventListener('click', function() {
+            console.log('Swap pressed!');} );
+
     }
 
 

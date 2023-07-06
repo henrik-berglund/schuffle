@@ -1,4 +1,5 @@
-- Anropa UpdateLetterFontSize vid drop
+- Knapparna är väldigt små på mobilen
+- Aanpassa fontsize på annat sätt än fs-x, verkar ej funka (UpdateLetterFontSize är inte lösingen pga det)
 - Touchevent för drag på mobil
 - Indikera klick visuellt på knapparna
 - Implementera rensa
