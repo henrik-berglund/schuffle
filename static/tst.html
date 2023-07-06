@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 
     <style>
-
         #solution-row {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -26,26 +25,29 @@
         }
         #solution-row > div > span {
             position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
-
     </style>
 </head>
 
 <body>
 <div class="container-fluid ">
     <div class="row">
-            <div class="col-lg-4" id="solution-row">
-                <div>A</div>
-                <div>B</div>
-                <div>C</div>
-                <div>D</div>
-                <div>E</div>
-                <div>F</div>
-                <div>G</div>
-                <div>H</div>
-                <div>I</div>
+        <div class="col-lg-3" id="solution-row">
+            <div><span>A</span></div>
+            <div><span>B</span></div>
+            <div><span>C</span></div>
+            <div><span>D</span></div>
+            <div><span>E</span></div>
+            <div><span>F</span></div>
+            <div><span>G</span></div>
+            <div><span>H</span></div>
+            <div><span>I</span></div>
         </div>
     </div>
 </div>
-
 </body>
+</html>
+
