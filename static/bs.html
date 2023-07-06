@@ -79,39 +79,39 @@
             font-family: Arial, sans-serif;
         }
         .bonus-tile {
-          position: absolute;
-          border-radius: 5px;
-          border: 1px solid #000;
-          top: 0;
-          left: 0;
-          bottom: 0;
-          right: 0;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          font-weight: bold;
-          text-align: center;
-          font-family: Arial, sans-serif;
+            position: absolute;
+            border-radius: 5px;
+            border: 1px solid #000;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            text-align: center;
+            font-family: Arial, sans-serif;
         }
 
         .tb-bonus {
-          background-color: #34629b;
-          color: white;
+            background-color: #34629b;
+            color: white;
         }
 
         .db-bonus {
-          background-color: #70975e;
-          color: white;
+            background-color: #70975e;
+            color: white;
         }
 
         .to-bonus {
-          background-color: #893137;
-          color: white;
+            background-color: #893137;
+            color: white;
         }
 
         .do-bonus {
-          background-color: #c97d20;
-          color: white;
+            background-color: #c97d20;
+            color: white;
         }
 
         .hidden {
@@ -121,22 +121,55 @@
     </style>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row", id="solution-row"></div>
-        <div class="row", id="letter-rack"></div>
+<div class="container-fluid ">
+    <div class="row", id="solution-row"></div>
+    <div class="row", id="letter-rack"></div>
+
+    <div class="row mb-3" id="buttons">
+        <div class="col-auto">
+            <button class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16">
+                    <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/>
+                </svg>
+
+                <i class="bi bi-play"></i> Spela
+            </button>
+        </div>
+
+        <div class="col-auto">
+            <button class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/>
+                </svg>
+                <i class="bi bi-arrow-down-short"></i> Rensa
+            </button>
+        </div>
+
+        <div class="col-auto">
+
+            <button class="btn btn-primary">
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shuffle" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3v1c-1.798 0-3.173 1.01-4.126 2.082A9.624 9.624 0 0 0 7.556 8a9.624 9.624 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12v1c-2.202 0-3.827-1.24-4.874-2.418A10.595 10.595 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.624 9.624 0 0 0 6.444 8a9.624 9.624 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1-.5-.5z"/>
+                    <path d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z"/>
+                </svg>
+                <i class="bi bi-shuffle"></i> Blanda
+            </button>
+        </div>
+
     </div>
 
-    <script>
-        // window.addEventListener('resize', resizedropzones);
-        // window.addEventListener('DOMContentLoaded', resizedropzones);
-    </script>
-    <button onclick="checkAnswer()">Check</button>
-    <button class="btn btn-primary">
-      <i class="bi bi-play"></i> Play
-    </button>
 
-    <p id="result"></p>
 
-    <script src="/static/bs.js"></script>
+</div>
+
+<script>
+    // window.addEventListener('resize', resizedropzones);
+    // window.addEventListener('DOMContentLoaded', resizedropzones);
+</script>
+
+
+
+<script src="/static/bs.js"></script>
 </body>
 </html>
