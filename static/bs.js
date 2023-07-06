@@ -51,7 +51,8 @@ class Game {
         // For the letter rack
         //this.Resizedropzones('#letter-rack .dropzone', 7);
         //this.Resizedropzones()
-        this.AddBonusTiles()
+        this.AddBonusTiles();
+        this.AddButtonListener();
     }
 
     CreateLetter(i, letter) {
@@ -168,6 +169,13 @@ class Game {
             return false;
         }
 
+    }
+
+    AddButtonListener() {
+        const myButton = document.getElementById('play');
+
+        myButton.addEventListener('click', function() {
+            console.log('Play pressed!');} );
     }
 
 
