@@ -58,9 +58,9 @@ class Game {
     UpdateLetterFontSize(letterElement, isGrid) {
         letterElement.classList.remove('fs-1', 'fs-9'); // Remove existing font size classes
         if (isGrid) {
-            letterElement.classList.add('fs-1');
-        } else {
             letterElement.classList.add('fs-9');
+        } else {
+            letterElement.classList.add('fs-1');
         }
     }
     CreateLetter(i, letter) {
@@ -207,6 +207,7 @@ class Game {
             if ( hiddenBonusElement) {
                 hiddenBonusElement.classList.remove("hidden");
             }
+            //this.UpdateLetterFontSize(letterTile, true);
 
             // If the target is a dropzone and it is empty
             if (is_bonus_tile) {
