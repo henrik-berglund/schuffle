@@ -1,0 +1,756 @@
+<div class="container">
+  
+    <h1>Bootstrap push-pull Cheatsheet</h1>
+    <p class="lead">A guide to column ordering and stacking in Bootstrap 3</p>
+  
+    <hr>
+  
+    <p>Bootstrap 3's responsive grid is powerful, but getting columns to stack nicely in the desired order can be tricky. Here are
+      some working examples and guidance that will help to make your responsive design life easier.</p>
+  
+    <h2>Column order tips &amp; tricks</h2>
+    <ol>
+      <li>Think mobile first</li>
+      <li>Nest smaller layout inside larger layout</li>
+      <li>Height matters</li>
+      <li>Don't panic, just float</li>
+      <li>When all else fails, use the responsive utility classes</li>
+    </ol>
+  
+    <hr class="clearfix">
+  
+    <ul class="list-inline"><li><i class="fa fa-mobile fa-3x"></i></li><li><i class="fa fa-tablet fa-3x"></i></li><li><i class="fa fa-laptop fa-3x"></i></li><li><i class="fa fa-desktop fa-3x"></i></li></ul>
+  
+  
+    <h3>Responsive Grid Basics</h3>
+  
+    <p>
+      Hopefully you already know that Bootstrap's 12 column grid comes in 4 sizes (or "breakpoints"). <strong>Tiny</strong> (for smartphones <code>.col-xs-*</code>), <strong>Small</strong> (for tablets <code>.col-sm-*</code>),
+       <strong>Medium</strong> (for laptops <code>.col-md-*</code>) and <strong>Large</strong> (for laptops/desktops <code>.col-lg-*</code>). The 4 grid sizes enable you to 
+      control grid behavior on different devices (desktop, laptops, tablet, smartphone, etc..). When Web browser width changes, the Bootstrap CSS media queries (breakpoints) "kick-in" to change the width of the columns and in some cases stack the columns
+      vertically.
+    </p>
+  
+    <p>
+      In general, the vertical stacking of columns is desired on smaller screen devices (tablets/phones) where horizontal space is limited.
+      This typical 2 column page layout is where we can see the <strong>most common use case for column ordering</strong>. Using the <code>push</code> and <code>pull</code> CSS classes we're
+      able to utilize the real power of the Bootstrap grid.
+    </p>
+  
+<section>
+  
+    <hr class="clearfix">
+  
+    <h3>Why Use Column Ordering? A Simple Use Case...</h3>
+    
+    <div class="row"> 
+        <div class="col-sm-4">
+          <h4>1 - Smaller Layout</h4>
+          <div class="row">
+            <div class="col-xs-12"><div class="well">sidebar</div></div>
+            <div class="col-xs-12"><div class="well tall">main content</div></div>
+          </div>
+        </div>
+        <div class="col-sm-8">
+           <h4>2 - Larger Layout</h4>
+           <div class="row">
+            <div class="col-xs-3"><div class="well tall">sidebar</div></div>
+            <div class="col-xs-9"><div class="well tall">main content</div></div>
+           </div>
+        </div>  
+    </div>
+
+    <p>
+      The layout above is easily achieved using the follow Bootstrap markup. When the <code>sm</code> breakpoint of less than 992 pixels is reached, the columns stack vertically and become 100% width. This places the
+      sidebar above the main content on smaller devices.
+    </p>
+  
+    <div class="well">
+        <pre>       <code>
+&lt;div class="row"&gt;
+  &lt;div class="col-sm-3"&gt; sidebar &lt;/div&gt;
+  &lt;div class="col-sm-9"&gt; main content &lt;/div&gt;
+&lt;/div&gt;
+        </code>
+        </pre>
+    </div>
+  
+    <hr class="clearfix">
+    
+    <p>
+      <label>The Problem:</label> Placing the sidebar above the main content may not be desired since the sidebar will push down the main content requiring users to scroll down on smaller devices.</p>
+  
+    <p>
+      <label>The Fix:</label>   To resolve this, 
+      we use Bootstrap's <code>push</code> and <code>pull</code> classes to order the columns. The markup changes to:
+    </p>
+  
+    <div class="well">
+        <pre>       <code>
+&lt;div class="row"&gt;
+  &lt;div class="col-sm-9 col-sm-push-3"&gt; main content &lt;/div&gt;
+  &lt;div class="col-sm-3 col-sm-pull-9"&gt; sidebar &lt;/div&gt;
+&lt;/div&gt;
+        </code>
+        </pre>
+    </div>
+  
+    <p>Since we've placed the main content first, it will appear first when stacked vertically on smaller devices. For the larger widths, <code>push</code> is used to keep the main content on the right, while <code>pull</code>
+    is used to keep the sidebar on the left. As a result, our main content appears first on smaller devices.
+    </p>
+    
+    <div class="row"> 
+        <div class="col-sm-4">
+          <h4>1 - Smaller Layout</h4>
+          <div class="row">
+            <div class="col-xs-12"><div class="well tall">main content</div></div>
+            <div class="col-xs-12"><div class="well">sidebar</div></div>
+          </div>
+        </div>
+        <div class="col-sm-8">
+           <h4>2 - Larger Layout</h4>
+           <div class="row">
+            <div class="col-xs-9 col-xs-push-3"><div class="well tall">main content (pushed right)</div></div>
+            <div class="col-xs-3 col-xs-pull-9"><div class="well tall">sidebar (pulled left)</div></div>
+           </div>
+        </div>  
+    </div>
+
+</section>  
+<section>  
+  
+    <hr class="clearfix">
+  
+    <h2>Think Mobile First.</h2>
+  
+    <p>Now let's try a slightly more complex scenario to demonstrate why it's always important to think <strong>"mobile-first"</strong> when it comes to column ordering.</p>
+  
+    <p>Consider this desired 5 column layout:</p>
+  
+    <div class="row"> 
+        <div class="col-sm-4">
+          <h4>1 - Smaller Device Layout</h4>
+          <div class="row">
+            <div class="col-xs-6"><div class="well">1</div></div>
+            <div class="col-xs-6"><div class="well">2</div></div>
+            <div class="col-xs-4"><div class="well">3</div></div>
+            <div class="col-xs-4"><div class="well">4</div></div>
+            <div class="col-xs-4"><div class="well">5</div></div>
+          </div>
+        </div>
+        <div class="col-sm-8">
+           <h4>2 - Larger Device Layout</h4>
+             <div class="row">
+              <div class="col-xs-3"><div class="well">1</div></div>
+              <div class="col-xs-2"><div class="well">3</div></div>
+              <div class="col-xs-2"><div class="well">4</div></div>
+              <div class="col-xs-2"><div class="well">5</div></div>
+              <div class="col-xs-3"><div class="well">2</div></div> 
+            </div>
+        </div>  
+    </div>
+    
+    <p>In this layout, we want the wider columnns (1 and 2) to appear first on smaller devices. On larger devices we want the wider columns (1 and 2) to wrap the outside of the smaller columns (3,4 and 5).</p>
+  
+    <p><label>Wrong way:</label> Thinking large screen (desktop, laptop, etc..) first, we would use this markup..</p>
+  
+        <div class="well">
+        <pre>       
+        <code>
+&lt;div class="row"&gt;
+  &lt;div class="col-md-3"&gt; 1 &lt;/div&gt;
+  &lt;div class="col-md-2"&gt; 3 &lt;/div&gt;
+  &lt;div class="col-md-2"&gt; 4 &lt;/div&gt;
+  &lt;div class="col-md-2"&gt; 5 &lt;/div&gt;
+  &lt;div class="col-md-3"&gt; 2 &lt;/div&gt;
+&lt;/div&gt;
+        </code>
+        </pre>
+    </div>
+  
+    <p>The markup works on larger screen widths, but on smaller screen widths the columns are in the wrong order..</p>
+  
+    <div class="row"> 
+        <div class="col-sm-4">
+          
+          <div class="row">
+            <div class="col-xs-6"><div class="well well-sm">1</div></div>
+            <div class="col-xs-3"><div class="well well-sm">3</div></div>
+            <div class="col-xs-3"><div class="well well-sm">4</div></div>
+            <div class="col-xs-3"><div class="well well-sm">5</div></div>
+            <div class="col-xs-6"><div class="well well-sm">2</div></div>
+          </div>
+        </div>
+      
+        <div class="col-sm-8">
+           
+        </div>  
+    </div>
+    
+    <hr class="clearfix">
+  
+    <p><label>Right way:</label> Thinking small screen (phone, tablet, etc..) first, we create the desired smaller layout using this markup..</p>
+  
+    <div class="well">
+        <pre>       
+&lt;div class="row"&gt;
+  &lt;div class="col-xs-6"&gt; 1 &lt;/div&gt;
+  &lt;div class="col-xs-6"&gt; 2 &lt;/div&gt;
+  &lt;div class="col-xs-4"&gt; 3 &lt;/div&gt;
+  &lt;div class="col-xs-4"&gt; 4 &lt;/div&gt;
+  &lt;div class="col-xs-4"&gt; 5 &lt;/div&gt;
+&lt;/div&gt;
+        </pre>
+    </div>
+  
+    <p>This markup gives us the small device layout we want, in the order we want..</p>
+  
+    <div class="row"> 
+        <div class="col-sm-4">
+          
+          <div class="row">
+            <div class="col-xs-6"><div class="well well-sm">1</div></div>
+            <div class="col-xs-6"><div class="well well-sm">2</div></div>
+            <div class="col-xs-4"><div class="well well-sm">3</div></div>
+            <div class="col-xs-4"><div class="well well-sm">4</div></div>
+            <div class="col-xs-4"><div class="well well-sm">5</div></div>
+          </div>
+        </div>
+      
+        <div class="col-sm-8">
+           
+        </div>  
+    </div>
+  
+    <p>Next, we work on the large device layout by adding the appropriate larger screen (md) column sizes..</p>
+  
+    <div class="well">
+        <pre>       
+&lt;div class="row"&gt;
+  &lt;div class="col-xs-6 col-md-3"&gt; 1 &lt;/div&gt;
+  &lt;div class="col-xs-6 col-md-3 col-md-push-6"&gt; 2 &lt;/div&gt;
+  &lt;div class="col-xs-4 col-md-2 col-md-pull-3"&gt; 3 &lt;/div&gt;
+  &lt;div class="col-xs-4 col-md-2 col-md-pull-3"&gt; 4 &lt;/div&gt;
+  &lt;div class="col-xs-4 col-md-2 col-md-pull-3"&gt; 5 &lt;/div&gt;
+&lt;/div&gt;
+        </pre>
+    </div>
+  
+    <p>Using the <code>push</code> and <code>pull</code> classes we've pushed the 2nd column all the way to the right,<br>and pulled the 3 smaller columns back to the left.
+    Now we have the desired large device layout...</p>
+  
+    <div class="row"> 
+        <div class="col-sm-12">
+          
+          <div class="row"> 
+            <div class="col-xs-3 col-xs-push-0"><div class="well">1</div></div>
+            <div class="col-xs-3 col-xs-push-6"><div class="well">5</div></div>
+            <div class="col-xs-2 col-xs-pull-3"><div class="well">2</div></div>
+            <div class="col-xs-2 col-xs-pull-3"><div class="well">3</div></div>
+            <div class="col-xs-2 col-xs-pull-3"><div class="well">4</div></div>
+          </div>   
+            
+        </div>  
+    </div>
+  
+    <p>In thinking <label>"mobile-first"</label>, we created the smaller device markup, and then added classes to support the larger device widths. Now we have the responsive layout working with different
+     devices and screen widths.</p>
+  
+     <div class="row"> 
+        <div class="col-sm-4">
+          <h4>1 - Smaller Device Layout</h4>
+          <div class="row">
+            <div class="col-xs-6"><div class="well">1</div></div>
+            <div class="col-xs-6"><div class="well">2</div></div>
+            <div class="col-xs-4"><div class="well">3</div></div>
+            <div class="col-xs-4"><div class="well">4</div></div>
+            <div class="col-xs-4"><div class="well">5</div></div>
+          </div>
+        </div>
+        <div class="col-sm-8">
+           <h4>2 - Larger Device Layout</h4>
+             <div class="row">
+              <div class="col-xs-3"><div class="well">1</div></div>
+              <div class="col-xs-2"><div class="well">3</div></div>
+              <div class="col-xs-2"><div class="well">4</div></div>
+              <div class="col-xs-2"><div class="well">5</div></div>
+              <div class="col-xs-3"><div class="well">2</div></div> 
+            </div>
+        </div>  
+    </div>
+  
+</section>
+<section>
+  
+    <hr class="clearfix">
+  
+    <h2>Nest Smaller Inside Larger.</h2>
+  
+    <p>Another rule to follow when creating ordered columns is to place the desired smaller layout columns, inside the larger layout columns using nesting.<br><br>Consider this desired 4 column layout..</p>
+  
+    <div class="row"> 
+        <div class="col-sm-4">
+          <h4>1 - Smaller Device Layout</h4>
+          
+          <div class="row"> 
+                <div class="col-xs-6"><div class="well">2</div></div>
+                <div class="col-xs-6"><div class="well">4</div></div>
+                <div class="col-xs-12"><div class="well">1</div></div> 
+                <div class="col-xs-12"><div class="well">3</div></div> 
+           </div>
+          
+        </div>
+        <div class="col-sm-8">
+           <h4>2 - Larger Device Layout</h4>
+
+           <div class="row"> 
+            <div class="col-xs-4 col-xs-push-8">
+              <div class="row">
+                <div class="col-xs-6 col-md-12"><div class="well">2</div></div>
+                <div class="col-xs-6 col-md-12"><div class="well">4</div></div>
+              </div>
+            </div>
+            <div class="col-xs-8 col-xs-pull-4">
+               <div class="row">
+                <div class="col-xs-12"><div class="well">1</div></div> 
+                <div class="col-xs-12"><div class="well">3</div></div>
+               </div>
+            </div>  
+           </div>
+              
+        </div>  
+    </div>
+  
+    <p>A simple push pull won't work in this case because of the desired column order. However, Bootstrap allows us to nest `rows` and `col-*` inside other `col-*`
+      which enables us to have more control over when columns stack vertically at specific breakpoints. If we remember this, while continuing to think <label>"mobile-first"</label>, we nest the desired
+      smaller device layout <i>inside</i> the larger layout like this...</p>
+      
+    <div class="well">
+      <pre>&lt;div class="row"&gt;  
+     &lt;div class="col-md-4 col-md-push-8 col-xs-12"&gt;
+         &lt;div class="row"&gt;
+            &lt;div class="col-xs-6 col-md-12"&gt;&lt;div class="well"&gt;2&lt;/div&gt;&lt;/div&gt;
+            &lt;div class="col-xs-6 col-md-12"&gt;&lt;div class="well"&gt;4&lt;/div&gt;&lt;/div&gt;
+         &lt;/div&gt;
+     &lt;/div&gt;
+     &lt;div class="col-md-8 col-md-pull-4 col-xs-12"&gt;
+         &lt;div class="row"&gt;
+            &lt;div class="col-xs-12"&gt;&lt;div class="well"&gt;1&lt;/div&gt;&lt;/div&gt; 
+            &lt;div class="col-xs-12"&gt;&lt;div class="well"&gt;3&lt;/div&gt;&lt;/div&gt;
+         &lt;/div&gt;
+     &lt;/div&gt;  
+&lt;/div&gt;
+      </pre>
+    </div>
+  
+</section>
+<section>
+  
+    <hr class="clearfix">
+  
+    <h2>Height Matters.</h2>
+  
+    <p>Bootstrap always columns <strong>float left</strong> until stacked. As a result, shorter columns that exceed the 12 column total will naturally keep to the right of taller columns.</p>
+  
+    <p>When columns are about the same height, they stack into rows when the columns total exceeds 12 like this:</p>
+  
+    <div class="row"> 
+        <div class="col-sm-12">
+           <h4>Same height: Wrap to the next row when total column width exceeds 12.</h4>
+
+           <div class="row"> 
+            <div class="col-xs-8">
+              <div class="well">(8 columns wide)</div>
+            </div>
+            <div class="col-xs-4">
+              <div class="well">(4 columns wide)</div>
+            </div>
+            <div class="col-xs-4">
+              <div class="well">(4 columns wide - wraps to the next row)</div>
+            </div>
+           </div>
+              
+        </div><!--/col-12-->
+    </div><!--/row-->
+  
+    <p>But, when we have a taller columns, any shorter columns that follow will automatically float to the right:</p>
+  
+    <div class="row"> 
+        <div class="col-sm-12">
+           <h4>Different heights: Shorter columns float to the right of taller columns.</h4>
+
+           <div class="row"> 
+            <div class="col-xs-8">
+              <div class="well tall">tall (8 columns wide)</div>
+            </div>
+            <div class="col-xs-4">
+              <div class="well">short (4 columns wide)</div>
+            </div>
+            <div class="col-xs-4">
+              <div class="well">short (4 columns wide - naturally keeps right)</div>
+            </div>
+           </div>
+              
+        </div><!--/col-12-->
+    </div><!--/row-->
+  
+    <p><label>Caveat:</label> When <code>push</code> or <code>pull</code> is used, <em>shorter columns no longer float to the right</em> of taller columns.</p>
+  
+    <div class="row"> 
+        <div class="col-sm-12">
+           <h4>Different heights with push pull.</h4>
+
+           <div class="row"> 
+             <div class="col-xs-4 col-xs-push-8">
+               <div class="well">short (4 columns wide pushed)</div>
+             </div> 
+             <div class="col-xs-8 col-xs-pull-4">
+               <div class="well tall">tall (8 columns wide pulled)</div>
+             </div>
+             <div class="col-xs-4">
+               <div class="well">short (4 columns wide - now wraps to the row)</div>
+             </div>
+           </div>
+              
+        </div><!--/col-12-->
+    </div><!--/row-->
+  
+</section>
+<section>
+  
+    <hr class="clearfix">
+  
+    <h2>Don't Panic, Just Float.</h2>
+  
+    <p>In some cases it may be necessary to float a column to the left or right to get the layout you want.</p>
+  
+</section>
+<section>
+  
+  
+    <hr class="clearfix">
+  
+    <h2>When All Else Fails.</h2>
+    
+    <p>Not every use case will work using Bootstrap's push and pull classes.</p>
+  
+  
+</section>
+<section>   
+  
+  
+    <hr class="clearfix">
+  
+    <h1>Nesting</h1>
+    <div class="row">  
+        <div class="col-md-4 col-md-push-8 col-xs-12">
+          <div class="row">
+            <div class="col-xs-6 col-md-12"><div class="well">2</div></div>
+            <div class="col-xs-6 col-md-12"><div class="well">4</div></div>
+          </div>
+        </div>
+        <div class="col-md-8 col-md-pull-4 col-xs-12">
+           <div class="row">
+            <div class="col-xs-12"><div class="well">1</div></div> 
+            <div class="col-xs-12"><div class="well">3</div></div>
+           </div>
+        </div>  
+    </div>
+  
+</section>  
+  
+</div>
+
+<hr>
+
+
+
+<div class="container">
+  
+    <h1>More Examples</h1>
+  
+    <h1>#2</h1>
+    <div class="row">  
+        <div class="col-md-6 col-md-push-6 col-xs-12">
+          <div class="row">
+            <div class="col-xs-4 col-md-12"><div class="well">2</div></div>
+            <div class="col-xs-4 col-md-12"><div class="well">4</div></div>
+            <div class="col-xs-4 col-md-12"><div class="well">6</div></div>
+          </div>
+        </div>
+        <div class="col-md-6 col-md-pull-6 col-xs-12">
+           <div class="row">
+            <div class="col-xs-6 col-md-12"><div class="well">1</div></div> 
+            <div class="col-xs-6 col-md-12"><div class="well">3</div></div>
+            <div class="col-xs-12"><div class="well">5</div></div> 
+           </div>
+        </div>  
+    </div>
+</div>
+
+<hr>
+
+<div class="container">
+    <h1>#3</h1>
+    <div class="row">  
+        <div class="col-md-4 col-md-push-4 col-xs-12">
+          <div class="row">
+            <div class="col-xs-6 col-md-12"><div class="well">2</div></div>
+            <div class="col-xs-6 col-md-12"><div class="well">5</div></div>
+          </div>
+        </div>
+        <div class="col-md-4 col-md-pull-4 col-xs-12">
+           <div class="row">
+            <div class="col-xs-6 col-md-12"><div class="well">1</div></div> 
+            <div class="col-xs-6 col-md-12"><div class="well">4</div></div>
+           </div>
+        </div>  
+        <div class="col-md-4 col-xs-12">
+           <div class="row">
+            <div class="col-xs-6 col-md-12"><div class="well">3</div></div> 
+            <div class="col-xs-6 col-md-12"><div class="well">6</div></div>
+           </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<div class="container">
+    <h1>#4</h1>
+    <div class="row">  
+        <div class="col-md-4 col-md-push-4 col-xs-6 col-xs-push-0">
+          <div class="row">
+            <div class="col-xs-12"><div class="well">2</div></div>
+            <div class="col-xs-12"><div class="well">5</div></div>
+          </div>
+        </div>
+        <div class="col-md-4 col-md-pull-4 col-xs-6 col-xs-pull-0">
+           <div class="row">
+            <div class="col-xs-12"><div class="well">1</div></div> 
+            <div class="col-xs-12"><div class="well">4</div></div>
+           </div>
+        </div>  
+        <div class="col-md-4 col-xs-12">
+           <div class="row">
+            <div class="col-xs-12"><div class="well">3</div></div> 
+            <div class="col-xs-12"><div class="well">6</div></div>
+           </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<div class="container">
+    <h1>#5</h1>
+    <div class="row">
+        <div class="col-md-9 col-xs-6">
+           <div class="row">
+            <div class="col-md-4 col-md-push-4 col-xs-12"><div class="well tall">2</div></div> 
+            <div class="col-md-4 col-md-pull-4 col-xs-12"><div class="well tall">1</div></div> 
+            <div class="col-md-4 col-xs-12"><div class="well tall">3</div></div> 
+           </div>
+        </div>  
+        <div class="col-md-3 col-xs-6">
+           <div class="row">
+            <div class="col-xs-12"><div class="well">4</div></div> 
+            <div class="col-xs-12"><div class="well">5</div></div>          
+           </div>
+        </div>
+        <div class="col-md-12 col-xs-6"><div class="well">6</div></div>
+        <div class="col-md-12 col-xs-6"><div class="well">7</div></div>
+        <div class="col-md-12 col-xs-6"><div class="well">8</div></div>
+       
+    </div>
+</div>
+
+<hr>
+
+<div class="container">
+    <h1>#6</h1>
+    <div class="row">
+        <div class="col-md-3 col-md-push-9 col-xs-12">
+           <div class="row">
+            <div class="col-xs-12"><div class="well">1</div></div> 
+            <div class="col-xs-12"><div class="well">2</div></div> 
+           </div>
+        </div>
+        <div class="col-md-9 col-md-pull-3 col-xs-12">
+           <div class="row">
+            <div class="col-xs-12"><div class="well tall">3 (pull me down)</div></div> 
+           </div>
+        </div>  
+    </div>
+</div>
+
+<hr>
+
+
+<div class="container">
+    <h1>#7</h1>
+    <div class="row">  
+        <div class="col-md-4 col-md-push-8 col-xs-12">
+          <div class="row">
+            <div class="col-xs-6 col-md-12"><div class="well">B</div></div>
+            <div class="col-xs-6 col-md-12"><div class="well">D</div></div>
+          </div>
+        </div>
+        <div class="col-md-8 col-md-pull-4 col-xs-12">
+           <div class="row">
+            <div class="col-xs-12"><div class="well tall">A (push under)</div></div> 
+           </div>
+        </div>  
+        <div class="col-xs-12">
+           <div class="well">C</div>
+        </div>  
+    </div>
+</div>
+
+<hr>
+
+<div class="container">
+  <h1>#8 (squeeze left)</h1>
+  <div class="row">
+    <div class="col-xs-12 col-md-3 pull-right">
+        <div class="well"> 
+          A
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-9">
+        <div class="well tall"> 
+          B (keep left)
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-3 pull-right">
+        <div class="well"> 
+          C
+        </div>
+      </div>
+   </div>  
+</div>
+
+<hr>
+
+<div class="container">
+  <h1>#9 (squeeze right)</h1>
+  <div class="row">
+    <div class="col-xs-12 col-md-3">
+        <div class="well"> 
+          A
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-9 pull-right">
+        <div class="well tall"> 
+          B (keep right)
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-3 pull-left">
+        <div class="well"> 
+          C
+        </div>
+      </div>
+   </div>  
+</div>
+
+<hr>
+
+<div class="container">
+    <h1>#10 </h1>
+    <div class="row">
+        <div class="col-md-9 col-xs-6">
+           <div class="row">
+            <div class="col-md-4 col-md-push-4 col-xs-12"><div class="well tall">1</div></div> 
+            <div class="col-md-4 col-md-pull-4 col-xs-12"><div class="well tall">2</div></div> 
+            <div class="col-md-4 col-xs-12"><div class="well tall">3</div></div> 
+           </div>
+        </div>  
+        <div class="col-md-3 col-xs-6">
+           <div class="row">
+            <div class="col-xs-12"><div class="well">4</div></div> 
+            <div class="col-xs-12"><div class="well">5</div></div>          
+           </div>
+        </div>
+        <div class="col-md-6 col-md-push-6 col-xs-push-0 col-xs-6"><div class="well">6</div></div>
+        <div class="col-md-6 col-md-pull-6 col-xs-pull-0 col-xs-6"><div class="well">7</div></div>
+        <div class="col-md-12 col-xs-6"><div class="well tall">8</div></div>  
+    </div>
+</div>
+
+<hr>
+
+<div class="container">
+    <h1>#11</h1>
+    <div class="row">  
+        <div class="col-md-4 col-md-push-8 col-xs-12">
+          <div class="row">
+            <div class="col-xs-6 col-md-12 col-md-pull-12"><div class="well">1</div></div>
+            <div class="col-xs-6 col-md-12"><div class="well tall">2</div></div>
+          </div>
+        </div>
+        <div class="col-md-8 col-md-pull-4 col-xs-12">
+           <div class="row">
+            <div class="col-xs-12 col-md-6"><div class="well">3</div></div>  
+            <div class="col-xs-12 col-md-6 col-md-push-6"><div class="well">4</div></div> 
+            <div class="col-xs-12"><div class="well tall">5</div></div>
+           </div>
+        </div>  
+    </div>
+</div>
+
+<hr>
+
+<div class="container">
+    <h1>#12</h1>
+    <div class="row">  
+        <div class="col-md-4 col-md-push-8 col-xs-12">
+          <div class="row">
+            <div class="col-xs-6 col-md-12"><div class="well">1</div></div>
+            <div class="col-xs-6 col-md-12 col-md-pull-12"><div class="well">2</div></div>
+            <div class="col-xs-12 col-md-12 col-md-pull-12"><div class="well">3</div></div>
+            
+          </div>
+        </div>
+        <div class="col-md-8 col-md-pull-4 col-xs-12">
+           <div class="row">
+            <div class="col-xs-6 col-md-6 col-md-push-6"><div class="well">4</div></div>  
+            <div class="col-xs-6 col-md-6 col-md-pull-6"><div class="well tall">5</div></div>
+           </div>
+        </div>
+        <div class="col-xs-12"><div class="well">6</div></div>
+    </div>
+</div>
+
+<hr>
+
+<div class="container">
+  <h1>#13</h1>
+  <div class="row">
+    <div class="col-xs-6 col-md-3"><div class="well">1</div></div>
+    <div class="col-xs-6 col-md-3 col-md-push-6"><div class="well">2</div></div>
+    <div class="col-xs-12 col-md-6 col-md-pull-3"><div class="well">3 (push down)</div></div>  
+  </div>
+</div>
+
+
+<hr>
+
+<div class="container">
+    <h1>#14</h1>
+    <div class="row">  
+        <div class="col-md-4 col-md-push-8 col-xs-12">
+          <div class="row">
+            <div class="col-xs-12 col-md-12"><div class="well">3 (pull to top)</div></div>
+            
+          </div>
+        </div>
+        <div class="col-md-8 col-md-pull-4 col-xs-12">
+           <div class="row">
+            <div class="col-xs-12"><div class="well">1 (push down)</div></div> 
+           </div>
+        </div>  
+        <div class="col-xs-12">
+           <div class="well">2</div>
+        </div>  
+    </div>
+</div>
