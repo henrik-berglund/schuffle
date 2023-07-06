@@ -7,24 +7,43 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 
     <style>
-        .btn-primary{
-            color: red; /* Set your desired active color */
-          }
 
-        .btn-primary:active{
-            color: green; /* Set your desired active color */
-          }
+        #solution-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            overflow: auto;
+            margin-bottom: 100px;
+        }
+        #solution-row > div {
+            position: relative;
+            padding-bottom: 100%; /* Set the height based on the width */
+            background-color: #000000;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #solution-row > div > span {
+            position: absolute;
+        }
 
     </style>
 </head>
+
 <body>
 <div class="container-fluid ">
-    <div class="row mb-3" id="buttons">
-        <div class="col-auto">
-                <button class="btn-default  border-0 d-flex align-items-center">
-                    <i class="bi-play" style="font-size: 3rem;"></i>
-                    <span class="fs-2">Spela</span>
-                </button>
+    <div class="row">
+            <div class="col-lg-4" id="solution-row">
+                <div>A</div>
+                <div>B</div>
+                <div>C</div>
+                <div>D</div>
+                <div>E</div>
+                <div>F</div>
+                <div>G</div>
+                <div>H</div>
+                <div>I</div>
         </div>
     </div>
 </div>
