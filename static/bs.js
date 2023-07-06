@@ -63,6 +63,7 @@ class Game {
         tile.ondragstart = (event) => {
             event.dataTransfer.setData("text", event.target.id);
             event.dataTransfer.setData("drag-start-element",event.target.parentElement.id );
+            console.log("Drag start from: ", event.target.parentElement.id );
         };
 
         tile.className = 'letter tile fs-3';
@@ -185,6 +186,7 @@ class Game {
             let has_letter = target.classList.contains("letter");
 
             const dragStartElementId = event.dataTransfer.getData("drag-start-element");
+            console.log("drop, looking for: ", dragStartElementId);
             const dragStartElement = document.getElementById(dragStartElementId)
             const hiddenBonusElement = dragStartElement.querySelector(".hidden");
             if ( hiddenBonusElement) {
