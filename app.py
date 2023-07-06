@@ -27,6 +27,10 @@ def get_word():
 def game():
     return send_from_directory(app.static_folder, 'game.html')
 
+@app.route('/tst')
+def tst():
+    return send_from_directory(app.static_folder, 'tst.html')
+
 @app.route('/layout.json')
 def get_layout():
     return send_file('layout.json', mimetype='application/json')
