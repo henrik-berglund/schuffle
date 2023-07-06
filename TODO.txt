@@ -1,0 +1,5 @@
+- Anropa UpdateLetterFontSize vid drop
+- Touchevent för drag på mobil
+- Indikera klick visuellt på knapparna
+- Implementera rensa
+- implementera blanda

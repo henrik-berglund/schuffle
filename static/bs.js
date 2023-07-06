@@ -55,11 +55,21 @@ class Game {
         this.AddButtonListener();
     }
 
+    UpdateLetterFontSize(letterElement, isGrid) {
+        letterElement.classList.remove('fs-1', 'fs-9'); // Remove existing font size classes
+        if (isGrid) {
+            letterElement.classList.add('fs-1');
+        } else {
+            letterElement.classList.add('fs-9');
+        }
+    }
     CreateLetter(i, letter) {
         const tile = document.createElement('div');
         tile.textContent = letter;
         tile.id = `tile${i}`;
         tile.draggable = true;
+
+        tile.classList.add('letter', 'tile', 'fs-1');
 
         tile.ondragstart = (event) => {
             event.dataTransfer.setData("text", event.target.id);
@@ -67,7 +77,7 @@ class Game {
             console.log("Drag start from: ", event.target.parentElement.id );
         };
 
-        tile.className = 'letter tile fs-3';
+        //tile.className = 'letter tile fs-3';
         //tile.className = 'letter tile';
 
         return tile;
