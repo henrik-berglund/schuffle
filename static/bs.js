@@ -57,10 +57,12 @@ class Game {
 
     UpdateLetterFontSize(letterElement, isGrid) {
         letterElement.classList.remove('fs-1', 'fs-9'); // Remove existing font size classes
+        letterElement.classList.remove('grid-letter', 'rack-letter'); // Remove existing font size classes
+
         if (isGrid) {
-            letterElement.classList.add('fs-9');
+            letterElement.classList.add('grid-letter');
         } else {
-            letterElement.classList.add('fs-1');
+            letterElement.classList.add('rack-letter');
         }
     }
     CreateLetter(i, letter) {
@@ -219,7 +221,7 @@ class Game {
             if ( hiddenBonusElement) {
                 hiddenBonusElement.classList.remove("hidden");
             }
-            //this.UpdateLetterFontSize(letterTile, true);
+            this.UpdateLetterFontSize(letterTile, true);
 
             // If the target is a dropzone and it is empty
             if (is_bonus_tile) {
