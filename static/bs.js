@@ -216,12 +216,12 @@ class Game {
             let is_dropzone = target.classList.contains("dropzone") || target.parentElement.classList.contains("dropzone");
             let is_bonus_tile = target.classList.contains("bonus-tile") ;
             let has_letter = target.classList.contains("letter");
+            let target_is_grid = target.closest('#solution-row') !== null
 
             const hiddenBonusElement = this.dragStartElement.querySelector(".hidden");
             if ( hiddenBonusElement) {
                 hiddenBonusElement.classList.remove("hidden");
             }
-            this.UpdateLetterFontSize(letterTile, true);
 
             // If the target is a dropzone and it is empty
             if (is_bonus_tile) {
@@ -249,9 +249,12 @@ class Game {
                 }
             }
 
+            this.UpdateLetterFontSize(letterTile, target_is_grid);
+
             let row = dropzone.parentElement.id;
             let numberOfBoxes = row == 'letter-rack' ? 7 : 15;
             //this.Resizedropzones(`#${dropzone.id}`, numberOfBoxes);
+
 
         };
 
