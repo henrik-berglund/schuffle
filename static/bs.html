@@ -50,16 +50,16 @@
             justify-content: center;
         }
 
-    #letter-rack > div > div {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+        #letter-rack > div > div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
         body .dropzone {
             width: 100%;
@@ -177,34 +177,35 @@
                 </button>
 
             </div>
+                <!-- Modal popup -->
+    <div id="letterSelectionModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Select a Letter</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col text-center">
+                                <button class="letter-button btn btn-outline-primary" data-letter="A">A</button>
+                            </div>
+                            <div class="col text-center">
+                                <button class="letter-button btn btn-outline-primary" data-letter="B">B</button>
+                            </div>
+
+                            <!-- Add more letter buttons as needed -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
         </div>
     </div>
-    <!-- Modal popup -->
-<div id="letterSelectionModal" class="modal fade" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Select a Letter</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col text-center">
-              <button class="letter-button btn btn-outline-primary" data-letter="A">A</button>
-            </div>
-            <div class="col text-center">
-              <button class="letter-button btn btn-outline-primary" data-letter="B">B</button>
-            </div>
-
-            <!-- Add more letter buttons as needed -->
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
     <button id="selectLetterButton" class="btn btn-primary">Select Letter</button>
 
