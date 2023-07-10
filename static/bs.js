@@ -53,8 +53,38 @@ class Game {
         //this.Resizedropzones()
         this.AddBonusTiles();
         this.AddButtonListener();
+        this.RegisterPopup()
     }
+    RegisterPopup() {
+        const selectLetterButton = document.getElementById('selectLetterButton');
+        const letterSelectionModal = document.getElementById('letterSelectionModal');
 
+        // Attach a click event listener to the button
+        selectLetterButton.addEventListener('click', () => {
+          // Show the modal
+          const bootstrapModal = new bootstrap.Modal(letterSelectionModal);
+          console.log("click modal");
+          bootstrapModal.show();
+        });
+
+        // Attach a click event listener to the letter buttons
+        const letterButtons = document.querySelectorAll('.letter-button');
+        letterButtons.forEach((button) => {
+          button.addEventListener('click', (event) => {
+            // Get the selected letter
+            const selectedLetter = event.target.dataset.letter;
+
+            // Do something with the selected letter
+            console.log('Selected Letter:', selectedLetter);
+
+            // Close the modal
+            const bootstrapModal = bootstrap.Modal.getInstance(letterSelectionModal);
+            bootstrapModal.hide();
+          });
+        });
+
+
+    }
     UpdateLetterFontSize(letterElement, isGrid) {
         letterElement.classList.remove('fs-1', 'fs-9'); // Remove existing font size classes
         letterElement.classList.remove('grid-letter', 'rack-letter'); // Remove existing font size classes
