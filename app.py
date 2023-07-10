@@ -31,6 +31,10 @@ def game():
 def tst():
     return send_from_directory(app.static_folder, 'tst.html')
 
+@app.route('/dlg')
+def dlg():
+    return send_from_directory(app.static_folder, 'dlg.html')
+
 @app.route('/layout.json')
 def get_layout():
     return send_file('layout.json', mimetype='application/json')
