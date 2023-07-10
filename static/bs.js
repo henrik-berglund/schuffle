@@ -60,9 +60,12 @@ class Game {
         letterElement.classList.remove('grid-letter', 'rack-letter'); // Remove existing font size classes
 
         if (isGrid) {
-            letterElement.classList.add('grid-letter');
+            console.log("Changing to grid letter")
+            letterElement.classList.add('fs-8');
         } else {
-            letterElement.classList.add('rack-letter');
+            console.log("Changing to rack letter")
+
+            letterElement.classList.add('fs-1');
         }
     }
     CreateLetter(i, letter) {
