@@ -95,6 +95,8 @@ class Game {
         //tile.dataset.x = x;
         //tile.dataset.y = y;
 
+        tile.classList.add('fs-7');
+
         if (bonus === 'TB') {
             tile.classList.add('tb-bonus');
         } else if (bonus === 'DB') {

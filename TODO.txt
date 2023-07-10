@@ -1,9 +1,17 @@
-- vertikal stacking av ikon och text, se /tst &
-  https://www.codeply.com/p/FHUKN8xckS + nedladdat exempel
 - Popup för att kunna välja bokstav för blanka
 - Knapparna är väldigt små på mobilen
-- Aanpassa fontsize på annat sätt än fs-x, verkar ej funka (UpdateLetterFontSize är inte lösingen pga det)
 - Touchevent för drag på mobil
 - Indikera klick visuellt på knapparna
 - Implementera rensa
 - implementera blanda
+
+
+Good enough?
+----------------
+- Aanpassa fontsize på annat sätt än fs-x, verkar ej funka (UpdateLetterFontSize är inte lösingen pga det)
+
+
+Done
+-----
+- vertikal stacking av ikon och text, se /tst &
+  https://www.codeply.com/p/FHUKN8xckS + nedladdat exempel
