@@ -53,7 +53,8 @@ class Game {
         //this.Resizedropzones()
         this.AddBonusTiles();
         this.AddButtonListener();
-        this.RegisterPopup()
+        this.RegisterPopup();
+        this.SetupSmoothDraggable();
     }
     RegisterPopup() {
         const selectLetterButton = document.getElementById('selectLetterButton');
@@ -117,6 +118,26 @@ class Game {
 
         return tile;
     }
+
+    SetupSmoothDraggable() {
+        interact('.letter')
+          .draggable({
+            // Set the options for dragging
+            inertia: true,
+            modifiers: [
+              interact.modifiers.restrict({
+                // Specify the container boundaries (e.g., col-lg-4)
+                restriction: '.drag-area',
+                endOnly: true, // Allow dragging only when releasing the element
+              })
+            ],
+            listeners: {
+              // Event listener for the dragmove event
+              move: dragMoveListener,
+            },
+          });
+    }
+        // Event listener function for the dragmove event
 
     CreateBonusTile(bonus, x, y) {
         const tile = document.createElement('div');
@@ -312,6 +333,15 @@ class Game {
         }
     }
 }
+   function dragMoveListener(event) {
+      var target = event.target;
+      var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+      var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+      target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+      target.setAttribute('data-x', x);
+      target.setAttribute('data-y', y);
+    }
 
 window.onload = () => {
     game = new Game();
