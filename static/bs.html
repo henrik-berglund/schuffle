@@ -9,7 +9,8 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
   <script src="https://cdn.jsdelivr.net/npm/interactjs@1.10.17/dist/interact.min.js"></script>
-    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/interact.js/1.10.17/plugin/touch.min.js"></script>
+
     <style>
         body {
             background-color: #2d3445;
@@ -86,6 +87,9 @@
         }
 
         .letter {
+            touch-action: none;
+            user-select: none;
+
             position: absolute;
             border-radius: 5px;
             border: 1px solid #000;
