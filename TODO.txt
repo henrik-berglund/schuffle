@@ -1,6 +1,7 @@
+- Letters verkar ha fel stacking order eller liknande, visas bakom visa element.
+- Drop funkar inte
 - Popup för att kunna välja bokstav för blanka
 - Superscript med poäng på bokstäver
-- Touchevent för drag på mobil
 - Indikera klick visuellt på knapparna
 - Implementera rensa
 - implementera blanda
@@ -13,6 +14,7 @@ Good enough?
 
 Done
 -----
+- Touchevent för snabb start av drag på mobil
 - vertikal stacking av ikon och text, se /tst &
   https://www.codeply.com/p/FHUKN8xckS + nedladdat exempel
 - Knapparna är väldigt små på mobilen

@@ -118,25 +118,33 @@ class Game {
 
         return tile;
     }
+        SetupSmoothDrop() {
+            interact('.dropzone')
+                .dropzone({
+                    checker: function (
+                        dragEvent,         // related dragmove or dragend
+                        event,             // Touch, Pointer or Mouse Event
+                        dropped,           // bool default checker result
+                        dropzone,          // dropzone Interactable
+                        dropzoneElement,   // dropzone element
+                        draggable,         // draggable Interactable
+                        draggableElement   // draggable element
+                    ) {
+                        // only allow drops into empty dropzone elements
+                        return true;
+                    },
+                    ondrop: function (event) {
+                        console.log(event.relatedTarget.id + ' was dropped into ' + event.target.id)
+                    },
+                })
+                .on('dropactivate', function (event) {
+                    console.log("xx");
+                    event.target.classList.add('drop-activated')
+                })
+        }
 
-    SetupSmoothDraggable2() {
 
-        interact('.letter').draggable({
-            listeners: {
-                start (event) {
-                    console.log(event.type, event.target)
-                },
-                move (event) {
-                    position.x += event.dx
-                    position.y += event.dy
 
-                    event.target.style.transform =
-                        `translate(${position.x}px, ${position.y}px)`
-                },
-            }
-        })
-
-    }
 
 
     SetupSmoothDraggable() {
@@ -152,12 +160,14 @@ class Game {
               })
             ],
             listeners: {
-              // Event listener for the dragmove event
-              move: dragMoveListener,
+                // Event listener for the dragmove event
+                move: dragMoveListener,
+                dragend: handleDragEnd
             },
           });
     }
-        // Event listener function for the dragmove event
+
+
 
     CreateBonusTile(bonus, x, y) {
         const tile = document.createElement('div');
@@ -370,3 +380,14 @@ window.onload = () => {
 function checkAnswer() {
     game.checkWord();
 }
+
+function      handleDragEnd(event) {
+          const draggableElement = event.target;
+          const dropzoneElement = event.relatedTarget;
+
+          // Check if the draggable element was dropped onto a valid dropzone
+          if (dropzoneElement && dropzoneElement.classList.contains('dropzone')) {
+              // Perform the actions for the drop event
+              console.log('Dragged element dropped onto:', dropzoneElement);
+          }
+      }
