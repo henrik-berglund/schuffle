@@ -62,26 +62,26 @@ class Game {
 
         // Attach a click event listener to the button
         selectLetterButton.addEventListener('click', () => {
-          // Show the modal
-          const bootstrapModal = new bootstrap.Modal(letterSelectionModal);
-          console.log("click modal");
-          bootstrapModal.show();
+            // Show the modal
+            const bootstrapModal = new bootstrap.Modal(letterSelectionModal);
+            console.log("click modal");
+            bootstrapModal.show();
         });
 
         // Attach a click event listener to the letter buttons
         const letterButtons = document.querySelectorAll('.letter-button');
         letterButtons.forEach((button) => {
-          button.addEventListener('click', (event) => {
-            // Get the selected letter
-            const selectedLetter = event.target.dataset.letter;
+            button.addEventListener('click', (event) => {
+                // Get the selected letter
+                const selectedLetter = event.target.dataset.letter;
 
-            // Do something with the selected letter
-            console.log('Selected Letter:', selectedLetter);
+                // Do something with the selected letter
+                console.log('Selected Letter:', selectedLetter);
 
-            // Close the modal
-            const bootstrapModal = bootstrap.Modal.getInstance(letterSelectionModal);
-            bootstrapModal.hide();
-          });
+                // Close the modal
+                const bootstrapModal = bootstrap.Modal.getInstance(letterSelectionModal);
+                bootstrapModal.hide();
+            });
         });
 
 
@@ -118,30 +118,48 @@ class Game {
 
         return tile;
     }
-        SetupSmoothDrop() {
-            interact('.dropzone')
-                .dropzone({
-                    checker: function (
-                        dragEvent,         // related dragmove or dragend
-                        event,             // Touch, Pointer or Mouse Event
-                        dropped,           // bool default checker result
-                        dropzone,          // dropzone Interactable
-                        dropzoneElement,   // dropzone element
-                        draggable,         // draggable Interactable
-                        draggableElement   // draggable element
-                    ) {
-                        // only allow drops into empty dropzone elements
-                        return true;
-                    },
-                    ondrop: function (event) {
-                        console.log(event.relatedTarget.id + ' was dropped into ' + event.target.id)
-                    },
-                })
-                .on('dropactivate', function (event) {
-                    console.log("xx");
-                    event.target.classList.add('drop-activated')
-                })
-        }
+    SetupSmoothDrop() {
+        interact('#solution-row')
+            .dropzone({
+                accept: '.letter',
+                // Require a 75% element overlap for a drop to be possible
+                overlap: 0.75,
+
+                ondropactivate: function (event) {
+                    // add active dropzone feedback
+                    console.log("ondropactivate");
+                    event.target.classList.add('drop-active')
+                },
+                ondragenter: function (event) {
+                    console.log("ondragenter");
+
+                    var draggableElement = event.relatedTarget
+                    var dropzoneElement = event.target
+
+                    // feedback the possibility of a drop
+                    dropzoneElement.classList.add('drop-target')
+                    draggableElement.classList.add('can-drop')
+                    draggableElement.textContent = 'Dragged in'
+                },
+                ondragleave: function (event) {
+                    console.log("ondragleave");
+                    // remove the drop feedback style
+                    event.target.classList.remove('drop-target')
+                    event.relatedTarget.classList.remove('can-drop')
+                    event.relatedTarget.textContent = 'Dragged out'
+                },
+                ondrop: function (event) {
+                    console.log("ondrop");
+                    event.relatedTarget.textContent = 'Dropped'
+                },
+                ondropdeactivate: function (event) {
+                    console.log("ondropdeactivate");
+                    // remove active dropzone feedback
+                    event.target.classList.remove('drop-active')
+                    event.target.classList.remove('drop-target')
+                }
+            })
+    }
 
 
 
@@ -149,22 +167,22 @@ class Game {
 
     SetupSmoothDraggable() {
         interact('.letter')
-          .draggable({
-            // Set the options for dragging
-            inertia: true,
-            modifiers: [
-              interact.modifiers.restrict({
-                // Specify the container boundaries (e.g., col-lg-4)
-                restriction: '.drag-area',
-                endOnly: true, // Allow dragging only when releasing the element
-              })
-            ],
-            listeners: {
-                // Event listener for the dragmove event
-                move: dragMoveListener,
-                dragend: handleDragEnd
-            },
-          });
+            .draggable({
+                // Set the options for dragging
+                inertia: true,
+                modifiers: [
+                    interact.modifiers.restrict({
+                        // Specify the container boundaries (e.g., col-lg-4)
+                        restriction: '.drag-area',
+                        endOnly: true, // Allow dragging only when releasing the element
+                    })
+                ],
+                listeners: {
+                    // Event listener for the dragmove event
+                    move: dragMoveListener,
+                    dragend: handleDragEnd
+                },
+            });
     }
 
 
@@ -363,15 +381,15 @@ class Game {
         }
     }
 }
-   function dragMoveListener(event) {
-      var target = event.target;
-      var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
-      var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+function dragMoveListener(event) {
+    var target = event.target;
+    var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+    var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
-      target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
-      target.setAttribute('data-x', x);
-      target.setAttribute('data-y', y);
-    }
+    target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+    target.setAttribute('data-x', x);
+    target.setAttribute('data-y', y);
+}
 
 window.onload = () => {
     game = new Game();
@@ -382,12 +400,12 @@ function checkAnswer() {
 }
 
 function      handleDragEnd(event) {
-          const draggableElement = event.target;
-          const dropzoneElement = event.relatedTarget;
+    const draggableElement = event.target;
+    const dropzoneElement = event.relatedTarget;
 
-          // Check if the draggable element was dropped onto a valid dropzone
-          if (dropzoneElement && dropzoneElement.classList.contains('dropzone')) {
-              // Perform the actions for the drop event
-              console.log('Dragged element dropped onto:', dropzoneElement);
-          }
-      }
+    // Check if the draggable element was dropped onto a valid dropzone
+    if (dropzoneElement && dropzoneElement.classList.contains('dropzone')) {
+        // Perform the actions for the drop event
+        console.log('Dragged element dropped onto:', dropzoneElement);
+    }
+}
