@@ -127,9 +127,9 @@ class Game {
                 ondrop: function (event) {
                      event.preventDefault();
                     //event.relatedTarget.textContent = 'Dropped';
-                    console.log("Dropped target: ", event.target);
-                    console.log("Dropped related: ", event.relatedTarget);
-                    event.target.appendChild(event.relatedTarget);
+                    //console.log("Dropped target: ", event.target);
+                    //console.log("Dropped related: ", event.relatedTarget);
+                    //event.target.appendChild(event.relatedTarget);
                     //event.relatedTarget.style.zIndex = 1;
                     event.relatedTarget.removeAttribute('style');
 
@@ -151,10 +151,13 @@ class Game {
 
         let is_dropzone = target.classList.contains("dropzone") || target.parentElement.classList.contains("dropzone");
         let is_bonus_tile = target.classList.contains("bonus-tile") ;
-        let has_letter = target.classList.contains("letter");
+        let has_letter = target.querySelector('.letter');
         let target_is_grid = target.closest('#solution-row') !== null
 
-        console.log("this: ", this);
+        console.log("target: ", target);
+        console.log("has_letter: ", has_letter);
+        console.log("is_dropzone: ", is_dropzone);
+
         const hiddenBonusElement = this.dragStartElement.querySelector(".hidden");
         if ( hiddenBonusElement) {
             hiddenBonusElement.classList.remove("hidden");
@@ -169,8 +172,8 @@ class Game {
         }
         // If the target already has a letter
         else if (is_dropzone && has_letter) {
-            let dropzone = target.parentElement;
-            let sourceDropzone = letterTile.parentElement;
+            let dropzone = target;
+            let sourceDropzone = this.dragStartElement;
             if ( sourceDropzone == dropzone) {
                 // Do nothing
             } else if ( this.CreateSpaceByShiftingRight(dropzone)) {
@@ -359,10 +362,10 @@ class Game {
             let has_letter = target.classList.contains("letter");
             let target_is_grid = target.closest('#solution-row') !== null
 
-            const hiddenBonusElement = this.dragStartElement.querySelector(".hidden");
-            if ( hiddenBonusElement) {
-                hiddenBonusElement.classList.remove("hidden");
-            }
+            //const hiddenBonusElement = this.dragStartElement.querySelector(".hidden");
+            //if ( hiddenBonusElement) {
+            //    hiddenBonusElement.classList.remove("hidden");
+            //}
 
             // If the target is a dropzone and it is empty
             if (is_bonus_tile) {
