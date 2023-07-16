@@ -114,6 +114,7 @@ class Game {
 
         return tile;
     }
+
     SetupSmoothDrop() {
         const dropzones = document.querySelectorAll('.dropzone');
 
@@ -126,15 +127,17 @@ class Game {
                 ondrop: function (event) {
                      event.preventDefault();
                     //event.relatedTarget.textContent = 'Dropped';
-                    console.log("Dropped 1: ", event.target);
-                    console.log("Dropped 2: ", event.relatedTarget);
+                    console.log("Dropped target: ", event.target);
+                    console.log("Dropped related: ", event.relatedTarget);
                     event.target.appendChild(event.relatedTarget);
                     //event.relatedTarget.style.zIndex = 1;
                     event.relatedTarget.removeAttribute('style');
 
                     event.relatedTarget.setAttribute('data-x', 0);
                     event.relatedTarget.setAttribute('data-y', 0);
-                }
+                    this.HandleDrop(event.relatedTarget, event.target);
+
+                }.bind(this)
             })
 
 
@@ -143,6 +146,54 @@ class Game {
 
     }
 
+    HandleDrop(letterTile, target) {
+        console.log("***old drop handler called: ", letterTile, target);
+
+        let is_dropzone = target.classList.contains("dropzone") || target.parentElement.classList.contains("dropzone");
+        let is_bonus_tile = target.classList.contains("bonus-tile") ;
+        let has_letter = target.classList.contains("letter");
+        let target_is_grid = target.closest('#solution-row') !== null
+
+        console.log("this: ", this);
+        const hiddenBonusElement = this.dragStartElement.querySelector(".hidden");
+        if ( hiddenBonusElement) {
+            hiddenBonusElement.classList.remove("hidden");
+        }
+
+        // If the target is a dropzone and it is empty
+        if (is_bonus_tile) {
+            target.classList.add("hidden");
+            target.parentNode.appendChild(letterTile);
+        } else if (is_dropzone && !has_letter) {
+            target.appendChild(letterTile);
+        }
+        // If the target already has a letter
+        else if (is_dropzone && has_letter) {
+            let dropzone = target.parentElement;
+            let sourceDropzone = letterTile.parentElement;
+            if ( sourceDropzone == dropzone) {
+                // Do nothing
+            } else if ( this.CreateSpaceByShiftingRight(dropzone)) {
+                dropzone.appendChild(letterTile);
+            } else if ( this.CreateSpaceByShiftingLeft(dropzone)) {
+                dropzone.appendChild(letterTile);
+            } else { // reorder
+                sourceDropzone.removeChild(letterTile)
+
+                if (  this.CreateSpaceByShiftingRight(dropzone) || this.CreateSpaceByShiftingLeft(dropzone) ){
+                    dropzone.appendChild(letterTile);
+                }
+            }
+        }
+
+        this.UpdateLetterFontSize(letterTile, target_is_grid);
+
+        //let row = dropzone.parentElement.id;
+        //let numberOfBoxes = row == 'letter-rack' ? 7 : 15;
+        //this.Resizedropzones(`#${dropzone.id}`, numberOfBoxes);
+
+
+    };
 
     SetupSmoothDraggable() {
         interact('.letter')
@@ -160,7 +211,8 @@ class Game {
                     move: dragMoveListener,
                     start: function (event) {
                         event.target.style.zIndex = '9999'; // Set a high z-index value
-                    },
+                        this.dragStartElement = event.target;
+                    }.bind(this),
 
                     end: function (event) {
                         event.target.style.zIndex = ''; // Reset the z-index value
@@ -295,7 +347,7 @@ class Game {
         const dropzone = document.createElement('div');
         dropzone.id = id;
 
-        dropzone.ondrop = (event) => {
+        dropzone._ondrop = (event) => {
             console.log("***old drop handler called");
             event.preventDefault();
             const data = event.dataTransfer.getData("text");
@@ -387,3 +439,4 @@ function dragMoveListener (event) {
     target.setAttribute('data-x', x)
     target.setAttribute('data-y', y)
 }
+
