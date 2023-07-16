@@ -216,11 +216,20 @@ class Game {
                     start: function (event) {
                         event.target.style.zIndex = '9999'; // Set a high z-index value
                         this.dragStartElement = event.target;
+                        this.dragOriginalPosition = { x: event.target.x, y: event.target.y };
+                        console.log("Saving ", this.dragOriginalPosition);
                     }.bind(this),
 
                     end: function (event) {
                         event.target.style.zIndex = ''; // Reset the z-index value
-                    }
+
+                        const dropzone = event.relatedTarget;
+                        if (!dropzone || !dropzone.classList.contains('dropzone')) {
+                            console.log("resetting pos to ", this.dragOriginalPosition);
+                            // Reset the position of the letter tile to its original coordinates
+                            event.target.style.transform = `translate(${this.dragOriginalPosition.x}px, ${this.dragOriginalPosition.y}px)`;
+                        }
+                    }.bind(this)
                 }
             })
     }
