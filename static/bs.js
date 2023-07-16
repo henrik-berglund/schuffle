@@ -107,7 +107,7 @@ class Game {
         tile.draggable = true;
 
         tile.classList.add('letter', 'tile', 'fs-1');
-        tile.style.zIndex = '9999'
+        //tile.style.zIndex = '9999'
 
         //tile.className = 'letter tile fs-3';
         //tile.className = 'letter tile';
@@ -121,15 +121,19 @@ class Game {
             interact(dropzone).dropzone({
                 // only accept elements matching this CSS selector
                 accept: '.letter',
-                // Require a 75% element overlap for a drop to be possible
-                overlap: 0.75,
+                overlap: 'center',
 
                 ondrop: function (event) {
-                    event.relatedTarget.textContent = 'Dropped';
+                     event.preventDefault();
+                    //event.relatedTarget.textContent = 'Dropped';
                     console.log("Dropped 1: ", event.target);
                     console.log("Dropped 2: ", event.relatedTarget);
-                    //event.target.appendChild(event.relatedTarget);
+                    event.target.appendChild(event.relatedTarget);
+                    //event.relatedTarget.style.zIndex = 1;
+                    event.relatedTarget.removeAttribute('style');
 
+                    event.relatedTarget.setAttribute('data-x', 0);
+                    event.relatedTarget.setAttribute('data-y', 0);
                 }
             })
 
@@ -148,11 +152,20 @@ class Game {
                     interact.modifiers.restrictRect({
                         restriction: 'window',
                         endOnly: true
-                    })
+                    }),
                 ],
                 autoScroll: true,
                 // dragMoveListener from the dragging demo above
-                listeners: { move: dragMoveListener }
+                listeners: {
+                    move: dragMoveListener,
+                    start: function (event) {
+                        event.target.style.zIndex = '9999'; // Set a high z-index value
+                    },
+
+                    end: function (event) {
+                        event.target.style.zIndex = ''; // Reset the z-index value
+                    }
+                }
             })
     }
 
@@ -283,6 +296,7 @@ class Game {
         dropzone.id = id;
 
         dropzone.ondrop = (event) => {
+            console.log("***old drop handler called");
             event.preventDefault();
             const data = event.dataTransfer.getData("text");
             const target = event.target;
