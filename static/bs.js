@@ -131,6 +131,7 @@ class Game {
                     //console.log("Dropped related: ", event.relatedTarget);
                     //event.target.appendChild(event.relatedTarget);
                     //event.relatedTarget.style.zIndex = 1;
+
                     event.relatedTarget.removeAttribute('style');
 
                     event.relatedTarget.setAttribute('data-x', 0);
@@ -139,11 +140,7 @@ class Game {
 
                 }.bind(this)
             })
-
-
         });
-
-
     }
 
     HandleDrop(letterTile, target) {
@@ -157,6 +154,7 @@ class Game {
         console.log("target: ", target);
         console.log("has_letter: ", has_letter);
         console.log("is_dropzone: ", is_dropzone);
+        console.log("target is grid: ", target_is_grid);
 
         const hiddenBonusElement = this.dragStartElement.querySelector(".hidden");
         if ( hiddenBonusElement) {
@@ -167,13 +165,17 @@ class Game {
         if (is_bonus_tile) {
             target.classList.add("hidden");
             target.parentNode.appendChild(letterTile);
+            this.UpdateLetterFontSize(letterTile, target_is_grid);
         } else if (is_dropzone && !has_letter) {
             target.appendChild(letterTile);
+            this.UpdateLetterFontSize(letterTile, target_is_grid);
         }
         // If the target already has a letter
-        else if (is_dropzone && has_letter) {
+        else if (is_dropzone && has_letter && !target_is_grid) {
             let dropzone = target;
             let sourceDropzone = this.dragStartElement;
+            this.UpdateLetterFontSize(letterTile, target_is_grid);
+
             if ( sourceDropzone == dropzone) {
                 // Do nothing
             } else if ( this.CreateSpaceByShiftingRight(dropzone)) {
@@ -189,7 +191,6 @@ class Game {
             }
         }
 
-        this.UpdateLetterFontSize(letterTile, target_is_grid);
 
         //let row = dropzone.parentElement.id;
         //let numberOfBoxes = row == 'letter-rack' ? 7 : 15;
@@ -362,6 +363,7 @@ class Game {
             let has_letter = target.classList.contains("letter");
             let target_is_grid = target.closest('#solution-row') !== null
 
+            console.log("target is grid: ", target_is_grid);
             //const hiddenBonusElement = this.dragStartElement.querySelector(".hidden");
             //if ( hiddenBonusElement) {
             //    hiddenBonusElement.classList.remove("hidden");
@@ -375,7 +377,7 @@ class Game {
                 target.appendChild(letterTile);
             }
             // If the target already has a letter
-            else if (is_dropzone && has_letter) {
+            else if (is_dropzone && has_letter && !target_is_grid) {
                 let dropzone = target.parentElement;
                 let sourceDropzone = letterTile.parentElement;
                 if ( sourceDropzone == dropzone) {
