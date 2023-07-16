@@ -12,17 +12,19 @@
 
     <style>
         body {
+            overflow: visible;
             background-color: #2d3445;
         }
 
         #solution-row {
+            overflow: visible;
             display: grid;
             grid-template-columns: repeat(15, 1fr);
             gap: 2px;
-            overflow: auto;
             margin-bottom: 100px;
         }
         #solution-row > div {
+            overflow: visible;
             position: relative;
             padding-bottom: 100%; /* Set the height based on the width */
             display: flex;
@@ -30,6 +32,7 @@
             justify-content: center;
         }
         #solution-row > div > span {
+            overflow: visible;
             position: absolute;
             top: 50%;
             left: 50%;
@@ -54,8 +57,7 @@
         }
 
         #letter-rack > div > div {
-                        overflow: visible;
-
+            overflow: visible;
             position: absolute;
             top: 0;
             left: 0;
@@ -79,8 +81,7 @@
         }
 
         #letter-rack .dropzone {
-                        overflow: visible;
-
+            overflow: visible;
             border: 1px dotted white;
             border-radius: 5px;
         }
