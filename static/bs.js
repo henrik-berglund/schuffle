@@ -337,7 +337,31 @@ class Game {
 
     }
 
-    MoveTilesToRack() {
+     MoveTilesToRack() {
+        const solutionRow = document.getElementById('solution-row');
+        const letterRack = document.getElementById('letter-rack');
+
+        for (let i = 0; i < solutionRow.children.length; i++) {
+            const dropzone = solutionRow.children[i];
+            const letterTile = dropzone.querySelector('.letter');
+
+            if (letterTile) {
+                const emptySlot = this.FindEmptySlot(letterRack);
+
+                if (emptySlot) {
+                    emptySlot.appendChild(letterTile);
+                    this.UpdateLetterFontSize(letterTile, false);
+
+                    const bonusTile = dropzone.querySelector('.bonus-tile');
+                    if (bonusTile) {
+                        bonusTile.classList.remove('hidden');
+                    }
+                }
+            }
+        }
+    }
+
+    _MoveTilesToRack() {
         const solutionRow = document.getElementById('solution-row');
         const letterRack = document.getElementById('letter-rack');
 
