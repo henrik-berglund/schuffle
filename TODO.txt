@@ -5,6 +5,9 @@
 - Hindra "drop" mellan grid & letter rack?
 - byt namn på solution-row till grid
 
+- Sessionshantering (?) eller skicka allt data (krypterat?)
+- Log in
+
 Good enough?
 ----------------
 - Aanpassa fontsize på annat sätt än fs-x, verkar ej funka (UpdateLetterFontSize är inte lösingen pga det)
