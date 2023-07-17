@@ -1,6 +1,5 @@
 - Popup för att kunna välja bokstav för blanka
 - Ny metod för att sätta fontstorlek och fixa layout av letter ,med superscript
-- Superscript med poäng på bokstäver
 - Indikera klick visuellt på knapparna
 - Hindra "drop" mellan grid & letter rack?
 - byt namn på solution-row till grid
@@ -19,6 +18,7 @@ Good enough?
 
 Done
 -----
+- Format för superscript med poäng på bokstäver
 - Tunnare gridlines + inga svarta marginaler
 - Svart bakom grid
 - Implementera blanda
