@@ -2,7 +2,6 @@
 - Svart bakom grid
 - Popup för att kunna välja bokstav för blanka
 - Superscript med poäng på bokstäver
-- implementera blanda
 - Hindra "drop" mellan grid & letter rack?
 - byt namn på solution-row till grid
 
@@ -13,6 +12,7 @@ Good enough?
 
 Done
 -----
+- Implementera blanda
 - Implementera rensa
 - Letters verkar ha fel stacking order eller liknande, visas bakom visa element.
 - Drop funkar inte
