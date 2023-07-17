@@ -1,5 +1,6 @@
+- Gör klart letter select dialog
 - Popup för att kunna välja bokstav för blanka
-- Ny metod för att sätta fontstorlek och fixa layout av letter ,med superscript
+- Ny metod för att sätta fontstorlek och fixa layout av letter
 - Indikera klick visuellt på knapparna
 - Hindra "drop" mellan grid & letter rack?
 - byt namn på solution-row till grid

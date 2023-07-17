@@ -56,6 +56,7 @@ class Game {
         this.RegisterPopup();
         this.SetupSmoothDraggable();
         this.SetupSmoothDrop();
+        this.CreateLetterSelectionBox();
     }
     RegisterPopup() {
         const selectLetterButton = document.getElementById('selectLetterButton');
@@ -100,6 +101,39 @@ class Game {
 
             letterElement.classList.add('fs-1');
         }
+    }
+    CreateLetterSelectionBox() {
+        // Get the letterSelectionRow element
+        const letterSelectionRow = document.getElementById('letterSelectionRow');
+
+        // Define the range of letters to add
+        const startCharCode = 'A'.charCodeAt();
+        const endCharCode = 'P'.charCodeAt();
+        const additionalLetters = ['R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z', 'Å', 'Ä', 'Ö'];
+
+// Loop through the range and additional letters to create buttons
+        for (let charCode = startCharCode; charCode <= endCharCode; charCode++) {
+            const letter = String.fromCharCode(charCode);
+            createLetterButton(letter);
+        }
+
+        additionalLetters.forEach(letter => {
+            createLetterButton(letter);
+        });
+
+// Function to create a letter button
+        function createLetterButton(letter) {
+            const button = document.createElement('button');
+            button.classList.add('letter-button', 'btn', 'btn-outline-primary');
+            button.setAttribute('data-letter', letter);
+             button.setAttribute('data-bs-dismiss', 'modal'); // Close the modal when clicked
+
+            button.textContent = letter;
+
+            letterSelectionRow.appendChild(button);
+        }
+
+
     }
     CreateLetter(i, letter) {
         const tile = document.createElement('div');
