@@ -104,6 +104,21 @@ class Game {
     CreateLetter(i, letter) {
         const tile = document.createElement('div');
         tile.textContent = letter;
+
+        const superscript = document.createElement('sup');
+        superscript.textContent = '8';
+        tile.appendChild(superscript);
+
+        tile.id = `tile${i}`;
+        tile.draggable = true;
+        tile.classList.add('letter', 'tile', 'fs-1');
+
+        return tile;
+    }
+
+    _CreateLetter(i, letter) {
+        const tile = document.createElement('div');
+        tile.textContent = letter;
         tile.id = `tile${i}`;
         tile.draggable = true;
 
