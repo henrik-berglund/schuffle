@@ -360,29 +360,31 @@ class Game {
             }
         }
     }
-
-    _MoveTilesToRack() {
-        const solutionRow = document.getElementById('solution-row');
+    MixLetters() {
         const letterRack = document.getElementById('letter-rack');
+        const dropzones = Array.from(letterRack.querySelectorAll('.dropzone'));
 
-        // Iterate over the dropzones in the solution row
-        for (let i = 0; i < solutionRow.children.length; i++) {
-            const dropzone = solutionRow.children[i];
-
-            // Check if the dropzone contains a letter tile
-            if (dropzone.firstChild && dropzone.firstChild.classList.contains('letter')) {
-                const letterTile = dropzone.firstChild;
-
-                // Find an empty slot in the letter rack
-                const emptySlot = this.FindEmptySlot(letterRack);
-
-                // Move the letter tile to the empty slot in the letter rack
-                if (emptySlot) {
-                    emptySlot.appendChild(letterTile);
-                    this.UpdateLetterFontSize(letterTile, false);
-                }
+        const letterTiles = dropzones.reduce((tiles, dropzone) => {
+            const letterTile = dropzone.querySelector('.letter');
+            if (letterTile) {
+                tiles.push(letterTile);
+                dropzone.removeChild(letterTile);
             }
+            return tiles;
+        }, []);
+
+        // Shuffle the letter tiles using Fisher-Yates algorithm
+        for (let i = letterTiles.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [letterTiles[i], letterTiles[j]] = [letterTiles[j], letterTiles[i]];
         }
+
+        // Append the shuffled letter tiles back to the dropzones
+        dropzones.forEach((dropzone, index) => {
+            if (index < letterTiles.length) {
+                dropzone.appendChild(letterTiles[index]);
+            }
+        });
     }
 
     FindEmptySlot(letterRack) {
@@ -416,7 +418,9 @@ class Game {
 
         myButton = document.getElementById('shuffle');
         myButton.addEventListener('click', function() {
-            console.log('Shuffle pressed!');} );
+            console.log('Shuffle pressed!');
+            this.MixLetters();
+        }.bind(this) );
 
         myButton = document.getElementById('swap');
         myButton.addEventListener('click', function() {

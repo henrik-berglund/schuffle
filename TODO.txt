@@ -1,4 +1,3 @@
-- Implementera rensa
 - Indikera klick visuellt på knapparna
 - Svart bakom grid
 - Popup för att kunna välja bokstav för blanka
@@ -14,6 +13,7 @@ Good enough?
 
 Done
 -----
+- Implementera rensa
 - Letters verkar ha fel stacking order eller liknande, visas bakom visa element.
 - Drop funkar inte
 - Touchevent för snabb start av drag på mobil
