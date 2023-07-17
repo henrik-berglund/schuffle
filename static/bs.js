@@ -88,6 +88,7 @@ class Game {
 
     }
     UpdateLetterFontSize(letterElement, isGrid) {
+        //console.log("updating");
         letterElement.classList.remove('fs-1', 'fs-9'); // Remove existing font size classes
         letterElement.classList.remove('grid-letter', 'rack-letter'); // Remove existing font size classes
 
@@ -336,6 +337,48 @@ class Game {
 
     }
 
+    MoveTilesToRack() {
+        const solutionRow = document.getElementById('solution-row');
+        const letterRack = document.getElementById('letter-rack');
+
+        // Iterate over the dropzones in the solution row
+        for (let i = 0; i < solutionRow.children.length; i++) {
+            const dropzone = solutionRow.children[i];
+
+            // Check if the dropzone contains a letter tile
+            if (dropzone.firstChild && dropzone.firstChild.classList.contains('letter')) {
+                const letterTile = dropzone.firstChild;
+
+                // Find an empty slot in the letter rack
+                const emptySlot = this.FindEmptySlot(letterRack);
+
+                // Move the letter tile to the empty slot in the letter rack
+                if (emptySlot) {
+                    emptySlot.appendChild(letterTile);
+                    this.UpdateLetterFontSize(letterTile, false);
+                }
+            }
+        }
+    }
+
+    FindEmptySlot(letterRack) {
+        const dropzones = letterRack.querySelectorAll('.dropzone');
+
+        // Iterate over the dropzones in the letter rack
+        for (let i = 0; i < dropzones.length; i++) {
+            const dropzone = dropzones[i];
+
+            // Check if the dropzone is empty
+            if (!dropzone.firstChild) {
+                return dropzone;
+            }
+        }
+
+        // If no empty slot is found, return null
+        return null;
+    }
+
+
     AddButtonListener() {
         let myButton = document.getElementById('play');
         myButton.addEventListener('click', function() {
@@ -343,7 +386,9 @@ class Game {
 
         myButton = document.getElementById('clear');
         myButton.addEventListener('click', function() {
-            console.log('Clear pressed!');} );
+            console.log('Clear pressed!');
+            this.MoveTilesToRack()
+        }.bind(this) );
 
         myButton = document.getElementById('shuffle');
         myButton.addEventListener('click', function() {

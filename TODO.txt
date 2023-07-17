@@ -1,11 +1,11 @@
-- Letters verkar ha fel stacking order eller liknande, visas bakom visa element.
-- Drop funkar inte
+- Implementera rensa
+- Indikera klick visuellt på knapparna
+- Svart bakom grid
 - Popup för att kunna välja bokstav för blanka
 - Superscript med poäng på bokstäver
-- Indikera klick visuellt på knapparna
-- Implementera rensa
 - implementera blanda
-
+- Hindra "drop" mellan grid & letter rack?
+- byt namn på solution-row till grid
 
 Good enough?
 ----------------
@@ -14,6 +14,8 @@ Good enough?
 
 Done
 -----
+- Letters verkar ha fel stacking order eller liknande, visas bakom visa element.
+- Drop funkar inte
 - Touchevent för snabb start av drag på mobil
 - vertikal stacking av ikon och text, se /tst &
   https://www.codeply.com/p/FHUKN8xckS + nedladdat exempel
