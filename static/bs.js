@@ -373,11 +373,17 @@ class Game {
             return tiles;
         }, []);
 
-        // Shuffle the letter tiles using Fisher-Yates algorithm
-        for (let i = letterTiles.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [letterTiles[i], letterTiles[j]] = [letterTiles[j], letterTiles[i]];
-        }
+        let swapped;
+        do {
+            swapped = false;
+            for (let i = letterTiles.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                if (i !== j) {
+                    [letterTiles[i], letterTiles[j]] = [letterTiles[j], letterTiles[i]];
+                    swapped = true;
+                }
+            }
+        } while (!swapped);
 
         // Append the shuffled letter tiles back to the dropzones
         dropzones.forEach((dropzone, index) => {
