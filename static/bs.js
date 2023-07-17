@@ -106,7 +106,8 @@ class Game {
         tile.textContent = letter;
 
         const superscript = document.createElement('sup');
-        superscript.textContent = '8';
+        superscript.textContent = '7';
+        superscript.classList.add('superscript'); // Add the class name for styling
         tile.appendChild(superscript);
 
         tile.id = `tile${i}`;
