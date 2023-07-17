@@ -1,5 +1,4 @@
 - Indikera klick visuellt på knapparna
-- Svart bakom grid
 - Popup för att kunna välja bokstav för blanka
 - Superscript med poäng på bokstäver
 - Hindra "drop" mellan grid & letter rack?
@@ -7,6 +6,7 @@
 
 - Sessionshantering (?) eller skicka allt data (krypterat?)
 - Log in
+- Minska fontstorlek TB etc
 
 Good enough?
 ----------------
@@ -15,6 +15,8 @@ Good enough?
 
 Done
 -----
+- Tunnare gridlines + inga svarta marginaler
+- Svart bakom grid
 - Implementera blanda
 - Implementera rensa
 - Letters verkar ha fel stacking order eller liknande, visas bakom visa element.
