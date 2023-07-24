@@ -1,5 +1,5 @@
+- ta bokstäver i rack från board inte från shuffle spelet
 - Gör att spelade bokstäver i grid ej går att dra
-- lägg till superscript på bokstäver i grid
 - Start game dialog?
 - Slumpa ut bokstäver
 - Räkna poäng när spelare sätter ut bokstäver som bildar ord
@@ -24,6 +24,7 @@ Good enough?
 
 Done
 -----
+- lägg till superscript på bokstäver i grid
 - Gör klart layout letter select dialog
 - Format för superscript med poäng på bokstäver
 - Tunnare gridlines + inga svarta marginaler
