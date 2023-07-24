@@ -1,4 +1,42 @@
 let game;
+const letter_data = {
+  'a': [9, 1],
+  'b': [2, 3],
+  'c': [1, 8],
+  'd': [5, 1],
+  'e': [8, 1],
+  'f': [2, 3],
+  'g': [3, 2],
+  'h': [2, 3],
+  'i': [5, 1],
+  'j': [1, 7],
+  'k': [3, 3],
+  'l': [5, 2],
+  'm': [3, 3],
+  'n': [6, 1],
+  'o': [6, 2],
+  'p': [2, 4],
+  'r': [8, 1],
+  's': [8, 1],
+  't': [9, 1],
+  'u': [3, 4],
+  'v': [2, 3],
+  'x': [1, 8],
+  'y': [1, 7],
+  'z': [1, 8],
+  'å': [2, 4],
+  'ä': [2, 4],
+  'ö': [2, 4]
+};
+
+function getLetterScore(letter) {
+  const lowercaseLetter = letter.toLowerCase();
+  if (letter_data.hasOwnProperty(lowercaseLetter)) {
+    return letter_data[lowercaseLetter][1];
+  } else {
+    return 0; // Return 0 if the letter is not found in the letter_data
+  }
+}
 
 class Game {
     constructor() {
@@ -148,7 +186,7 @@ class Game {
         tile.textContent = letter;
 
         const superscript = document.createElement('sup');
-        superscript.textContent = '7';
+        superscript.textContent = getLetterScore(letter)
         superscript.classList.add('superscript'); // Add the class name for styling
         tile.appendChild(superscript);
 
