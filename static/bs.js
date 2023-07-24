@@ -294,8 +294,26 @@ class Game {
     }
 
 
+    CreateGridTile(tile, x, y) {
+        const bonusStrings = ['TB', 'DB', 'TO', 'DO'];
 
-    CreateGridTile(bonus, x, y) {
+        // Check if the input string is one of the four two-letter strings
+        if (bonusStrings.includes(tile)) {
+            return this.CreateBonusTile(tile, x, y);
+        } else {
+            return this.CreateGridLetterTile(tile, x, y);
+        }
+    }
+    CreateGridLetterTile(txt, x, y) {
+        const tile = document.createElement('div');
+        tile.textContent = txt.toUpperCase();
+        tile.classList.add('letter');
+        tile.classList.add('tile');
+        tile.classList.add('fs-8');
+        return tile;
+    }
+    
+    CreateBonusTile(bonus, x, y) {
         const tile = document.createElement('div');
         tile.textContent = bonus;
         tile.className = 'bonus-tile';
