@@ -295,7 +295,7 @@ class Game {
 
 
 
-    CreateBonusTile(bonus, x, y) {
+    CreateGridTile(bonus, x, y) {
         const tile = document.createElement('div');
         tile.textContent = bonus;
         tile.className = 'bonus-tile';
@@ -334,7 +334,7 @@ class Game {
                                 const dropzoneId = `solution-${rowIndex}-${columnIndex}`;
                                 const dropzone = document.getElementById(dropzoneId);
                                 if (dropzone) {
-                                    const bonusTile = this.CreateBonusTile(tile);
+                                    const bonusTile = this.CreateGridTile(tile);
                                     dropzone.appendChild(bonusTile);
                                 }
                             }
