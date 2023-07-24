@@ -1,3 +1,5 @@
+- Gör att spelade bokstäver i grid ej går att dra
+- lägg till superscript på bokstäver i grid
 - Start game dialog?
 - Slumpa ut bokstäver
 - Räkna poäng när spelare sätter ut bokstäver som bildar ord

@@ -31,7 +31,7 @@ class Game {
             let dropzone = this.CreateDropZone(`rack-${i}`);
 
             if ( i < this.scrambledWord.length ) {
-                const tile = this.CreateLetter(i, this.scrambledWord[i]);
+                const tile = this.CreateLetter(this.scrambledWord[i], 'fs-1');
                 dropzone.appendChild(tile);
             }
 
@@ -143,7 +143,7 @@ class Game {
         row.appendChild(col);
     }
 }
-    CreateLetter(i, letter) {
+    CreateLetter(letter, size) {
         const tile = document.createElement('div');
         tile.textContent = letter;
 
@@ -152,9 +152,9 @@ class Game {
         superscript.classList.add('superscript'); // Add the class name for styling
         tile.appendChild(superscript);
 
-        tile.id = `tile${i}`;
+        //tile.id = `tile${i}`;
         tile.draggable = true;
-        tile.classList.add('letter', 'tile', 'fs-1');
+        tile.classList.add('letter', 'tile', size);
 
         return tile;
     }
@@ -301,7 +301,7 @@ class Game {
         if (bonusStrings.includes(tile)) {
             return this.CreateBonusTile(tile, x, y);
         } else {
-            return this.CreateGridLetterTile(tile, x, y);
+            return this.CreateLetter(tile.toUpperCase(), 'fs-8');
         }
     }
     CreateGridLetterTile(txt, x, y) {
@@ -312,7 +312,7 @@ class Game {
         tile.classList.add('fs-8');
         return tile;
     }
-    
+
     CreateBonusTile(bonus, x, y) {
         const tile = document.createElement('div');
         tile.textContent = bonus;
