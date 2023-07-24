@@ -37,7 +37,9 @@ def dlg():
 
 @app.route('/layout.json')
 def get_layout():
-    return send_file('layout.json', mimetype='application/json')
+    #return send_file('layout.json', mimetype='application/json')
+    return send_file('boards/board_10_32_Player 1_a.json', mimetype='application/json')
+
 
 @app.route('/bs')
 def bs():

@@ -1,10 +1,13 @@
-- Gör klart letter select dialog
-- Popup för att kunna välja bokstav för blanka
+- Start game dialog?
+- Slumpa ut bokstäver
+- Räkna poäng när spelare sätter ut bokstäver som bildar ord
+- Bokstäver på spelbrädet från server som inte går att flytta
+- Validera alla nya ord vid play
 - Ny metod för att sätta fontstorlek och fixa layout av letter
 - Indikera klick visuellt på knapparna
 - Hindra "drop" mellan grid & letter rack?
 - byt namn på solution-row till grid
-
+- Implementera "Byt"
 - Sessionshantering (?) eller skicka allt data (krypterat?) och ha inget state i server?
 - Log in
 - Minska fontstorlek TB etc
@@ -19,6 +22,7 @@ Good enough?
 
 Done
 -----
+- Gör klart layout letter select dialog
 - Format för superscript med poäng på bokstäver
 - Tunnare gridlines + inga svarta marginaler
 - Svart bakom grid

@@ -51,7 +51,7 @@ class Game {
         // For the letter rack
         //this.Resizedropzones('#letter-rack .dropzone', 7);
         //this.Resizedropzones()
-        this.AddBonusTiles();
+        this.ReadAndRenderBoard();
         this.AddButtonListener();
         this.RegisterPopup();
         this.SetupSmoothDraggable();
@@ -103,38 +103,46 @@ class Game {
         }
     }
     CreateLetterSelectionBox() {
-        // Get the letterSelectionRow element
-        const letterSelectionRow = document.getElementById('letterSelectionRow');
+    // Get the letterSelectionRow element
+    const letterSelectionRow = document.getElementById('letterSelectionRow');
 
-        // Define the range of letters to add
-        const startCharCode = 'A'.charCodeAt();
-        const endCharCode = 'P'.charCodeAt();
-        const additionalLetters = ['R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z', 'Å', 'Ä', 'Ö'];
+    // Define the range of letters to add
+    const startCharCode = 'A'.charCodeAt();
+    const endCharCode = 'P'.charCodeAt();
+    const additionalLetters = ['R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z', 'Å', 'Ä', 'Ö'];
 
-// Loop through the range and additional letters to create buttons
-        for (let charCode = startCharCode; charCode <= endCharCode; charCode++) {
-            const letter = String.fromCharCode(charCode);
-            createLetterButton(letter);
-        }
+    // Create a row for the letter buttons
+    const row = document.createElement('div');
+    row.classList.add('row', 'row-cols-auto', 'g-2');
 
-        additionalLetters.forEach(letter => {
-            createLetterButton(letter);
-        });
-
-// Function to create a letter button
-        function createLetterButton(letter) {
-            const button = document.createElement('button');
-            button.classList.add('letter-button', 'btn', 'btn-outline-primary');
-            button.setAttribute('data-letter', letter);
-             button.setAttribute('data-bs-dismiss', 'modal'); // Close the modal when clicked
-
-            button.textContent = letter;
-
-            letterSelectionRow.appendChild(button);
-        }
-
-
+    // Loop through the range and additional letters to create buttons
+    for (let charCode = startCharCode; charCode <= endCharCode; charCode++) {
+        const letter = String.fromCharCode(charCode);
+        createLetterButton(letter);
     }
+
+    additionalLetters.forEach(letter => {
+        createLetterButton(letter);
+    });
+
+    letterSelectionRow.appendChild(row);
+
+    // Function to create a letter button
+    function createLetterButton(letter) {
+        const col = document.createElement('div');
+        col.classList.add('col');
+
+        const button = document.createElement('button');
+        button.classList.add('letter-button', 'btn', 'btn-outline-primary');
+        button.setAttribute('data-letter', letter);
+        button.setAttribute('data-bs-dismiss', 'modal'); // Close the modal when clicked
+
+        button.textContent = letter;
+
+        col.appendChild(button);
+        row.appendChild(col);
+    }
+}
     CreateLetter(i, letter) {
         const tile = document.createElement('div');
         tile.textContent = letter;
@@ -313,20 +321,20 @@ class Game {
         return tile;
     }
 
-    AddBonusTiles() {
+    ReadAndRenderBoard() {
         fetch('/layout.json')  // Assuming the API endpoint to fetch the board layout is '/api/layout'
             .then(response => response.json())
             .then(layoutData => {
                 if (layoutData && layoutData.length >= 1) {
-                    const bonusLayout = layoutData[0];
+                    const boardLayout = layoutData[0];
 
-                    bonusLayout.forEach((row, rowIndex) => {
-                        row.forEach((bonus, columnIndex) => {
-                            if (bonus) {
+                    boardLayout.forEach((row, rowIndex) => {
+                        row.forEach((tile, columnIndex) => {
+                            if (tile) {
                                 const dropzoneId = `solution-${rowIndex}-${columnIndex}`;
                                 const dropzone = document.getElementById(dropzoneId);
                                 if (dropzone) {
-                                    const bonusTile = this.CreateBonusTile(bonus);
+                                    const bonusTile = this.CreateBonusTile(tile);
                                     dropzone.appendChild(bonusTile);
                                 }
                             }

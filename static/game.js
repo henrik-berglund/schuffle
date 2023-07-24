@@ -42,7 +42,7 @@ class Game {
             this.solutionRowElement.appendChild(dropzone);
         }
 
-        this.AddBonusTiles()
+        this.ReadAndRenderBoard()
     }
 
     CreateLetter(i, letter) {
