@@ -60,22 +60,7 @@ class Game {
         // Clear existing tiles and dropzone
         this.letterRackElement.innerHTML = '';
         this.solutionRowElement.innerHTML = '';
-
-        // Calculate the number of blank squares needed
-        const numBlanks = Math.max(7 - this.scrambledWord.length, 0);
-
-        // Create tiles for the scrambled word
-        for (let i = 0; i < 7; i++) {
-            let dropzone = this.CreateDropZone(`rack-${i}`);
-
-            if ( i < this.scrambledWord.length ) {
-                const tile = this.CreateLetter(this.scrambledWord[i], 'fs-1', 'letter');
-                dropzone.appendChild(tile);
-            }
-
-            this.letterRackElement.appendChild(dropzone);
-            //this.letterRackElement.appendChild(tile);
-        }
+        this.FillLetterRack();
 
         for (let i = 0; i < 15; i++) {
             for (let j = 0; j < 15; j++) {
@@ -96,6 +81,25 @@ class Game {
         this.SetupSmoothDrop();
         this.CreateLetterSelectionBox();
     }
+
+    FillLetterRack() {
+        // Calculate the number of blank squares needed
+        const numBlanks = Math.max(7 - this.scrambledWord.length, 0);
+
+        // Create tiles for the scrambled word
+        for (let i = 0; i < 7; i++) {
+            let dropzone = this.CreateDropZone(`rack-${i}`);
+
+            if (i < this.scrambledWord.length) {
+                const tile = this.CreateLetter(this.scrambledWord[i], 'fs-1', 'letter');
+                dropzone.appendChild(tile);
+            }
+
+            this.letterRackElement.appendChild(dropzone);
+            //this.letterRackElement.appendChild(tile);
+        }
+    }
+
     RegisterPopup() {
         const selectLetterButton = document.getElementById('selectLetterButton');
         const letterSelectionModal = document.getElementById('letterSelectionModal');
@@ -389,6 +393,8 @@ class Game {
                             }
                         });
                     });
+
+                    const letterRack = layoutData[1];
                 }
             })
             .catch(error => {
