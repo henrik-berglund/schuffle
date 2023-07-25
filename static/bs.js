@@ -550,60 +550,7 @@ class Game {
     CreateDropZone(id) {
         const dropzone = document.createElement('div');
         dropzone.id = id;
-
-        dropzone._ondrop = (event) => {
-            console.log("***old drop handler called");
-            event.preventDefault();
-            const data = event.dataTransfer.getData("text");
-            const target = event.target;
-            const letterTile = document.getElementById(data);
-
-            let is_dropzone = target.classList.contains("dropzone") || target.parentElement.classList.contains("dropzone");
-            let is_bonus_tile = target.classList.contains("bonus-tile") ;
-            let has_letter = target.classList.contains("letter");
-            let target_is_grid = target.closest('#solution-row') !== null
-
-            console.log("target is grid: ", target_is_grid);
-            //const hiddenBonusElement = this.dragStartElement.querySelector(".hidden");
-            //if ( hiddenBonusElement) {
-            //    hiddenBonusElement.classList.remove("hidden");
-            //}
-
-            // If the target is a dropzone and it is empty
-            if (is_bonus_tile) {
-                target.classList.add("hidden");
-                target.parentNode.appendChild(letterTile);
-            } else if (is_dropzone && !has_letter) {
-                target.appendChild(letterTile);
-            }
-            // If the target already has a letter
-            else if (is_dropzone && has_letter && !target_is_grid) {
-                let dropzone = target.parentElement;
-                let sourceDropzone = letterTile.parentElement;
-                if ( sourceDropzone == dropzone) {
-                    // Do nothing
-                } else if ( this.CreateSpaceByShiftingRight(dropzone)) {
-                    dropzone.appendChild(letterTile);
-                } else if ( this.CreateSpaceByShiftingLeft(dropzone)) {
-                    dropzone.appendChild(letterTile);
-                } else { // reorder
-                    sourceDropzone.removeChild(letterTile)
-
-                    if (  this.CreateSpaceByShiftingRight(dropzone) || this.CreateSpaceByShiftingLeft(dropzone) ){
-                        dropzone.appendChild(letterTile);
-                    }
-                }
-            }
-
-            this.UpdateLetterFontSize(letterTile, target_is_grid);
-
-            let row = dropzone.parentElement.id;
-            let numberOfBoxes = row == 'letter-rack' ? 7 : 15;
-            //this.Resizedropzones(`#${dropzone.id}`, numberOfBoxes);
-
-
-        };
-
+        
         dropzone.ondragover = (event) => {
             event.preventDefault();
         };
