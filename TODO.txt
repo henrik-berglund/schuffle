@@ -1,5 +1,6 @@
 - ta bokstäver i rack från board inte från shuffle spelet
-- Gör att spelade bokstäver i grid ej går att dra
+
+- wildcards i rack visas som blanka, vid drag kommer popup
 - Start game dialog?
 - Slumpa ut bokstäver
 - Räkna poäng när spelare sätter ut bokstäver som bildar ord
@@ -24,6 +25,7 @@ Good enough?
 
 Done
 -----
+- Gör att spelade bokstäver i grid ej går att dra, ny klass fix-letter?
 - lägg till superscript på bokstäver i grid
 - Gör klart layout letter select dialog
 - Format för superscript med poäng på bokstäver
