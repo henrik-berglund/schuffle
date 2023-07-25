@@ -60,7 +60,7 @@ class Game {
         // Clear existing tiles and dropzone
         this.letterRackElement.innerHTML = '';
         this.solutionRowElement.innerHTML = '';
-        this.FillLetterRack();
+
 
         for (let i = 0; i < 15; i++) {
             for (let j = 0; j < 15; j++) {
@@ -68,13 +68,9 @@ class Game {
                 this.solutionRowElement.appendChild(dropzone);
             }
         }
-        // For the solution row
-//        this.Resizedropzones('#solution-row .dropzone', 15);
 
-        // For the letter rack
-        //this.Resizedropzones('#letter-rack .dropzone', 7);
-        //this.Resizedropzones()
         this.ReadAndRenderBoard();
+        this.FillLetterRack(this.scrambledWord);
         this.AddButtonListener();
         this.RegisterPopup();
         this.SetupSmoothDraggable();
@@ -82,21 +78,21 @@ class Game {
         this.CreateLetterSelectionBox();
     }
 
-    FillLetterRack() {
+    FillLetterRack(letters) {
         // Calculate the number of blank squares needed
-        const numBlanks = Math.max(7 - this.scrambledWord.length, 0);
+        const numBlanks = Math.max(7 - letters.length, 0);
 
-        // Create tiles for the scrambled word
+
         for (let i = 0; i < 7; i++) {
             let dropzone = this.CreateDropZone(`rack-${i}`);
 
-            if (i < this.scrambledWord.length) {
-                const tile = this.CreateLetter(this.scrambledWord[i], 'fs-1', 'letter');
+            if (i < letters.length) {
+                const tile = this.CreateLetter(letters[i], 'fs-1', 'letter');
                 dropzone.appendChild(tile);
             }
 
             this.letterRackElement.appendChild(dropzone);
-            //this.letterRackElement.appendChild(tile);
+           
         }
     }
 
