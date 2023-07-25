@@ -180,15 +180,17 @@ class Game {
 }
     CreateLetter(letter, size, class_name) {
         const tile = document.createElement('div');
-        tile.textContent = letter;
+        if ( letter === '*') {
+            tile.textContent = "";
+        } else {
+            tile.textContent = letter;
 
-        const superscript = document.createElement('sup');
-        superscript.textContent = getLetterScore(letter)
-        superscript.classList.add('superscript'); // Add the class name for styling
-        tile.appendChild(superscript);
+            const superscript = document.createElement('sup');
+            superscript.textContent = getLetterScore(letter)
+            superscript.classList.add('superscript'); // Add the class name for styling
+            tile.appendChild(superscript);
+        }
 
-        //tile.id = `tile${i}`;
-        //tile.draggable = true;
         tile.classList.add(class_name, 'tile', size);
 
         return tile;
