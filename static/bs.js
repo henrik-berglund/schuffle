@@ -70,7 +70,7 @@ class Game {
         }
 
         this.ReadAndRenderBoard();
-        this.FillLetterRack(this.scrambledWord);
+
         this.AddButtonListener();
         this.RegisterPopup();
         this.SetupSmoothDraggable();
@@ -82,17 +82,14 @@ class Game {
         // Calculate the number of blank squares needed
         const numBlanks = Math.max(7 - letters.length, 0);
 
-
         for (let i = 0; i < 7; i++) {
             let dropzone = this.CreateDropZone(`rack-${i}`);
 
             if (i < letters.length) {
-                const tile = this.CreateLetter(letters[i], 'fs-1', 'letter');
+                const tile = this.CreateLetter(letters[i].toUpperCase(), 'fs-1', 'letter');
                 dropzone.appendChild(tile);
             }
-
             this.letterRackElement.appendChild(dropzone);
-           
         }
     }
 
@@ -390,7 +387,8 @@ class Game {
                         });
                     });
 
-                    const letterRack = layoutData[1];
+
+                    this.FillLetterRack(layoutData[1]);
                 }
             })
             .catch(error => {
