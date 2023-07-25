@@ -73,8 +73,8 @@ class Game {
 
         this.AddButtonListener();
         this.RegisterPopup();
-        this.SetupSmoothDraggable();
-        this.SetupSmoothDrop();
+        //this.SetupSmoothDraggable();
+        //this.SetupSmoothDrop();
         this.CreateLetterSelectionBox();
     }
 
@@ -238,7 +238,7 @@ class Game {
     }
 
     HandleDrop(letterTile, target) {
-        console.log("***old drop handler called: ", letterTile, target);
+        console.log("HandleDrop called: ", letterTile, target);
 
         let is_dropzone = target.classList.contains("dropzone") || target.parentElement.classList.contains("dropzone");
         let is_bonus_tile = target.classList.contains("bonus-tile") ;
@@ -387,8 +387,11 @@ class Game {
                         });
                     });
 
-
-                    this.FillLetterRack(layoutData[1]);
+                    let letterRack = layoutData[1];
+                    console.log("letter rack fetch: ", letterRack);
+                    this.FillLetterRack(letterRack);
+                    this.SetupSmoothDraggable();
+                    this.SetupSmoothDrop();
                 }
             })
             .catch(error => {
