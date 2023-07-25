@@ -550,13 +550,12 @@ class Game {
     CreateDropZone(id) {
         const dropzone = document.createElement('div');
         dropzone.id = id;
-        
+
         dropzone.ondragover = (event) => {
             event.preventDefault();
         };
 
         dropzone.className = 'dropzone';
-
         return dropzone;
     }
 
