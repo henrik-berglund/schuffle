@@ -72,10 +72,11 @@ class Game {
         this.ReadAndRenderBoard();
 
         this.AddButtonListener();
-        this.RegisterPopup();
+
         //this.SetupSmoothDraggable();
         //this.SetupSmoothDrop();
         this.CreateLetterSelectionBox();
+        this.RegisterPopup();
     }
 
     FillLetterRack(letters) {
@@ -268,6 +269,8 @@ class Game {
             target.parentNode.appendChild(letterTile);
             this.UpdateLetterFontSize(letterTile, target_is_grid);
         } else if (is_dropzone && !has_letter) {
+            let res = this.LetterSelectorPopup();
+            console.log("pop: ", res);
             target.appendChild(letterTile);
             this.UpdateLetterFontSize(letterTile, target_is_grid);
         }
