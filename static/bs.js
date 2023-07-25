@@ -93,16 +93,21 @@ class Game {
         }
     }
 
+    LetterSelectorPopup() {
+        // Show the modal
+        const bootstrapModal = new bootstrap.Modal(letterSelectionModal);
+        console.log("click modal");
+        bootstrapModal.show();
+
+    }
+
     RegisterPopup() {
         const selectLetterButton = document.getElementById('selectLetterButton');
         const letterSelectionModal = document.getElementById('letterSelectionModal');
 
         // Attach a click event listener to the button
         selectLetterButton.addEventListener('click', () => {
-            // Show the modal
-            const bootstrapModal = new bootstrap.Modal(letterSelectionModal);
-            console.log("click modal");
-            bootstrapModal.show();
+            this.LetterSelectorPopup();
         });
 
         // Attach a click event listener to the letter buttons
