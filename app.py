@@ -46,6 +46,16 @@ def new_move():
     if len(rows) > 1 and len(cols) > 1:
         return jsonify({'message': 'Invalid move. Played letters are not in the same row or column.'}), 400
 
+    # Loop and log the played letters in either horizontal or vertical order
+    if len(rows) == 1:
+        # Played letters are in the same row
+        played_letters.sort(key=lambda letter: letter['x'])
+        print("Horizontal Order:", [letter['value'] for letter in played_letters])
+    else:
+        # Played letters are in the same column
+        played_letters.sort(key=lambda letter: letter['y'])
+        print("Vertical Order:", [letter['value'] for letter in played_letters])
+
     # Rest of your code to handle the valid move and return the response
     # ...
 
