@@ -273,9 +273,6 @@ class Game {
                     letterTile.textContent = selectedLetter;
                     target.appendChild(letterTile);
                     this.UpdateLetterFontSize(letterTile, target_is_grid);
-
-                    // Now you can perform any actions that depend on the selected letter
-                    // ...
                 });
             } else {
                 target.appendChild(letterTile);
