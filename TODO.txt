@@ -1,10 +1,10 @@
 - byt nyans på bokstäver som kommer från rack till grid
-- hur ska wildcards som flyttas inom grid hanteras?
+- visa senast spelade ord från Stig med gul bakgrund
+
+- Räkna poäng när spelare sätter ut bokstäver som bildar ord
 
 
 - Start game dialog?
-- Slumpa ut bokstäver
-- Räkna poäng när spelare sätter ut bokstäver som bildar ord
 - Validera alla nya ord vid play
 - Ny metod för att sätta fontstorlek och fixa layout av letter
 - Indikera klick visuellt på knapparna
@@ -22,6 +22,7 @@
 Good enough?
 ----------------
 - Aanpassa fontsize på annat sätt än fs-x, verkar ej funka (UpdateLetterFontSize är inte lösingen pga det)
+- hur ska wildcards som flyttas inom grid hanteras?
 
 
 Done

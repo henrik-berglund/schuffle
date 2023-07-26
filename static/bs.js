@@ -98,7 +98,6 @@ class Game {
     LetterSelectorPopup() {
         const selectLetterButton = document.getElementById('selectLetterButton');
         const letterSelectionModal = document.getElementById('letterSelectionModal');
-        console.log("in popup");
 
         return new Promise((resolve, reject) => {
             // Attach a click event listener to the button
@@ -132,10 +131,10 @@ class Game {
         letterElement.classList.remove('grid-letter', 'rack-letter'); // Remove existing font size classes
 
         if (isGrid) {
-            console.log("Changing to grid letter")
+            //console.log("Changing to grid letter")
             letterElement.classList.add('fs-8');
         } else {
-            console.log("Changing to rack letter")
+            //console.log("Changing to rack letter")
 
             letterElement.classList.add('fs-1');
         }
@@ -243,7 +242,7 @@ class Game {
     }
 
     HandleDrop(letterTile, target) {
-        console.log("HandleDrop called: ", letterTile, target);
+        //console.log("HandleDrop called: ", letterTile, target);
 
         let is_dropzone = target.classList.contains("dropzone")
                                     || target.parentElement.classList.contains("dropzone");
@@ -253,10 +252,10 @@ class Game {
         let target_is_grid = target.closest('#solution-row') !== null
         const is_wildcard = !letterTile.querySelector('sup');
 
-        console.log("target: ", target);
-        console.log("has_letter: ", has_letter);
-        console.log("is_dropzone: ", is_dropzone);
-        console.log("target is grid: ", target_is_grid);
+        //console.log("target: ", target);
+        //console.log("has_letter: ", has_letter);
+        //console.log("is_dropzone: ", is_dropzone);
+        //console.log("target is grid: ", target_is_grid);
 
         if ( is_wildcard ) {
             letterTile.textContent = "";
@@ -274,9 +273,7 @@ class Game {
             this.UpdateLetterFontSize(letterTile, target_is_grid);
         } else if (is_dropzone && !has_letter) {
             if ( is_wildcard && target_is_grid ) {
-                console.log("popping");
                 game.LetterSelectorPopup().then((selectedLetter) => {
-                    console.log('Selected Letter:', selectedLetter);
                     letterTile.textContent = selectedLetter;
                     target.appendChild(letterTile);
                     this.UpdateLetterFontSize(letterTile, target_is_grid);
@@ -333,7 +330,6 @@ class Game {
                         event.target.style.zIndex = '9999'; // Set a high z-index value
                         this.dragStartElement = event.target;
                         this.dragOriginalPosition = { x: event.target.x, y: event.target.y };
-                        console.log("Saving ", this.dragOriginalPosition);
                     }.bind(this),
 
                     end: function (event) {
@@ -341,7 +337,6 @@ class Game {
 
                         const dropzone = event.relatedTarget;
                         if (!dropzone || !dropzone.classList.contains('dropzone')) {
-                            console.log("resetting pos to ", this.dragOriginalPosition);
                             // Reset the position of the letter tile to its original coordinates
                             event.target.style.transform = `translate(${this.dragOriginalPosition.x}px, ${this.dragOriginalPosition.y}px)`;
                         }
@@ -410,7 +405,7 @@ class Game {
                     });
 
                     let letterRack = layoutData[1];
-                    console.log("letter rack fetch: ", letterRack);
+                    //console.log("letter rack fetch: ", letterRack);
                     this.FillLetterRack(letterRack);
                     this.SetupSmoothDraggable();
                     this.SetupSmoothDrop();
