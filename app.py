@@ -63,8 +63,11 @@ def new_move():
         min_x = min(x_positions)
 
         # Grid may extend word
-        while max_x < 14 and not is_blank_grid(grid[y_pos][max_x+1]):
-            max_x+=1
+        while max_x < 14 and not is_blank_grid(grid[y_pos][max_x + 1]):
+            max_x += 1
+        # Grid may prefix pplayed letters
+        while min_x > 0 and not is_blank_grid(grid[y_pos][min_x -1 ]):
+            min_x -= 1
 
         word = ""
         for x in range(min_x, max_x + 1):
@@ -88,14 +91,23 @@ def new_move():
         max_y = max(y_positions)
         min_y = min(y_positions)
 
+        # Grid may extend word
+        while max_y < 14 and not is_blank_grid(grid[max_y + 1][played_letters[0]['x']]):
+            max_y += 1
+
+        word = ""
         for y in range(min_y, max_y + 1):
-            if y not in y_positions:
+            if y in y_positions:
+                matching_letter = next(filter(lambda letter: letter['y'] == y, played_letters), None)
+                word += matching_letter['value']
+            else:
                 # There is a gap at position y, check if there is a letter in the grid to cover the gap
-                missing_x = played_letters[0]['x']
-                if is_blank_grid(grid[y][missing_x]):
+                if not is_blank_grid(grid[y][played_letters[0]['x']]):
+                    word += grid[y][played_letters[0]['x']]
+                else:
                     return jsonify({'message': 'Invalid move. There is a gap between played letters.'}), 400
 
-        print("Vertical Order:", [letter['value'] for letter in played_letters])
+        print("Vertical word:", word)
 
     # Rest of your code to handle the valid move and return the response
     # ...
