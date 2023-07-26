@@ -266,16 +266,21 @@ class Game {
             target.parentNode.appendChild(letterTile);
             this.UpdateLetterFontSize(letterTile, target_is_grid);
         } else if (is_dropzone && !has_letter) {
-            console.log("popping");
-            game.LetterSelectorPopup().then((selectedLetter) => {
-                console.log('Selected Letter:', selectedLetter);
-                letterTile.textContent = selectedLetter;
+            if ( letterTile.textContent === "") {
+                console.log("popping");
+                game.LetterSelectorPopup().then((selectedLetter) => {
+                    console.log('Selected Letter:', selectedLetter);
+                    letterTile.textContent = selectedLetter;
+                    target.appendChild(letterTile);
+                    this.UpdateLetterFontSize(letterTile, target_is_grid);
+
+                    // Now you can perform any actions that depend on the selected letter
+                    // ...
+                });
+            } else {
                 target.appendChild(letterTile);
                 this.UpdateLetterFontSize(letterTile, target_is_grid);
-
-                // Now you can perform any actions that depend on the selected letter
-                // ...
-            });
+            }
 
 
 
