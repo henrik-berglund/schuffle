@@ -375,7 +375,7 @@ class Game {
     }
 
     ReadAndRenderBoard() {
-        fetch('/layout.json')  // Assuming the API endpoint to fetch the board layout is '/api/layout'
+        fetch('/new_game')
             .then(response => response.json())
             .then(layoutData => {
                 if (layoutData && layoutData.length >= 1) {

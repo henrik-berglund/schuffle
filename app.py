@@ -23,19 +23,7 @@ def get_word():
     })
 
 
-@app.route('/game')
-def game():
-    return send_from_directory(app.static_folder, 'game.html')
-
-@app.route('/tst')
-def tst():
-    return send_from_directory(app.static_folder, 'tst.html')
-
-@app.route('/dlg')
-def dlg():
-    return send_from_directory(app.static_folder, 'dlg.html')
-
-@app.route('/layout.json')
+@app.route('/new_game')
 def get_layout():
     #return send_file('layout.json', mimetype='application/json')
     return send_file('boards/board_10_32_Player 1_a.json', mimetype='application/json')
