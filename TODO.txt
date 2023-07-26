@@ -1,4 +1,3 @@
-- wildcards som dras tillbaks till rack ska bli blanka igen
 - byt nyans på bokstäver som kommer från rack till grid
 - hur ska wildcards som flyttas inom grid hanteras?
 
@@ -27,6 +26,7 @@ Good enough?
 
 Done
 -----
+- wildcards som dras tillbaks till rack ska bli blanka igen. Även vid rensa.
 - wildcards i rack visas som blanka, vid drag kommer popup
 - ta bokstäver i rack från board inte från shuffle spelet
 - Bokstäver på spelbrädet från server som inte går att flytta

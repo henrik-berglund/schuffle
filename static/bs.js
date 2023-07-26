@@ -479,6 +479,10 @@ class Game {
 
             if (letterTile) {
                 const emptySlot = this.FindEmptySlot(letterRack);
+                const is_wildcard = !letterTile.querySelector('sup');
+                if ( is_wildcard ) {
+                    letterTile.textContent = "";
+                }
 
                 if (emptySlot) {
                     emptySlot.appendChild(letterTile);
