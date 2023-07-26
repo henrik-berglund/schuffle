@@ -611,12 +611,16 @@ class Game {
         });
     }
 
-    // Step 3: Build the data to be sent in the POST request
-    const postData = {
-        grid: gridData,
-        letterTiles: draggedLetterTiles,
-        remainingTilesInRack: Array.from(remainingTilesInRack).map(tile => tile.textContent[0]), // Include only the letter, not the sup
-    };
+        // Step 3: Build the data to be sent in the POST request
+        const postData = {
+            grid: gridData,
+            letterTiles: draggedLetterTiles,
+            remainingTilesInRack: Array.from(remainingTilesInRack).map(tile => {
+                const letter = tile.textContent ? tile.textContent[0] : "*"; // If no letter, treat it as a wildcard
+                return letter;
+            }),
+        };
+
 
     // Step 4: Send the POST request
     fetch('/new_move', {
