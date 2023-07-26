@@ -43,6 +43,7 @@ class Game {
         this.letterRackElement = document.getElementById('letter-rack');
         this.solutionRowElement = document.getElementById('solution-row');
         this.resultElement = document.getElementById('result');
+        this.selectedLetter = null; // Initialize selectedLetter property
         this.fetchWord();
     }
 
@@ -120,6 +121,7 @@ class Game {
 
                 // Do something with the selected letter
                 console.log('Selected Letter:', selectedLetter);
+                this.selectedLetter = selectedLetter; // Initialize selectedLetter property
 
                 // Close the modal
                 const bootstrapModal = bootstrap.Modal.getInstance(letterSelectionModal);
@@ -270,7 +272,7 @@ class Game {
             this.UpdateLetterFontSize(letterTile, target_is_grid);
         } else if (is_dropzone && !has_letter) {
             let res = this.LetterSelectorPopup();
-            console.log("pop: ", res);
+            console.log("pop: ", this.selectedLetter);
             target.appendChild(letterTile);
             this.UpdateLetterFontSize(letterTile, target_is_grid);
         }
