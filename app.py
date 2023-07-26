@@ -1,6 +1,7 @@
-from flask import Flask, jsonify, send_from_directory, send_file
+from flask import Flask, jsonify, send_from_directory, send_file, request
 from flask_cors import CORS
 import random
+
 
 app = Flask(__name__, static_folder='static')
 CORS(app)  # This will enable CORS for all routes
@@ -28,6 +29,26 @@ def get_layout():
     #return send_file('layout.json', mimetype='application/json')
     return send_file('boards/board_10_32_Player 1_a.json', mimetype='application/json')
 
+@app.route('/new_move', methods=['POST'])
+def new_move():
+    data = request.get_json()
+
+    # Extract the grid data and dragged letter tiles data from the JSON
+    grid_data = data.get('grid')
+    dragged_letter_tiles = data.get('draggedLetterTiles')
+
+    # Process the data as needed...
+    # For example, you can access individual items in the grid like this:
+    # grid_data[row_index][column_index]
+
+    # You can also iterate through the dragged letter tiles and access their properties:
+    # for tile_data in dragged_letter_tiles:
+    #     x = tile_data['x']
+    #     y = tile_data['y']
+    #     letter = tile_data['letter']
+
+    # Return a response if needed
+    return jsonify({"message": "Received new move data successfully!"})
 
 @app.route('/bs')
 def bs():
