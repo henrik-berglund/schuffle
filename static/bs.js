@@ -245,16 +245,22 @@ class Game {
     HandleDrop(letterTile, target) {
         console.log("HandleDrop called: ", letterTile, target);
 
-        let is_dropzone = target.classList.contains("dropzone") || target.parentElement.classList.contains("dropzone");
+        let is_dropzone = target.classList.contains("dropzone")
+                                    || target.parentElement.classList.contains("dropzone");
         let is_bonus_tile = target.classList.contains("bonus-tile") ;
         let has_letter = target.querySelector('.letter')
                             || target.querySelector('.fixedletter');
         let target_is_grid = target.closest('#solution-row') !== null
+        const is_wildcard = !letterTile.querySelector('sup');
 
         console.log("target: ", target);
         console.log("has_letter: ", has_letter);
         console.log("is_dropzone: ", is_dropzone);
         console.log("target is grid: ", target_is_grid);
+
+        if ( is_wildcard ) {
+            letterTile.textContent = "";
+        }
 
         const hiddenBonusElement = this.dragStartElement.querySelector(".hidden");
         if ( hiddenBonusElement) {
@@ -267,7 +273,7 @@ class Game {
             target.parentNode.appendChild(letterTile);
             this.UpdateLetterFontSize(letterTile, target_is_grid);
         } else if (is_dropzone && !has_letter) {
-            if ( letterTile.textContent === "") {
+            if ( is_wildcard && target_is_grid ) {
                 console.log("popping");
                 game.LetterSelectorPopup().then((selectedLetter) => {
                     console.log('Selected Letter:', selectedLetter);
