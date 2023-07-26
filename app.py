@@ -50,30 +50,34 @@ def new_move():
     if len(rows) == 1:
         # Played letters are in the same row
         played_letters.sort(key=lambda letter: letter['x'])
+        x_positions = set(letter['x'] for letter in played_letters)
 
-        # Check if x positions are in sequence or if there are gaps
-        x_positions = [letter['x'] for letter in played_letters]
-        for i in range(len(x_positions) - 1):
-            if x_positions[i] != x_positions[i+1] - 1:
-                # There is a gap between two letters, check if there is a letter in the grid to cover the gap
-                missing_x = x_positions[i] + 1
+        # Check if x positions have consecutive letters or if there are gaps
+        max_x = max(x_positions)
+        min_x = min(x_positions)
+
+        for x in range(min_x, max_x + 1):
+            if x not in x_positions:
+                # There is a gap at position x, check if there is a letter in the grid to cover the gap
                 missing_y = played_letters[0]['y']
-                if grid[missing_y][missing_x] == "":
+                if grid[missing_y][x] == "":
                     return jsonify({'message': 'Invalid move. There is a gap between played letters.'}), 400
 
         print("Horizontal Order:", [letter['value'] for letter in played_letters])
     else:
         # Played letters are in the same column
         played_letters.sort(key=lambda letter: letter['y'])
+        y_positions = set(letter['y'] for letter in played_letters)
 
-        # Check if y positions are in sequence or if there are gaps
-        y_positions = [letter['y'] for letter in played_letters]
-        for i in range(len(y_positions) - 1):
-            if y_positions[i] != y_positions[i+1] - 1:
-                # There is a gap between two letters, check if there is a letter in the grid to cover the gap
-                missing_y = y_positions[i] + 1
+        # Check if y positions have consecutive letters or if there are gaps
+        max_y = max(y_positions)
+        min_y = min(y_positions)
+
+        for y in range(min_y, max_y + 1):
+            if y not in y_positions:
+                # There is a gap at position y, check if there is a letter in the grid to cover the gap
                 missing_x = played_letters[0]['x']
-                if grid[missing_y][missing_x] == "":
+                if grid[y][missing_x] == "":
                     return jsonify({'message': 'Invalid move. There is a gap between played letters.'}), 400
 
         print("Vertical Order:", [letter['value'] for letter in played_letters])
