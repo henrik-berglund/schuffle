@@ -247,7 +247,8 @@ class Game {
 
         let is_dropzone = target.classList.contains("dropzone") || target.parentElement.classList.contains("dropzone");
         let is_bonus_tile = target.classList.contains("bonus-tile") ;
-        let has_letter = target.querySelector('.letter');
+        let has_letter = target.querySelector('.letter')
+                            || target.querySelector('.fixedletter');
         let target_is_grid = target.closest('#solution-row') !== null
 
         console.log("target: ", target);
@@ -278,9 +279,6 @@ class Game {
                 target.appendChild(letterTile);
                 this.UpdateLetterFontSize(letterTile, target_is_grid);
             }
-
-
-
         }
         // If the target already has a letter
         else if (is_dropzone && has_letter && !target_is_grid) {
