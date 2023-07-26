@@ -589,8 +589,9 @@ class Game {
             const letterTile = dropzone.querySelector('.fixedletter');
             const bonusTile = dropzone.querySelector('.bonus-tile');
 
-            if (letterTile) {
-                gridData[row].push(letterTile.textContent[0]); // Include only the letter, not the sup
+          if (letterTile) {
+                let letter = letterTile.textContent[0]; // Get the first character (letter) from textContent
+                gridData[row].push(letter);
             } else if (bonusTile) {
                 gridData[row].push(bonusTile.textContent);
             } else {
@@ -604,10 +605,16 @@ class Game {
     for (const letterTile of letterTiles) {
         const dropzoneId = letterTile.parentElement.id;
         const [, row, col] = dropzoneId.match(/solution-(\d+)-(\d+)/);
+        let letter = letterTile.textContent[0]
+        if (!letterTile.querySelector('sup')) {
+            // If there is no superscript, it's a wildcard letter, so prefix with *
+            letter = '*' + letter;
+        }
+
         draggedLetterTiles.push({
             x: Number(col),
             y: Number(row),
-            value: letterTile.textContent[0], // Include only the letter, not the sup
+            value: letter
         });
     }
 
