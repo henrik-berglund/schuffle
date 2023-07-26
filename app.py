@@ -61,23 +61,23 @@ def new_move():
         y_pos = played_letters[0]['y']
 
         # Check if x positions have consecutive letters or if there are gaps
-        max_x = max(positions)
-        min_x = min(positions)
+        max_pos = max(positions)
+        min_pos = min(positions)
 
         # Grid may extend word
-        while max_x < 14 and not is_blank_grid(grid[y_pos][max_x + 1]):
-            max_x += 1
+        while max_pos < 14 and not is_blank_grid(grid[y_pos][max_pos + 1]):
+            max_pos += 1
         # Grid may prefix played letters
-        while min_x > 0 and not is_blank_grid(grid[y_pos][min_x -1 ]):
-            min_x -= 1
+        while min_pos > 0 and not is_blank_grid(grid[y_pos][min_pos -1 ]):
+            min_pos -= 1
 
         word = ""
-        for x in range(min_x, max_x + 1):
-            if x in positions:
-                matching_letter = next(filter(lambda letter: letter['x'] == x, played_letters), None)
+        for pos in range(min_pos, max_pos + 1):
+            if pos in positions:
+                matching_letter = next(filter(lambda letter: letter[variable_key] == pos, played_letters), None)
                 word += matching_letter['value']
-            elif not is_blank_grid(grid[y_pos][x]): # There is a gap at position x, check if there is a letter in the grid to cover the gap
-                word += grid[y_pos][x]
+            elif not is_blank_grid(grid[y_pos][pos]): # There is a gap at position x, check if there is a letter in the grid to cover the gap
+                word += grid[y_pos][pos]
             else:
                 return jsonify({'message': 'Invalid move. There is a gap between played letters.'}), 400
 
