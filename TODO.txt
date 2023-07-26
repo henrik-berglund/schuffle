@@ -1,10 +1,10 @@
-- ta bokstäver i rack från board inte från shuffle spelet
+- wildcards som dras tillbaks till rack ska bli blanka igen
+- byt nyans på bokstäver som kommer från rack till grid
+- hur ska wildcards som flyttas inom grid hanteras?
 
-- wildcards i rack visas som blanka, vid drag kommer popup
 - Start game dialog?
 - Slumpa ut bokstäver
 - Räkna poäng när spelare sätter ut bokstäver som bildar ord
-- Bokstäver på spelbrädet från server som inte går att flytta
 - Validera alla nya ord vid play
 - Ny metod för att sätta fontstorlek och fixa layout av letter
 - Indikera klick visuellt på knapparna
@@ -25,6 +25,9 @@ Good enough?
 
 Done
 -----
+- wildcards i rack visas som blanka, vid drag kommer popup
+- ta bokstäver i rack från board inte från shuffle spelet
+- Bokstäver på spelbrädet från server som inte går att flytta
 - Gör att spelade bokstäver i grid ej går att dra, ny klass fix-letter?
 - lägg till superscript på bokstäver i grid
 - Gör klart layout letter select dialog
