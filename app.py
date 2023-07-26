@@ -30,6 +30,10 @@ def get_layout():
     return send_file('boards/board_10_32_Player 1_a.json', mimetype='application/json')
 
 
+def is_blank_grid(cell_value):
+    blanks = ["DO", "DB", "TO", "TB", ""]
+    return cell_value in blanks
+
 @app.route('/new_move', methods=['POST'])
 def new_move():
     data = request.get_json()
@@ -60,7 +64,7 @@ def new_move():
             if x not in x_positions:
                 # There is a gap at position x, check if there is a letter in the grid to cover the gap
                 missing_y = played_letters[0]['y']
-                if grid[missing_y][x] == "":
+                if is_blank_grid(grid[missing_y][x]):
                     return jsonify({'message': 'Invalid move. There is a gap between played letters.'}), 400
 
         print("Horizontal Order:", [letter['value'] for letter in played_letters])
@@ -77,7 +81,7 @@ def new_move():
             if y not in y_positions:
                 # There is a gap at position y, check if there is a letter in the grid to cover the gap
                 missing_x = played_letters[0]['x']
-                if grid[y][missing_x] == "":
+                if is_blank_grid(grid[y][missing_x]):
                     return jsonify({'message': 'Invalid move. There is a gap between played letters.'}), 400
 
         print("Vertical Order:", [letter['value'] for letter in played_letters])
@@ -87,6 +91,7 @@ def new_move():
 
     # If no error was found, return a successful response
     return jsonify({'message': 'Move successfully processed.'})
+
 
 
 
