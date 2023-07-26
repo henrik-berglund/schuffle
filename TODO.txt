@@ -3,6 +3,7 @@
 
 - Räkna poäng när spelare sätter ut bokstäver som bildar ord
 
+- Lila mittprick
 
 - Start game dialog?
 - Validera alla nya ord vid play
