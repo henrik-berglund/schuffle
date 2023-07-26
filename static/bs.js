@@ -44,20 +44,10 @@ class Game {
         this.solutionRowElement = document.getElementById('solution-row');
         this.resultElement = document.getElementById('result');
         this.selectedLetter = null; // Initialize selectedLetter property
-        this.fetchWord();
+        this.RenderTiles();
     }
 
-    fetchWord() {
-        fetch('/api/word')
-            .then(response => response.json())
-            .then(data => {
-                this.scrambledWord = data.scrambled;
-                this.solution = data.solutions[0];  // We take the first solution for simplicity
-                this.renderTiles();
-            });
-    }
-
-    renderTiles() {
+    RenderTiles() {
         // Clear existing tiles and dropzone
         this.letterRackElement.innerHTML = '';
         this.solutionRowElement.innerHTML = '';
