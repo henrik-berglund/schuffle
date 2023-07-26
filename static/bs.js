@@ -77,7 +77,7 @@ class Game {
         //this.SetupSmoothDraggable();
         //this.SetupSmoothDrop();
         this.CreateLetterSelectionBox();
-        this.RegisterPopup();
+
     }
 
     FillLetterRack(letters) {
@@ -96,41 +96,36 @@ class Game {
     }
 
     LetterSelectorPopup() {
-        // Show the modal
-        const bootstrapModal = new bootstrap.Modal(letterSelectionModal);
-        console.log("click modal");
-        bootstrapModal.show();
-
-    }
-
-    RegisterPopup() {
         const selectLetterButton = document.getElementById('selectLetterButton');
         const letterSelectionModal = document.getElementById('letterSelectionModal');
+        console.log("in popup");
 
-        // Attach a click event listener to the button
-        selectLetterButton.addEventListener('click', () => {
-            this.LetterSelectorPopup();
-        });
+        return new Promise((resolve, reject) => {
+            // Attach a click event listener to the button
 
-        // Attach a click event listener to the letter buttons
-        const letterButtons = document.querySelectorAll('.letter-button');
-        letterButtons.forEach((button) => {
-            button.addEventListener('click', (event) => {
-                // Get the selected letter
-                const selectedLetter = event.target.dataset.letter;
+            const bootstrapModal = new bootstrap.Modal(letterSelectionModal);
+            bootstrapModal.show();
 
-                // Do something with the selected letter
-                console.log('Selected Letter:', selectedLetter);
-                this.selectedLetter = selectedLetter; // Initialize selectedLetter property
+            // Attach a click event listener to the letter buttons
+            const letterButtons = document.querySelectorAll('.letter-button');
+            letterButtons.forEach((button) => {
+                button.addEventListener('click', (event) => {
+                    // Get the selected letter
+                    const selectedLetter = event.target.dataset.letter;
 
-                // Close the modal
-                const bootstrapModal = bootstrap.Modal.getInstance(letterSelectionModal);
-                bootstrapModal.hide();
+                    // Close the modal
+                    const bootstrapModal = bootstrap.Modal.getInstance(letterSelectionModal);
+                    bootstrapModal.hide();
+
+                    // Resolve the promise with the selected letter
+                    resolve(selectedLetter);
+                });
             });
         });
-
-
     }
+
+
+
     UpdateLetterFontSize(letterElement, isGrid) {
         //console.log("updating");
         letterElement.classList.remove('fs-1', 'fs-9'); // Remove existing font size classes
@@ -271,10 +266,19 @@ class Game {
             target.parentNode.appendChild(letterTile);
             this.UpdateLetterFontSize(letterTile, target_is_grid);
         } else if (is_dropzone && !has_letter) {
-            let res = this.LetterSelectorPopup();
-            console.log("pop: ", this.selectedLetter);
-            target.appendChild(letterTile);
-            this.UpdateLetterFontSize(letterTile, target_is_grid);
+            console.log("popping");
+            game.LetterSelectorPopup().then((selectedLetter) => {
+                console.log('Selected Letter:', selectedLetter);
+                letterTile.textContent = selectedLetter;
+                target.appendChild(letterTile);
+                this.UpdateLetterFontSize(letterTile, target_is_grid);
+
+                // Now you can perform any actions that depend on the selected letter
+                // ...
+            });
+
+
+
         }
         // If the target already has a letter
         else if (is_dropzone && has_letter && !target_is_grid) {
