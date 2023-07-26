@@ -580,61 +580,61 @@ class Game {
     }
 
     SendNewMove(grid, letterTiles, remainingTilesInRack) {
-        // Step 1: Gather information for the "grid" parameter
-        const gridData = [];
-        for (let row = 0; row < 15; row++) {
-            gridData.push([]);
-            for (let col = 0; col < 15; col++) {
-                const dropzone = document.getElementById(`solution-${row}-${col}`);
-                const letterTile = dropzone.querySelector('.fixedletter');
-                const bonusTile = dropzone.querySelector('.bonus-tile');
+    // Step 1: Gather information for the "grid" parameter
+    const gridData = [];
+    for (let row = 0; row < 15; row++) {
+        gridData.push([]);
+        for (let col = 0; col < 15; col++) {
+            const dropzone = document.getElementById(`solution-${row}-${col}`);
+            const letterTile = dropzone.querySelector('.fixedletter');
+            const bonusTile = dropzone.querySelector('.bonus-tile');
 
-                if (letterTile) {
-                    gridData[row].push(letterTile.textContent);
-                } else if (bonusTile) {
-                    gridData[row].push(bonusTile.textContent);
-                } else {
-                    gridData[row].push("");
-                }
+            if (letterTile) {
+                gridData[row].push(letterTile.textContent[0]); // Include only the letter, not the sup
+            } else if (bonusTile) {
+                gridData[row].push(bonusTile.textContent);
+            } else {
+                gridData[row].push("");
             }
         }
-
-        // Step 2: Gather information for the "letterTiles" parameter
-        const draggedLetterTiles = [];
-        for (const letterTile of letterTiles) {
-            const dropzoneId = letterTile.parentElement.id;
-            const [, row, col] = dropzoneId.match(/solution-(\d+)-(\d+)/);
-            draggedLetterTiles.push({
-                x: Number(col),
-                y: Number(row),
-                value: letterTile.textContent,
-            });
-        }
-
-        // Step 3: Build the data to be sent in the POST request
-        const postData = {
-            grid: gridData,
-            letterTiles: draggedLetterTiles,
-            remainingTilesInRack: Array.from(remainingTilesInRack).map(tile => tile.textContent),
-        };
-
-        // Step 4: Send the POST request
-        fetch('/new_move', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(postData),
-        })
-            .then(response => response.json())
-            .then(data => {
-                // Handle the server response here
-                console.log('Server response:', data);
-            })
-            .catch(error => {
-                console.error('Error sending new move:', error);
-            });
     }
+
+    // Step 2: Gather information for the "letterTiles" parameter
+    const draggedLetterTiles = [];
+    for (const letterTile of letterTiles) {
+        const dropzoneId = letterTile.parentElement.id;
+        const [, row, col] = dropzoneId.match(/solution-(\d+)-(\d+)/);
+        draggedLetterTiles.push({
+            x: Number(col),
+            y: Number(row),
+            value: letterTile.textContent[0], // Include only the letter, not the sup
+        });
+    }
+
+    // Step 3: Build the data to be sent in the POST request
+    const postData = {
+        grid: gridData,
+        letterTiles: draggedLetterTiles,
+        remainingTilesInRack: Array.from(remainingTilesInRack).map(tile => tile.textContent[0]), // Include only the letter, not the sup
+    };
+
+    // Step 4: Send the POST request
+    fetch('/new_move', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(postData),
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Handle the server response here
+        console.log('Server response:', data);
+    })
+    .catch(error => {
+        console.error('Error sending new move:', error);
+    });
+}
 
 }
 
