@@ -62,7 +62,7 @@ def new_move():
         max_x = max(x_positions)
         min_x = min(x_positions)
 
-        # grid may extend word
+        # Grid may extend word
         while max_x < 14 and not is_blank_grid(grid[y_pos][max_x+1]):
             max_x+=1
 
