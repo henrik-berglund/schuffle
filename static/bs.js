@@ -621,7 +621,7 @@ class Game {
         // Step 3: Build the data to be sent in the POST request
         const postData = {
             grid: gridData,
-            letterTiles: draggedLetterTiles,
+            playedLetters: draggedLetterTiles,
             remainingTilesInRack: Array.from(remainingTilesInRack).map(tile => {
                 const letter = tile.textContent ? tile.textContent[0] : "*"; // If no letter, treat it as a wildcard
                 return letter;

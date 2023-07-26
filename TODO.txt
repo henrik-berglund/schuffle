@@ -1,6 +1,5 @@
 - byt nyans på bokstäver som kommer från rack till grid
 - visa senast spelade ord från Stig med gul bakgrund
-
 - Räkna poäng när spelare sätter ut bokstäver som bildar ord
 
 - Lila mittprick
@@ -28,6 +27,7 @@ Good enough?
 
 Done
 -----
+- skicka info om fdrag till server vid play
 - wildcards som dras tillbaks till rack ska bli blanka igen. Även vid rensa.
 - wildcards i rack visas som blanka, vid drag kommer popup
 - ta bokstäver i rack från board inte från shuffle spelet
