@@ -29,26 +29,28 @@ def get_layout():
     #return send_file('layout.json', mimetype='application/json')
     return send_file('boards/board_10_32_Player 1_a.json', mimetype='application/json')
 
+
 @app.route('/new_move', methods=['POST'])
 def new_move():
     data = request.get_json()
+    grid = data['grid']
+    played_letters = data['playedLetters']
 
-    # Extract the grid data and dragged letter tiles data from the JSON
-    grid_data = data.get('grid')
-    dragged_letter_tiles = data.get('draggedLetterTiles')
+    # Check if all played letters are in the same row or same column
+    rows = set()
+    cols = set()
+    for letter in played_letters:
+        rows.add(letter['y'])
+        cols.add(letter['x'])
 
-    # Process the data as needed...
-    # For example, you can access individual items in the grid like this:
-    # grid_data[row_index][column_index]
+    if len(rows) > 1 and len(cols) > 1:
+        return jsonify({'message': 'Invalid move. Played letters are not in the same row or column.'}), 400
 
-    # You can also iterate through the dragged letter tiles and access their properties:
-    # for tile_data in dragged_letter_tiles:
-    #     x = tile_data['x']
-    #     y = tile_data['y']
-    #     letter = tile_data['letter']
+    # Rest of your code to handle the valid move and return the response
+    # ...
 
-    # Return a response if needed
-    return jsonify({"message": "Received new move data successfully!"})
+    return jsonify({'message': 'Move successfully processed.'})
+
 
 @app.route('/bs')
 def bs():
