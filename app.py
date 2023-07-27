@@ -83,7 +83,6 @@ def new_move():
 
     if len(rows) > 1 and len(cols) > 1:
         post_response = jsonify({'message': 'Invalid move. Played letters are not in the same row or column.'}), 400
-    # Loop and log the played letters in either horizontal or vertical order
     elif not has_adjacent_letters(grid, played_letters):
         post_response = jsonify({'message': 'Invalid move. Played letters are not adjacent to any existing letters on the grid.'}), 400
     elif len(rows) == 1: # Played letters are in the same row
@@ -95,8 +94,6 @@ def new_move():
         post_response, word = check_and_collect_horizontal_word(grid, played_letters, post_response)
 
         print("Vertical word:", word)
-
-    # If no error was found, return a successful response
 
     if not post_response:
         post_response = jsonify({'message': 'Move successfully processed.'})
