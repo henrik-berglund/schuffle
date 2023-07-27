@@ -55,6 +55,18 @@ def flip_played_letters(played_letters):
         flipped_letters.append(flipped_letter)
     return flipped_letters
 
+def has_adjacent_letters(grid, played_letters):
+    for letter in played_letters:
+        x, y = letter['x'], letter['y']
+
+        # Check adjacent positions: left, right, up, down
+        adjacent_positions = [(x-1, y), (x+1, y), (x, y-1), (x, y+1)]
+        for adj_x, adj_y in adjacent_positions:
+            if 0 <= adj_x < 15 and 0 <= adj_y < 15 and not is_blank_grid(grid[adj_y][adj_x]):
+                return True
+
+    return False
+
 @app.route('/new_move', methods=['POST'])
 def new_move():
     data = request.get_json()
@@ -72,6 +84,8 @@ def new_move():
     if len(rows) > 1 and len(cols) > 1:
         post_response = jsonify({'message': 'Invalid move. Played letters are not in the same row or column.'}), 400
     # Loop and log the played letters in either horizontal or vertical order
+    elif not has_adjacent_letters(grid, played_letters):
+        post_response = jsonify({'message': 'Invalid move. Played letters are not adjacent to any existing letters on the grid.'}), 400
     elif len(rows) == 1: # Played letters are in the same row
         post_response, word = check_and_collect_horizontal_word(grid, played_letters, post_response)
         print("Horizontal word:", word)
@@ -79,10 +93,11 @@ def new_move():
         grid = flip_grid(grid)
         played_letters = flip_played_letters(played_letters)
         post_response, word = check_and_collect_horizontal_word(grid, played_letters, post_response)
-        
+
         print("Vertical word:", word)
 
     # If no error was found, return a successful response
+
     if not post_response:
         post_response = jsonify({'message': 'Move successfully processed.'})
 
