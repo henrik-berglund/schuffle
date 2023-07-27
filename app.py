@@ -74,10 +74,10 @@ def new_move():
     # Loop and log the played letters in either horizontal or vertical order
     elif len(rows) == 1:
         # Played letters are in the same row
-        variable_key = 'x'
-        played_letters.sort(key=lambda letter: letter[variable_key])
 
-        positions = set(letter[variable_key] for letter in played_letters)
+        played_letters.sort(key=lambda letter: letter['x'])
+
+        positions = set(letter['x'] for letter in played_letters)
 
         y_pos = played_letters[0]['y']
 
@@ -95,7 +95,7 @@ def new_move():
         word = ""
         for pos in range(min_pos, max_pos + 1):
             if pos in positions:
-                matching_letter = next(filter(lambda letter: letter[variable_key] == pos, played_letters), None)
+                matching_letter = next(filter(lambda letter: letter['x'] == pos, played_letters), None)
                 word += matching_letter['value']
             elif not is_blank_grid(grid[y_pos][pos]): # There is a gap at position x, check if there is a letter in the grid to cover the gap
                 word += grid[y_pos][pos]
