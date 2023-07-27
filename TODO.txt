@@ -1,3 +1,4 @@
+- ord måste koppla till existerande ord
 - byt nyans på bokstäver som kommer från rack till grid
 - visa senast spelade ord från Stig med gul bakgrund
 - Räkna poäng när spelare sätter ut bokstäver som bildar ord

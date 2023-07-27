@@ -75,32 +75,7 @@ def new_move():
     elif len(rows) == 1:
         # Played letters are in the same row
 
-        played_letters.sort(key=lambda letter: letter['x'])
-
-        positions = set(letter['x'] for letter in played_letters)
-
-        y_pos = played_letters[0]['y']
-
-        # Check if x positions have consecutive letters or if there are gaps
-        max_pos = max(positions)
-        min_pos = min(positions)
-
-        # Grid may extend word
-        while max_pos < 14 and not is_blank_grid(grid[y_pos][max_pos + 1]):
-            max_pos += 1
-        # Grid may prefix played letters
-        while min_pos > 0 and not is_blank_grid(grid[y_pos][min_pos -1 ]):
-            min_pos -= 1
-
-        word = ""
-        for pos in range(min_pos, max_pos + 1):
-            if pos in positions:
-                matching_letter = next(filter(lambda letter: letter['x'] == pos, played_letters), None)
-                word += matching_letter['value']
-            elif not is_blank_grid(grid[y_pos][pos]): # There is a gap at position x, check if there is a letter in the grid to cover the gap
-                word += grid[y_pos][pos]
-            else:
-                post_response = jsonify({'message': 'Invalid move. There is a gap between played letters.'}), 400
+        post_response, word = check_and_collect_horizontal_word(grid, played_letters, post_response)
 
         print("Horizontal word:", word)
     else:
@@ -138,6 +113,30 @@ def new_move():
     return post_response
 
 
+def check_and_collect_horizontal_word(grid, played_letters, post_response):
+    played_letters.sort(key=lambda letter: letter['x'])
+    positions = set(letter['x'] for letter in played_letters)
+    y_pos = played_letters[0]['y']
+    # Check if x positions have consecutive letters or if there are gaps
+    max_pos = max(positions)
+    min_pos = min(positions)
+    # Grid may extend word
+    while max_pos < 14 and not is_blank_grid(grid[y_pos][max_pos + 1]):
+        max_pos += 1
+    # Grid may prefix played letters
+    while min_pos > 0 and not is_blank_grid(grid[y_pos][min_pos - 1]):
+        min_pos -= 1
+    word = ""
+    for pos in range(min_pos, max_pos + 1):
+        if pos in positions:
+            matching_letter = next(filter(lambda letter: letter['x'] == pos, played_letters), None)
+            word += matching_letter['value']
+        elif not is_blank_grid(grid[y_pos][
+                                   pos]):  # There is a gap at position x, check if there is a letter in the grid to cover the gap
+            word += grid[y_pos][pos]
+        else:
+            post_response = jsonify({'message': 'Invalid move. There is a gap between played letters.'}), 400
+    return post_response, word
 
 
 @app.route('/bs')
