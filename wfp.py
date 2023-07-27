@@ -172,9 +172,9 @@ def check_and_collect_horizontal_word(grid, played_letters, post_response):
     return post_response, word
 
 
-@app.route('/bs')
-def bs():
-    return send_from_directory(app.static_folder, 'bs.html')
+@app.route('/wfp')
+def wfp():
+    return send_from_directory(app.static_folder, 'wfp.html')
 
 if __name__ == '__main__':
     app.run(port=8000, host="0.0.0.0", debug=True)
