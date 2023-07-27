@@ -34,11 +34,33 @@ def is_blank_grid(cell_value):
     blanks = ["DO", "DB", "TO", "TB", ""]
     return cell_value in blanks
 
+def flip_grid(grid):
+    # Get the number of rows and columns in the grid
+    rows = len(grid)
+    cols = len(grid[0])
+
+    # Create a new grid with swapped positions
+    flipped_grid = [[grid[y][x] for y in range(rows)] for x in range(cols)]
+
+    return flipped_grid
+
+def flip_played_letters(played_letters):
+    flipped_letters = []
+    for letter in played_letters:
+        flipped_letter = {
+            'x': letter['y'],  # Swap x and y positions
+            'y': letter['x'],  # Swap x and y positions
+            'value': letter['value']
+        }
+        flipped_letters.append(flipped_letter)
+    return flipped_letters
+
 @app.route('/new_move', methods=['POST'])
 def new_move():
     data = request.get_json()
     grid = data['grid']
     played_letters = data['playedLetters']
+    post_response = None
 
     # Check if all played letters are in the same row or same column
     rows = set()
@@ -48,10 +70,9 @@ def new_move():
         cols.add(letter['x'])
 
     if len(rows) > 1 and len(cols) > 1:
-        return jsonify({'message': 'Invalid move. Played letters are not in the same row or column.'}), 400
-
+        post_response = jsonify({'message': 'Invalid move. Played letters are not in the same row or column.'}), 400
     # Loop and log the played letters in either horizontal or vertical order
-    if len(rows) == 1:
+    elif len(rows) == 1:
         # Played letters are in the same row
         variable_key = 'x'
         played_letters.sort(key=lambda letter: letter[variable_key])
@@ -79,7 +100,7 @@ def new_move():
             elif not is_blank_grid(grid[y_pos][pos]): # There is a gap at position x, check if there is a letter in the grid to cover the gap
                 word += grid[y_pos][pos]
             else:
-                return jsonify({'message': 'Invalid move. There is a gap between played letters.'}), 400
+                post_response = jsonify({'message': 'Invalid move. There is a gap between played letters.'}), 400
 
         print("Horizontal word:", word)
     else:
@@ -106,15 +127,15 @@ def new_move():
             elif not is_blank_grid(grid[y][x_pos]): # There is a gap at position y, check if there is a letter in the grid to cover the gap
                 word += grid[y][x_pos]
             else:
-                return jsonify({'message': 'Invalid move. There is a gap between played letters.'}), 400
+                post_response = jsonify({'message': 'Invalid move. There is a gap between played letters.'}), 400
 
         print("Vertical word:", word)
 
-    # Rest of your code to handle the valid move and return the response
-    # ...
-
     # If no error was found, return a successful response
-    return jsonify({'message': 'Move successfully processed.'})
+    if not post_response:
+        post_response = jsonify({'message': 'Move successfully processed.'})
+
+    return post_response
 
 
 
