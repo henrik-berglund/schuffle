@@ -121,16 +121,23 @@ def new_move():
             print("Horizontal word:", word)
             formed_words.append(word)
             crossing = get_crossing_words(grid, played_letters)
-            print("Crossing words: ", crossing)
+            print("V Crossing words: ", crossing)
             formed_words.extend(crossing)
-            print("All words: ", formed_words)
+
 
     else: # Played letters are in the same column
-        grid = flip_grid(grid)
+        flipped_grid = flip_grid(grid)
         played_letters = flip_played_letters(played_letters)
-        post_response, word = check_and_collect_horizontal_word(grid, played_letters, post_response)
+        post_response, word = check_and_collect_horizontal_word(flipped_grid, played_letters, post_response)
 
-        print("Vertical word:", word)
+        if not post_response:
+            print("Vertical word:", word)
+            formed_words.append(word)
+            crossing = get_crossing_words(flipped_grid, played_letters)
+            print("H Crossing words: ", crossing)
+            formed_words.extend(crossing)
+
+    print("All words: ", formed_words)
 
     if not post_response:
 
